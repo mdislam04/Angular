@@ -1,0 +1,27 @@
+<div class="card">
+    <h2>{{message}}</h2>
+</div>
+
+<div class="card">
+    Angular Pipes test
+    <br> Date {{ date | date }}
+    <br> Currency {{ amount | currency }}
+
+</div>
+<br>
+<br>
+<div class="card">
+    Custom Pipes test <br><br>
+    Input number : <input type='text' [(ngModel)]="userInput"/>
+    &nbsp;&nbsp;<span>{{userInput}}</span> is
+    &nbsp;<span>{{userInput | boolToNum}}</span>
+        
+</div>
+
+<br>
+<br>
+<div class="card">
+        Custom directive test    
+</div>
+<br/>
+<div textHighlighter>This is sample text under custom directive</div>
