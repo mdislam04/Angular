@@ -4,6 +4,10 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
+    {
+        path: '',
+        component:HomeComponent     
+    },,
     
     {
         path: 'home',
