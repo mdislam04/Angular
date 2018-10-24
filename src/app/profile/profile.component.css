@@ -19,6 +19,20 @@
     line-height: 80px;
 }
 
+.highper {
+    color: rgb(80, 133, 10);
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+.lowper {
+    color: rgb(165, 11, 11);
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
 table {
     border: 1px solid rgba(233, 175, 50, 0.37);
 }

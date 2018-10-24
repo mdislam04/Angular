@@ -1,10 +1,16 @@
-<table>
-  <tr>
+<table *ngIf='coinData'>
+  <tr >
     <td>
       <label class="label">OMG</label>
     </td>
     <td>
-      <label id="divGNT" class="high">{{coinData.data["1808"].quotes.USD.price | formateNumber}}</label>
+      <label id="{{coinData.data['1808'].name}}" class="high" >{{coinData.data["1808"].quotes.USD.price | formateNumber}}</label>
+    </td>
+    <td>      
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1808'].quotes.USD.percent_change_24h < 0}">{{coinData.data["1808"].quotes.USD.percent_change_24h}}%</label>
+    </td>
+    <td>      
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1808'].quotes.USD.percent_change_7d < 0}">{{coinData.data["1808"].quotes.USD.percent_change_7d}}%</label>
     </td>
   </tr>
   <tr>
@@ -12,7 +18,13 @@
       <label class="label">GNT</label>
     </td>
     <td>
-      <label id="divGNT" class="high">{{coinData.data["1455"].quotes.USD.price | formateNumber}}</label>
+      <label id="{{coinData.data['1455'].name}}" class="high">{{coinData.data["1455"].quotes.USD.price | formateNumber}}</label>
+    </td>
+    <td>      
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1455'].quotes.USD.percent_change_24h < 0}">{{coinData.data["1455"].quotes.USD.percent_change_24h}}%</label>
+    </td>
+    <td>
+        <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1455'].quotes.USD.percent_change_7d < 0}">{{coinData.data["1455"].quotes.USD.percent_change_7d}}%</label>      
     </td>
   </tr>
 
@@ -21,7 +33,18 @@
       <label class="label">XRP</label>
     </td>
     <td>
-      <label id="divGNT" class="high">{{coinData.data["52"].quotes.USD.price | formateNumber}}</label>
+      <label id="{{coinData.data['52'].name}}" class="high">{{coinData.data["52"].quotes.USD.price | formateNumber}}</label>
+    </td>
+    <td>
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['52'].quotes.USD.percent_change_24h < 0}">{{coinData.data["52"].quotes.USD.percent_change_24h}}%</label>
+    </td>
+    <td>
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['52'].quotes.USD.percent_change_7d < 0}">{{coinData.data["52"].quotes.USD.percent_change_7d}}%</label>
     </td>
   </tr>
 </table>
+<br/>
+<div style="color: aliceblue;font-size: medium">
+Refresh Interval (in seconds) &nbsp;&nbsp;<input type='text' [(ngModel)]='refreshInterval' (change)='restart();'/>
+<label> Value -- {{ refreshInterval }} </label>
+</div>

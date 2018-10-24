@@ -1,4 +1,4 @@
-<table>
+<table *ngIf='koinexData'>
     <tr>
         <td>
             <label class="label">XRP</label>
@@ -58,7 +58,7 @@
                 </ng-container>
             </label></td>
     </tr>
-    <tr>
+    <tr *ngIf='poloniexData'>
         <td>
             <label class="label">BCN</label>
         </td>

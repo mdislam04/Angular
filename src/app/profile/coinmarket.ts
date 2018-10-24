@@ -22,6 +22,7 @@ export interface Quotes {
 
 export interface Usd {
     price:              number;
+    isHigher:boolean | true;
     volume_24h:         number;
     market_cap:         number;
     percent_change_1h:  number;
