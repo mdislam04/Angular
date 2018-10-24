@@ -1,16 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'boolToNum'
+  name: 'formateNumber'
 })
-export class BoolToNumberPipe implements PipeTransform {
+export class NumberFormate implements PipeTransform {
 
-  transform(value: number, args?: any): boolean {
-    if (value.toString() === "1") {
-      return true;
-    } else {
-      return false;
-    }
+  transform(value: string, args?: any): string {
+   return parseFloat(value).toFixed(5);
 
   }
 

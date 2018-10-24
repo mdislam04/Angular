@@ -1,27 +1,69 @@
-<div class="card">
-    <h2>{{message}}</h2>
-</div>
+<table>
+    <tr>
+        <td>
+            <label class="label">XRP</label>
+        </td>
 
-<div class="card">
-    Angular Pipes test
-    <br> Date {{ date | date }}
-    <br> Currency {{ amount | currency }}
+        <td colspan="70px"><label id="divRipple" class="high">{{koinexData.prices.inr.XRP}}</label></td>
+        <td colspan="70px"><label id="divRipple1" class="high">
+                <ng-container *ngFor="let price of binanceData">
+                    <div *ngIf="price.symbol=='XRPUSDT'">{{price.price | formateNumber}}</div>
+                </ng-container>
+            </label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">BTC</label>
+        </td>
 
-</div>
-<br>
-<br>
-<div class="card">
-    Custom Pipes test <br><br>
-    Input number : <input type='text' [(ngModel)]="userInput"/>
-    &nbsp;&nbsp;<span>{{userInput}}</span> is
-    &nbsp;<span>{{userInput | boolToNum}}</span>
-        
-</div>
+        <td colspan="70px"><label id="divBTC" class="high">{{koinexData.prices.inr.BTC}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">0X</label>
+        </td>
 
-<br>
-<br>
-<div class="card">
-        Custom directive test    
-</div>
-<br/>
-<div textHighlighter>This is sample text under custom directive</div>
+        <td colspan="70px"><label id="divZRX" class="high">{{koinexData.prices.inr.ZRX}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">ETH</label>
+        </td>
+
+        <td colspan="70px"><label id="divETH" class="high">{{koinexData.prices.inr.ETH}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">OMG</label>
+        </td>
+
+        <td colspan="70px"><label id="divOMG" class="high">{{koinexData.prices.inr.OMG}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">GNT</label>
+        </td>
+
+        <td colspan="70px"><label id="divGNT" class="high">{{koinexData.prices.inr.GNT}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">ADA</label>
+        </td>
+
+        <td colspan="70px"></td>
+        <td colspan="70px"><label id="divADA" class="high">
+                <ng-container *ngFor="let price of binanceData">
+                    <div *ngIf="price.symbol=='ADAUSDT'">{{price.price | formateNumber}}</div>
+                </ng-container>
+            </label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">BCN</label>
+        </td>
+
+        <td colspan="70px"></td>
+        <td colspan="70px"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
+    </tr>
+</table>

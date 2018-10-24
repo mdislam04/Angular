@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
+import { CoinMarket } from './coinmarket';
 
 @Component({
   selector: 'app-profile',
@@ -8,24 +9,28 @@ import { DataService } from '../services/data-service.service';
 })
 export class ProfileComponent implements OnInit {
 
-  message: string = 'Welcome to profile page !!!';
+  public coinData: CoinMarket;
+  inetrvalId: any;
   constructor(private service: DataService) { }
 
   ngOnInit() {
+    this.getCoinMarketData();
+
+    this.inetrvalId = setInterval(() => this.getCoinMarketData(), 10000);
+
+
   }
 
-  users: any;
-  isVisible: boolean = false;
-  isLoding: boolean = false;
-  getUsers(): void {
-    this.isLoding = true;
-    this.isVisible = false;
-    this.service.getData().subscribe(
-      users => {
-        console.log(JSON.stringify(users));
-        this.isLoding = false;
-        this.isVisible = true;
-        this.users = users;
+  ngOnDestroy() {
+    if (this.inetrvalId) {
+      clearInterval(this.inetrvalId);
+    }
+  }
+
+  public getCoinMarketData() {
+    this.service.getCoinMarketData().subscribe(
+      data => {
+        this.coinData = data;        
       }
     );
   }

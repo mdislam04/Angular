@@ -1,32 +1,27 @@
-<div class="card">
-  <h2>{{message}}</h2>
-</div>
-<br/>
-<div class="card">
-  <b>Http Service call - List Users</b>
-</div>
-<br/>
-<button (click)='getUsers()'>Get Users</button>
-<br/>
-<br/>
-<img src="../../assets/loading.gif" height="150" width="200" *ngIf='isLoding'/>
-<table class="comicGreen" *ngIf='isVisible'>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Avatar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let user of users.data'>
-      <td>{{user.id}}</td>
-      <td>{{user.first_name}}</td>
-      <td>{{user.last_name}}</td>
-      <td>
-        <img [src]='user.avatar' />
-      </td>
-    </tr>
-  </tbody>
+<table>
+  <tr>
+    <td>
+      <label class="label">OMG</label>
+    </td>
+    <td>
+      <label id="divGNT" class="high">{{coinData.data["1808"].quotes.USD.price | formateNumber}}</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label class="label">GNT</label>
+    </td>
+    <td>
+      <label id="divGNT" class="high">{{coinData.data["1455"].quotes.USD.price | formateNumber}}</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <label class="label">XRP</label>
+    </td>
+    <td>
+      <label id="divGNT" class="high">{{coinData.data["52"].quotes.USD.price | formateNumber}}</label>
+    </td>
+  </tr>
 </table>

@@ -1,17 +1,30 @@
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    color: #BA4A00  ;
-    
-    transition: 0.3s;
-    width: 300px;
-    border-radius: 5px; /* 5px rounded corners */
-}
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2);    
+.label {
+    color: rgba(255, 255, 0, 0.555);
+    font-size: 70px;
+    font-weight: 200;
+    font-weight: bold;
 }
 
-/* Add some padding inside the card container */
-.container {
-    padding: 2px 16px;
+.high {
+    color: rgb(80, 133, 10);
+    font-size: 100px;
+    font-weight: bolder;
+    line-height: 80px;
+}
+
+.low {
+    color: rgb(165, 11, 11);
+    font-size: 100px;
+    font-weight: bolder;
+    line-height: 80px;
+}
+
+table {
+    border: 1px solid rgba(233, 175, 50, 0.37);
+}
+
+
+td
+ {
+    border: 1px solid rgba(233, 175, 50, 0.37);
 }

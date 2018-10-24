@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoolToNumberPipe } from './pipes/boolToNumber.pipe';
+import { NumberFormate } from './pipes/boolToNumber.pipe';
 import { DataService } from './services/data-service.service';
 import { HighlighterDirective } from './directives/highlighter.directive';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    BoolToNumberPipe,
+    NumberFormate,
     HighlighterDirective
   ],
   imports: [
