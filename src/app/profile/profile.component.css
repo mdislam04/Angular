@@ -42,3 +42,10 @@ td
  {
     border: 1px solid rgba(233, 175, 50, 0.37);
 }
+
+.volume{
+color: ghostwhite;
+font-size: 30px;
+    font-weight: bold;
+    
+}
