@@ -30,6 +30,21 @@
 
   <tr>
     <td>
+      <label class="label">ZRX</label>
+    </td>
+    <td>
+      <label id="{{coinData.data['1896'].name}}" class="high">{{coinData.data["1896"].quotes.USD.price | formateNumber}}</label>
+    </td>
+    <td>
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1896'].quotes.USD.percent_change_24h < 0}">{{coinData.data["1896"].quotes.USD.percent_change_24h}}%</label>
+    </td>
+    <td>
+      <label id="divGNT" class="highper" [ngClass]="{'lowper':coinData.data['1896'].quotes.USD.percent_change_7d < 0}">{{coinData.data["1896"].quotes.USD.percent_change_7d}}%</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       <label class="label">XRP</label>
     </td>
     <td>
@@ -46,5 +61,4 @@
 <br/>
 <div style="color: aliceblue;font-size: medium">
 Refresh Interval (in seconds) &nbsp;&nbsp;<input type='text' [(ngModel)]='refreshInterval' (change)='restart();'/>
-<label> Value -- {{ refreshInterval }} </label>
 </div>
