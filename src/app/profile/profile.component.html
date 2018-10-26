@@ -12,6 +12,9 @@
 
     <td><label class="highper" [ngClass]="{'lowper':coin.quotes.USD.percent_change_7d < 0}">{{coin.quotes.USD.percent_change_7d}}%</label>
     </td>
+     <td>
+      <label class="volume">{{coin.rank}}</label>
+    </td>
     <td>
       <label class="volume">{{coin.quotes.USD.volume_24h}}</label>
     </td>
