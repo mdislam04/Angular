@@ -29,7 +29,10 @@
 
 <br />
 <div class="volume" style="float: left; ">
-  Coin Symbol : <input size="10" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />&nbsp;&nbsp;
-  Refresh Interval (in seconds) &nbsp;&nbsp;<input size="10" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+  Coin Symbol : <input size="5" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />&nbsp;&nbsp;
+  Refresh Interval (in seconds) &nbsp;&nbsp;
+  <button width="20px" (click)='changeInterval("+")'>+5</button>
+  <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+  <button width="20px" (click)='changeInterval("-")'>-5</button>
  &nbsp; &nbsp;{{lastUpdated}}
 </div>
