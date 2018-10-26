@@ -47,7 +47,18 @@ export class ProfileComponent implements OnInit {
       var allCoins = Object.values(this.coinData.data);
       if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
         this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
+        this.getCoinMarketData();
     }
+
+  }
+
+  removeCoin(coinPara) {
+    var index = this.coinToDisplay.indexOf(coinPara);
+    if (index > -1) {
+      this.coinToDisplay.splice(index, 1);
+      this.getCoinMarketData();
+    }
+    
   }
 
   public getCoinMarketData() {

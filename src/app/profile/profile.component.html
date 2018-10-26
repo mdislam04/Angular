@@ -1,5 +1,8 @@
 <table *ngIf='viewData'>
   <tr *ngFor='let coin of viewData'>
+      <td>
+         <button width="20px" (click)='removeCoin(coin.symbol)'>X</button>
+        </td>
     <td>
       <label class="label">{{coin.symbol}}</label>
     </td>
