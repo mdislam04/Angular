@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   inetrvalId: any;
   refreshInterval: number = 5;
   RequestedCoin: string;
+  lastUpdated: string;
   constructor(private service: DataService) { }
 
   ngOnInit() {
@@ -42,8 +43,11 @@ export class ProfileComponent implements OnInit {
   }
 
   addCoin() {
-    if (!this.coinToDisplay.find(o => o === this.RequestedCoin.toUpperCase()))
-      this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
+    if (!this.coinToDisplay.find(o => o === this.RequestedCoin.toUpperCase())) {
+      var allCoins = Object.values(this.coinData.data);
+      if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
+        this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
+    }
   }
 
   public getCoinMarketData() {
@@ -59,27 +63,9 @@ export class ProfileComponent implements OnInit {
           this.viewData.push(match);
         });
 
-
-        if (this.coinDataCopy) {
-          // var Prev = Object.values(this.coinDataCopy.data);
-          // Prev.forEach(cur => {
-          //   if (document.getElementById(cur.name)) {
-          //     var price = parseFloat(document.getElementById(cur.name).innerText);
-          //     console.log(document.getElementById(cur.name));
-          //     if (price >= parseFloat(cur.quotes.USD.price.toFixed(5))) {
-          //       document.getElementById(cur.name).className = "low";
-          //     }
-          //     else {
-          //       document.getElementById(cur.name).className = 'high';
-          //       console.log('applied -> ' + document.getElementById(cur.name).innerText + ' > cur price ' + cur.quotes.USD.price);
-          //     }
-          //   }
-
-          // });
-
-        }
-
         this.coinDataCopy = data;
+        var d = new Date();
+        this.lastUpdated = d.toDateString() + ' ' + d.toLocaleTimeString();
 
 
 
@@ -95,17 +81,17 @@ export class ProfileComponent implements OnInit {
       var Prev = Object.values(this.coinDataCopy.data);
       Prev.forEach(old => {
         if (document.getElementById(old.name)) {
-          var price = parseFloat(document.getElementById(old.name).innerText);          
+          var price = parseFloat(document.getElementById(old.name).innerText);
           if (price >= parseFloat(old.quotes.USD.price.toFixed(5))) {
             document.getElementById(old.name).className = "high";
           }
           else {
-            document.getElementById(old.name).className = 'low';            
+            document.getElementById(old.name).className = 'low';
           }
         }
 
       });
-      
+
     }
   }
 
