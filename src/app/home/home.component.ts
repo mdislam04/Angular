@@ -20,6 +20,9 @@ export class HomeComponent implements OnInit {
   i = 0;
   inetrvalId: any;
   inetrvalId1: any;
+  refreshInterval: number = 10;
+  RequestedCoin: string;
+  lastUpdated: string;
   ngOnInit() {
     this.setKoinexData();
     this.setBinanceData();
@@ -29,7 +32,7 @@ export class HomeComponent implements OnInit {
       this.setKoinexData();
       this.setBinanceData()
     },
-      5000);
+    this.refreshInterval * 1000);
 
 
 
@@ -50,6 +53,8 @@ export class HomeComponent implements OnInit {
     this.service.GetKoinexTicker().subscribe(
       data => {
         this.koinexData = data;
+        var d = new Date();
+        this.lastUpdated = d.toDateString() + ' ' + d.toLocaleTimeString();
       }
     );
   }
@@ -70,6 +75,23 @@ export class HomeComponent implements OnInit {
     if (this.inetrvalId1) {
       clearInterval(this.inetrvalId1);
     }
+  }
+  changeInterval(ops) {
+    if (ops === "+")
+      this.refreshInterval += 5;
+    else if (this.refreshInterval > 0) {
+      this.refreshInterval -= 5;
+    }
+    this.restart();
+  }
+
+  public restart() {
+    if (this.inetrvalId) {
+      clearInterval(this.inetrvalId);
+    }
+
+    this.inetrvalId = setInterval(() => { this.setKoinexData(); this.setBinanceData() },
+      this.refreshInterval * 1000);
   }
 
 }

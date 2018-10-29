@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   viewData: Coin[] = [];
   coinToDisplay = ["XRP", "ZRX", "OMG", "GNT"];
   inetrvalId: any;
-  refreshInterval: number = 5;
+  refreshInterval: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
   constructor(private service: DataService) { }

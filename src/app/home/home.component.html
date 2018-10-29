@@ -11,6 +11,27 @@
                 </ng-container>
             </label></td>
     </tr>
+	<tr>
+        <td>
+            <label class="label">GNT</label>
+        </td>
+
+        <td colspan="70px"><label id="divGNT" class="high">{{koinexData.prices.inr.GNT}}</label></td>
+    </tr>
+	<tr>
+        <td>
+            <label class="label">OMG</label>
+        </td>
+
+        <td colspan="70px"><label id="divOMG" class="high">{{koinexData.prices.inr.OMG}}</label></td>
+    </tr>
+	<tr>
+        <td>
+            <label class="label">NCash</label>
+        </td>
+
+        <td colspan="70px"><label  class="high">{{koinexData.prices.inr.NCASH}}</label></td>
+    </tr>
     <tr>
         <td>
             <label class="label">BTC</label>
@@ -25,27 +46,16 @@
 
         <td colspan="70px"><label id="divZRX" class="high">{{koinexData.prices.inr.ZRX}}</label></td>
     </tr>
-    <tr>
+    
+    
+	<tr>
         <td>
             <label class="label">ETH</label>
         </td>
 
         <td colspan="70px"><label id="divETH" class="high">{{koinexData.prices.inr.ETH}}</label></td>
     </tr>
-    <tr>
-        <td>
-            <label class="label">OMG</label>
-        </td>
-
-        <td colspan="70px"><label id="divOMG" class="high">{{koinexData.prices.inr.OMG}}</label></td>
-    </tr>
-    <tr>
-        <td>
-            <label class="label">GNT</label>
-        </td>
-
-        <td colspan="70px"><label id="divGNT" class="high">{{koinexData.prices.inr.GNT}}</label></td>
-    </tr>
+    
     <tr>
         <td>
             <label class="label">ADA</label>
@@ -67,3 +77,11 @@
         <td colspan="70px"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
     </tr>
 </table>
+<br />
+<div class="volume" style="float: left; ">
+   Refresh Interval (in seconds) &nbsp;&nbsp;
+  <button width="20px" (click)='changeInterval("+")'>+5</button>
+  <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+  <button width="20px" (click)='changeInterval("-")'>-5</button>
+ &nbsp; &nbsp;{{lastUpdated}}
+</div>
