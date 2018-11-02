@@ -1,10 +1,21 @@
-<table *ngIf='viewData'>
+<table *ngIf='viewData' class="table table-striped table-dark">
+    <thead>
+        <tr>               
+          <th></th>
+          <th >Coin</th>
+          <th >Price</th>
+          <th >% 24 hour</th>
+          <th >% week</th>
+          <th >Rank</th>
+          <th >24 HR Volue</th>
+        </tr>
+        </thead>
   <tr *ngFor='let coin of viewData'>
-      <td>
-         <button width="20px" (click)='removeCoin(coin.symbol)'>X</button>
-        </td>
     <td>
-      <label class="label">{{coin.symbol}}</label>
+      <button width="20px"  class="btn1" (click)='removeCoin(coin.symbol)'>X</button>
+    </td>
+    <td>        
+      <label class="label" data-toggle="modal" data-target="#myModal" (click)='showPriceHistory(coin.symbol);'>{{coin.symbol}}</label>
     </td>
     <td>
       <label id="{{coin.name}}" class="high">{{coin.quotes.USD.price | formateNumber}}</label>
@@ -15,7 +26,7 @@
 
     <td><label class="highper" [ngClass]="{'lowper':coin.quotes.USD.percent_change_7d < 0}">{{coin.quotes.USD.percent_change_7d}}%</label>
     </td>
-     <td>
+    <td>
       <label class="volume">{{coin.rank}}</label>
     </td>
     <td>
@@ -27,12 +38,65 @@
 </table>
 
 
-<br />
-<div class="volume" style="float: left; ">
-  Coin Symbol : <input size="5" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />&nbsp;&nbsp;
-  Refresh Interval (in seconds) &nbsp;&nbsp;
-  <button width="20px" (click)='changeInterval("+")'>+5</button>
-  <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-  <button width="20px" (click)='changeInterval("-")'>-5</button>
- &nbsp; &nbsp;{{lastUpdated}}
+<div class="container-fluid  volume">
+    <div class="row">
+      <div class="col">
+          Coin Symbol : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
+      </div>
+      <div class="col">
+          Refresh Interval (in seconds)
+      </div>
+      <div class="col-4">           
+          <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
+          <input  size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+          <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
+      </div>
+      <div class="col">
+          {{lastUpdated}}
+      </div>
+    </div>
+  </div>
+
+
+
+
+<div class="container">
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" *ngIf='priceHistory.coinMarketCap[0]'>          
+          <h4 class="modal-title">{{priceHistory.coinMarketCap[0].symbol}} - Price History</h4>
+        </div>
+        <div class="modal-body" style=" overflow: scroll;height:400px;">
+
+          <table class="table table-dark">
+            <thead>
+              <tr>               
+                <th scope="col">Price</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let price of priceHistory.coinMarketCap">                
+                <td>{{price.price | formateNumber}}</td>
+                <td>{{price.time}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>

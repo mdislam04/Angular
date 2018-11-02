@@ -23,7 +23,7 @@ a{
 }
 
 
-  button{
+  .btn1{
     border:1px solid #2A2C2F; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 15px 10px 15px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
      background-color: #a90329; background-image: -webkit-gradient(linear, left top, left bottom, from(#a90329), to(#6d0019));
    
@@ -31,10 +31,12 @@ a{
      
     }
 
-    button:hover{
+    .btn1:hover{
         border:1px solid #151617;
         background-color: #77021d; background-image: -webkit-gradient(linear, left top, left bottom, from(#77021d), to(#3a000d));
        
         border-radius: 50%;
         background-image: linear-gradient(to bottom, #77021d, #3a000d);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#77021d, endColorstr=#3a000d);
        }
+
+       

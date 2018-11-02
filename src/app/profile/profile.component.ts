@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { CoinMarket, Coin } from './coinmarket';
 import { element } from 'protractor';
+import { PriceHistory, Token } from './Token';
 
 @Component({
   selector: 'app-profile',
@@ -15,23 +16,54 @@ export class ProfileComponent implements OnInit {
   viewData: Coin[] = [];
   coinToDisplay = ["XRP", "ZRX", "OMG", "GNT"];
   inetrvalId: any;
+  priceHistoryinetrvalId: any;
   refreshInterval: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
+  minutes: number = 10;
+  priceHistoryMaster= <PriceHistory>{coinMarketCap:[]};
+  priceHistory= <PriceHistory>{coinMarketCap:[]};
   constructor(private service: DataService) { }
 
   ngOnInit() {
     this.getCoinMarketData();
 
     this.inetrvalId = setInterval(() => this.getCoinMarketData(), this.refreshInterval * 1000);
+    this.priceHistoryinetrvalId = setInterval(() => this.storePriceHistory(), this.minutes * 1000 * 60);
 
 
+
+  }
+
+  showPriceHistory(symbol)
+  {
+    this.priceHistory.coinMarketCap=this.priceHistoryMaster.coinMarketCap.filter(p=> p.symbol === symbol);
+  }
+
+  private storePriceHistory() {
+
+    
+    var d = new Date();
+        var time = d.toDateString() + ' ' + d.toLocaleTimeString();
+    var current = Object.values(this.coinData.data);
+    this.coinToDisplay.sort().forEach(coin => {
+      var match = current.find(o => o.symbol == coin);
+      if (match) {
+        let tk = <Token>{ price: match.quotes.USD.price, symbol: match.symbol,time:time };
+        this.priceHistoryMaster.coinMarketCap.push(tk);
+        
+      }
+     
+    });    
   }
 
   ngOnDestroy() {
     if (this.inetrvalId) {
       clearInterval(this.inetrvalId);
     }
+    if (this.priceHistoryinetrvalId) {
+      clearInterval(this.priceHistoryinetrvalId);
+    }    
   }
 
   public restart() {
@@ -56,7 +88,7 @@ export class ProfileComponent implements OnInit {
     if (ops === "+")
       this.refreshInterval += 5;
     else if (this.refreshInterval > 0) {
-      this.refreshInterval -= 5;      
+      this.refreshInterval -= 5;
     }
     this.restart();
   }
