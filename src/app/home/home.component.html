@@ -85,9 +85,11 @@
   <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
  Coin 
  <input type="text"type='text' [(ngModel)]='alertCoin' />
- &nbsp;<input type='text' [(ngModel)]='alertPrice' />
+ &nbsp;Price&nbsp;<input type='text' [(ngModel)]='alertPrice' />
 
- <button class="btn btn-success" width="20px" (click)='setAlertData("start")'>Set Alert</button>
+
+ <button class="btn btn-success" width="20px" (click)='setAlertData("low")'>Set Alert Low</button>
+ <button class="btn btn-success" width="20px" (click)='setAlertData("high")'>Set Alert High</button>
  <button class="btn btn-success" width="20px" (click)='setAlertData("stop")'>Stop Alert</button>
  <br/>Last Updated => {{lastUpdated}}
 </div>

@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   alertCoin: string;
   alertPrice: string;
   isAlertOn: boolean;
+  isHighAlert:boolean;
   ngOnInit() {
     this.setKoinexData();
     this.setBinanceData();
@@ -52,7 +53,11 @@ export class HomeComponent implements OnInit {
         {
           var coin= this.binanceData.find(p => p.symbol ===this.alertCoin.toUpperCase()+'USDT');
          
-          if(parseFloat(coin.price) >= parseFloat (this.alertPrice))
+          if(this.isHighAlert && parseFloat(coin.price) >= parseFloat (this.alertPrice))
+          {
+            alert('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
+          }
+          else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coin.price))
           {
             alert('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
           }
@@ -107,8 +112,16 @@ export class HomeComponent implements OnInit {
   }
 
   public setAlertData(alertType) {
-    if (alertType === "start")
+    if (alertType === "low")
+    {
       this.isAlertOn = true;
+      this.isHighAlert = false;
+    }
+      else if(alertType === "high")
+      {
+        this.isAlertOn = true;
+        this.isHighAlert = true;
+      }
     else
     {
       this.isAlertOn = false;
