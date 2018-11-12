@@ -34,3 +34,8 @@ td
         font-weight: bold;
         
     }
+
+    input {
+        height:30px;
+        width: 90px;
+    }

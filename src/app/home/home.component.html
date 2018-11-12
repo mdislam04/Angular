@@ -79,9 +79,18 @@
 </table>
 <br />
 <div class="volume" style="float: left; ">
-   Refresh Interval (in seconds) &nbsp;&nbsp;
-  <button width="20px" (click)='changeInterval("+")'>+5</button>
+   Refresh Interval (in seconds) 
+  <button class="btn btn-danger" width="20px" (click)='changeInterval("+")'>+5</button>
   <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-  <button width="20px" (click)='changeInterval("-")'>-5</button>
- &nbsp; &nbsp;{{lastUpdated}}
+  <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
+ Coin 
+ <input type="text"type='text' [(ngModel)]='alertCoin' />
+ &nbsp;<input type='text' [(ngModel)]='alertPrice' />
+
+ <button class="btn btn-success" width="20px" (click)='setAlertData("start")'>Set Alert</button>
+ <button class="btn btn-success" width="20px" (click)='setAlertData("stop")'>Stop Alert</button>
+ <br/>Last Updated => {{lastUpdated}}
 </div>
+
+
+

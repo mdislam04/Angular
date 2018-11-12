@@ -23,6 +23,9 @@ export class HomeComponent implements OnInit {
   refreshInterval: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
+  alertCoin: string;
+  alertPrice: string;
+  isAlertOn: boolean;
   ngOnInit() {
     this.setKoinexData();
     this.setBinanceData();
@@ -32,7 +35,7 @@ export class HomeComponent implements OnInit {
       this.setKoinexData();
       this.setBinanceData()
     },
-    this.refreshInterval * 1000);
+      this.refreshInterval * 1000);
 
 
 
@@ -45,6 +48,15 @@ export class HomeComponent implements OnInit {
     this.service.GetBinanceTicker().subscribe(
       data => {
         this.binanceData = data;
+        if(this.isAlertOn)
+        {
+          var coin= this.binanceData.find(p => p.symbol ===this.alertCoin.toUpperCase()+'USDT');
+         
+          if(parseFloat(coin.price) >= parseFloat (this.alertPrice))
+          {
+            alert('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
+          }
+        }
       }
     );
   }
@@ -54,7 +66,7 @@ export class HomeComponent implements OnInit {
       data => {
         this.koinexData = data;
         var d = new Date();
-        this.lastUpdated = d.toDateString() + ' ' + d.toLocaleTimeString();
+        this.lastUpdated = d.toLocaleTimeString();
       }
     );
   }
@@ -92,6 +104,18 @@ export class HomeComponent implements OnInit {
 
     this.inetrvalId = setInterval(() => { this.setKoinexData(); this.setBinanceData() },
       this.refreshInterval * 1000);
+  }
+
+  public setAlertData(alertType) {
+    if (alertType === "start")
+      this.isAlertOn = true;
+    else
+    {
+      this.isAlertOn = false;
+      this.alertPrice='';
+      this.alertCoin='';
+    }
+      
   }
 
 }
