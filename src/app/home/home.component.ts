@@ -56,11 +56,12 @@ export class HomeComponent implements OnInit {
          
           if(this.isHighAlert && parseFloat(coin.price) >= parseFloat (this.alertPrice))
           {
-            alert('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
+            
+            this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
           }
           else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coin.price))
           {
-            alert('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
+            this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
           }
         }
       }
@@ -112,8 +113,7 @@ export class HomeComponent implements OnInit {
       this.refreshInterval * 1000);
   }
 
-  public setAlertData(alertType) {
-    this. notify();
+  public setAlertData(alertType) {    
     if (alertType === "low")
     {
       this.isAlertOn = true;
@@ -133,28 +133,13 @@ export class HomeComponent implements OnInit {
       
   }
 
-  notify() {
+  notify(message) {
     let data: Array < any >= [];
     data.push({
-        'title': 'Approval',
-        'alertContent': 'This is First Alert -- By Debasis Saha'
+        'title': 'Price Alert',
+        'alertContent': message
     });
-    data.push({
-        'title': 'Request',
-        'alertContent': 'This is Second Alert -- By Debasis Saha'
-    });
-    data.push({
-        'title': 'Leave Application',
-        'alertContent': 'This is Third Alert -- By Debasis Saha'
-    });
-    data.push({
-        'title': 'Approval',
-        'alertContent': 'This is Fourth Alert -- By Debasis Saha'
-    });
-    data.push({
-        'title': 'To Do Task',
-        'alertContent': 'This is Fifth Alert -- By Debasis Saha'
-    });
+    
     this._notificationService.generateNotification(data);
 }
 
