@@ -9,6 +9,7 @@ import { NumberFormate } from './pipes/boolToNumber.pipe';
 import { DataService } from './services/data-service.service';
 import { HighlighterDirective } from './directives/highlighter.directive';
 import { FormsModule } from '@angular/forms';
+import { PushNotificationsService } from './services/pushNotification';
 
 
 
@@ -23,7 +24,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule, RotingModule,HttpClientModule,FormsModule
   ],
-  providers: [DataService],
+  providers: [DataService,PushNotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

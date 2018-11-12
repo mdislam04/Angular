@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
+import { PushNotificationsService } from '../services/pushNotification';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,8 @@ import { DataService } from '../services/data-service.service';
 export class HomeComponent implements OnInit {
 
 
-  constructor(private service: DataService) {
-
+  constructor(private service: DataService,private _notificationService: PushNotificationsService) {
+    this._notificationService.requestPermission();
   }
   oldResponse = undefined;
   oldResponse1 = undefined;
@@ -112,6 +113,7 @@ export class HomeComponent implements OnInit {
   }
 
   public setAlertData(alertType) {
+    this. notify();
     if (alertType === "low")
     {
       this.isAlertOn = true;
@@ -130,5 +132,30 @@ export class HomeComponent implements OnInit {
     }
       
   }
+
+  notify() {
+    let data: Array < any >= [];
+    data.push({
+        'title': 'Approval',
+        'alertContent': 'This is First Alert -- By Debasis Saha'
+    });
+    data.push({
+        'title': 'Request',
+        'alertContent': 'This is Second Alert -- By Debasis Saha'
+    });
+    data.push({
+        'title': 'Leave Application',
+        'alertContent': 'This is Third Alert -- By Debasis Saha'
+    });
+    data.push({
+        'title': 'Approval',
+        'alertContent': 'This is Fourth Alert -- By Debasis Saha'
+    });
+    data.push({
+        'title': 'To Do Task',
+        'alertContent': 'This is Fifth Alert -- By Debasis Saha'
+    });
+    this._notificationService.generateNotification(data);
+}
 
 }
