@@ -1,3 +1,4 @@
+<h2 class="bg-success text-white" style="width: 500px;">Last Updated => {{lastUpdated}}</h2>
 <table *ngIf='koinexData'>
     <tr>
         <td>
@@ -11,26 +12,26 @@
                 </ng-container>
             </label></td>
     </tr>
-	<tr>
+    <tr>
         <td>
             <label class="label">GNT</label>
         </td>
 
         <td colspan="70px"><label id="divGNT" class="high">{{koinexData.prices.inr.GNT}}</label></td>
     </tr>
-	<tr>
+    <tr>
         <td>
             <label class="label">OMG</label>
         </td>
 
         <td colspan="70px"><label id="divOMG" class="high">{{koinexData.prices.inr.OMG}}</label></td>
     </tr>
-	<tr>
+    <tr>
         <td>
             <label class="label">NCash</label>
         </td>
 
-        <td colspan="70px"><label  class="high">{{koinexData.prices.inr.NCASH}}</label></td>
+        <td colspan="70px"><label class="high">{{koinexData.prices.inr.NCASH}}</label></td>
     </tr>
     <tr>
         <td>
@@ -46,16 +47,16 @@
 
         <td colspan="70px"><label id="divZRX" class="high">{{koinexData.prices.inr.ZRX}}</label></td>
     </tr>
-    
-    
-	<tr>
+
+
+    <tr>
         <td>
             <label class="label">ETH</label>
         </td>
 
         <td colspan="70px"><label id="divETH" class="high">{{koinexData.prices.inr.ETH}}</label></td>
     </tr>
-    
+
     <tr>
         <td>
             <label class="label">ADA</label>
@@ -79,20 +80,24 @@
 </table>
 <br />
 <div class="volume" style="float: left; ">
-   Refresh Interval (in seconds) 
-  <button class="btn btn-danger" width="20px" (click)='changeInterval("+")'>+5</button>
-  <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-  <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
- Coin 
- <input type="text"type='text' [(ngModel)]='alertCoin' />
- &nbsp;Price&nbsp;<input type='text' [(ngModel)]='alertPrice' />
+    Refresh Interval (in seconds)
+    <button class="btn btn-danger" width="20px" (click)='changeInterval("+")'>+5</button>
+    <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+    <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
+    <br />
+    Coin
+    <input type="text" type='text' [(ngModel)]='alertCoin' />
+    &nbsp;Price&nbsp;<input type='text' [(ngModel)]='alertPrice' />
 
 
- <button class="btn btn-success" width="20px" (click)='setAlertData("low")'>Set Alert Low</button>
- <button class="btn btn-success" width="20px" (click)='setAlertData("high")'>Set Alert High</button>
- <button class="btn btn-success" width="20px" (click)='setAlertData("stop")'>Stop Alert</button>
- <br/>Last Updated => {{lastUpdated}}
+    <button class="btn btn-success" width="20px" (click)='setAlertData("low")'>Set Alert Low</button>
+    <button class="btn btn-success" width="20px" (click)='setAlertData("high")'>Set Alert High</button>
+    <button class="btn btn-success" width="20px" (click)='setAlertData("stop")'>Stop Alert</button>
+    <br />
+    <input type="radio" name="exchange" [value]='false' [(ngModel)]='isBinaceAlertSet'> Koinex
+    <input type="radio" name="exchange" [value]='true'  [(ngModel)]='isBinaceAlertSet'>Binance
+   
 </div>
 
 
-
+ 

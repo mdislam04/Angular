@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   alertPrice: string;
   isAlertOn: boolean;
   isHighAlert:boolean;
+  isBinaceAlertSet:boolean = true;
   ngOnInit() {
     this.setKoinexData();
     this.setBinanceData();
@@ -36,12 +37,11 @@ export class HomeComponent implements OnInit {
     this.inetrvalId = setInterval(() => {
       this.setKoinexData();
       this.setBinanceData()
-    },
-      this.refreshInterval * 1000);
+    },this.refreshInterval * 1000);
 
 
 
-    this.inetrvalId1 = setInterval(function () {
+    this.inetrvalId1 = setInterval(() => {
       this.setPoloniexData();
     }, 30000);
   }
@@ -49,19 +49,20 @@ export class HomeComponent implements OnInit {
   private setBinanceData() {
     this.service.GetBinanceTicker().subscribe(
       data => {
-        this.binanceData = data;
-        if(this.isAlertOn)
+        this.binanceData = data;      
+        if(this.isAlertOn && this.isBinaceAlertSet)
         {
           var coin= this.binanceData.find(p => p.symbol ===this.alertCoin.toUpperCase()+'USDT');
          
           if(this.isHighAlert && parseFloat(coin.price) >= parseFloat (this.alertPrice))
           {
-            
+            console.log('Binance High '+coin.symbol +' ==>> '+coin.price)
             this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
           }
           else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coin.price))
           {
             this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
+            console.log('Binance low '+coin.symbol +' ==>> '+coin.price)
           }
         }
       }
@@ -72,6 +73,24 @@ export class HomeComponent implements OnInit {
     this.service.GetKoinexTicker().subscribe(
       data => {
         this.koinexData = data;
+
+        if(this.isAlertOn && !this.isBinaceAlertSet)
+        {
+          
+          var coinPrice=this.koinexData.prices.inr[this.alertCoin.toLocaleUpperCase()];         
+         
+          if(this.isHighAlert && parseFloat(coinPrice) >= parseFloat (this.alertPrice))
+          {
+            console.log('Koinex High '+this.alertCoin +' ==>> '+coinPrice);
+            this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
+          }
+          else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coinPrice))
+          {
+            console.log('Koinex low '+this.alertCoin +' ==>> '+coinPrice);
+            this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
+          }
+        }
+
         var d = new Date();
         this.lastUpdated = d.toLocaleTimeString();
       }
@@ -126,9 +145,7 @@ export class HomeComponent implements OnInit {
       }
     else
     {
-      this.isAlertOn = false;
-      this.alertPrice='';
-      this.alertCoin='';
+      this.isAlertOn = false;      
     }
       
   }
