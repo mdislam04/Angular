@@ -56,17 +56,26 @@ export class HomeComponent implements OnInit {
          
           if(this.isHighAlert && parseFloat(coin.price) >= parseFloat (this.alertPrice))
           {
+            this.playAudio();
             console.log('Binance High '+coin.symbol +' ==>> '+coin.price)
             this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
           }
           else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coin.price))
           {
+            this.playAudio();
             this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
             console.log('Binance low '+coin.symbol +' ==>> '+coin.price)
           }
         }
       }
     );
+  }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "../../assets/alert.mp3";
+    audio.load();
+    audio.play();
   }
 
   private setKoinexData() {
@@ -81,11 +90,14 @@ export class HomeComponent implements OnInit {
          
           if(this.isHighAlert && parseFloat(coinPrice) >= parseFloat (this.alertPrice))
           {
+
+            this.playAudio();
             console.log('Koinex High '+this.alertCoin +' ==>> '+coinPrice);
             this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
           }
           else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coinPrice))
           {
+            this.playAudio();
             console.log('Koinex low '+this.alertCoin +' ==>> '+coinPrice);
             this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
           }
