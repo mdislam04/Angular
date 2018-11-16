@@ -1,14 +1,6 @@
 body{
   background-color:rgb(16,16,16);
 }
-h1 {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    background-color:rgb(26, 164, 188);
-    color:#fff;
-    transition: 0.5s;
-    width: initial;
-    border-radius: 5px; /* 5px rounded corners */
-}
 a{
     display:block;
     float:left;

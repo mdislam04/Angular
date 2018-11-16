@@ -10,6 +10,7 @@ import { DataService } from './services/data-service.service';
 import { HighlighterDirective } from './directives/highlighter.directive';
 import { FormsModule } from '@angular/forms';
 import { PushNotificationsService } from './services/pushNotification';
+import { AlertService } from './services/alertService';
 
 
 
@@ -24,7 +25,7 @@ import { PushNotificationsService } from './services/pushNotification';
   imports: [
     BrowserModule, RotingModule,HttpClientModule,FormsModule
   ],
-  providers: [DataService,PushNotificationsService],
+  providers: [DataService,PushNotificationsService,AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { PushNotificationsService } from '../services/pushNotification';
+import { AlertService } from '../services/alertService';
+import { AlertTiggers } from './AlertTriggers';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,8 @@ import { PushNotificationsService } from '../services/pushNotification';
 export class HomeComponent implements OnInit {
 
 
-  constructor(private service: DataService,private _notificationService: PushNotificationsService) {
+  constructor(private service: DataService, private _notificationService: PushNotificationsService,
+    private alertService: AlertService) {
     this._notificationService.requestPermission();
   }
   oldResponse = undefined;
@@ -27,8 +30,12 @@ export class HomeComponent implements OnInit {
   alertCoin: string;
   alertPrice: string;
   isAlertOn: boolean;
-  isHighAlert:boolean;
-  isBinaceAlertSet:boolean = true;
+  isHighAlert: boolean;
+  isBinaceAlertSet: boolean = true;
+
+  //
+  alertTrigger: AlertTiggers = new AlertTiggers();
+  //
   ngOnInit() {
     this.setKoinexData();
     this.setBinanceData();
@@ -37,7 +44,7 @@ export class HomeComponent implements OnInit {
     this.inetrvalId = setInterval(() => {
       this.setKoinexData();
       this.setBinanceData()
-    },this.refreshInterval * 1000);
+    }, this.refreshInterval * 1000);
 
 
 
@@ -49,58 +56,24 @@ export class HomeComponent implements OnInit {
   private setBinanceData() {
     this.service.GetBinanceTicker().subscribe(
       data => {
-        this.binanceData = data;      
-        if(this.isAlertOn && this.isBinaceAlertSet)
-        {
-          var coin= this.binanceData.find(p => p.symbol ===this.alertCoin.toUpperCase()+'USDT');
-         
-          if(this.isHighAlert && parseFloat(coin.price) >= parseFloat (this.alertPrice))
-          {
-            this.playAudio();
-            console.log('Binance High '+coin.symbol +' ==>> '+coin.price)
-            this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
-          }
-          else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coin.price))
-          {
-            this.playAudio();
-            this.notify('Price reached the set alert level for '+coin.symbol +' ==>> '+coin.price);
-            console.log('Binance low '+coin.symbol +' ==>> '+coin.price)
-          }
+        this.binanceData = data;
+        if (this.isAlertOn && this.alertTrigger.isBinanceChecked) {
+          this.alertService.BinanceAlert(this.alertTrigger, this.binanceData);
         }
       }
     );
   }
 
-  playAudio(){
-    let audio = new Audio();
-    audio.src = "../../assets/alert.mp3";
-    audio.load();
-    audio.play();
-  }
+
 
   private setKoinexData() {
     this.service.GetKoinexTicker().subscribe(
       data => {
         this.koinexData = data;
 
-        if(this.isAlertOn && !this.isBinaceAlertSet)
-        {
-          
-          var coinPrice=this.koinexData.prices.inr[this.alertCoin.toLocaleUpperCase()];         
+        if (this.isAlertOn && this.alertTrigger.isKonexChecked) {
+          this.alertService.koinexAlert(this.alertTrigger, this.koinexData);
          
-          if(this.isHighAlert && parseFloat(coinPrice) >= parseFloat (this.alertPrice))
-          {
-
-            this.playAudio();
-            console.log('Koinex High '+this.alertCoin +' ==>> '+coinPrice);
-            this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
-          }
-          else if(!this.isHighAlert && parseFloat (this.alertPrice) >= parseFloat(coinPrice))
-          {
-            this.playAudio();
-            console.log('Koinex low '+this.alertCoin +' ==>> '+coinPrice);
-            this.notify('Price reached the set alert level for '+this.alertCoin +' ==>> '+coinPrice);
-          }
         }
 
         var d = new Date();
@@ -144,32 +117,22 @@ export class HomeComponent implements OnInit {
       this.refreshInterval * 1000);
   }
 
-  public setAlertData(alertType) {    
-    if (alertType === "low")
-    {
+  public opneAlertWindow(coin) {
+    this.alertTrigger.coin = coin.toUpperCase();
+    var coin = this.binanceData.find(p => p.symbol === this.alertTrigger.coin + 'USDT');
+    this.alertTrigger.currentPriceBinance = coin.price;
+    this.alertTrigger.currentPriceKoinex = this.koinexData.prices.inr[this.alertTrigger.coin];
+  }
+  public setPriceAlert(alertType) {
+    if (alertType === "on") {
       this.isAlertOn = true;
-      this.isHighAlert = false;
     }
-      else if(alertType === "high")
-      {
-        this.isAlertOn = true;
-        this.isHighAlert = true;
-      }
-    else
-    {
-      this.isAlertOn = false;      
+    else {
+      this.isAlertOn = false;
     }
-      
+
   }
 
-  notify(message) {
-    let data: Array < any >= [];
-    data.push({
-        'title': 'Price Alert',
-        'alertContent': message
-    });
-    
-    this._notificationService.generateNotification(data);
-}
+
 
 }

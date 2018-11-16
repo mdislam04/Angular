@@ -1,8 +1,8 @@
 <h2 class="bg-success text-white" style="width: 500px;">Last Updated => {{lastUpdated}}</h2>
-<table *ngIf='koinexData'>
+<table *ngIf='koinexData' class="table1">
     <tr>
         <td>
-            <label class="label">XRP</label>
+            <label class="label" data-toggle="modal" data-target="#myModal" (click)='opneAlertWindow("xrp");'>XRP</label>
         </td>
 
         <td colspan="70px"><label id="divRipple" class="high">{{koinexData.prices.inr.XRP}}</label></td>
@@ -85,7 +85,7 @@
     <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
     <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
     <br />
-    Coin
+    <!-- Coin
     <input type="text" type='text' [(ngModel)]='alertCoin' />
     &nbsp;Price&nbsp;<input type='text' [(ngModel)]='alertPrice' />
 
@@ -95,9 +95,93 @@
     <button class="btn btn-success" width="20px" (click)='setAlertData("stop")'>Stop Alert</button>
     <br />
     <input type="radio" name="exchange" [value]='false' [(ngModel)]='isBinaceAlertSet'> Koinex
-    <input type="radio" name="exchange" [value]='true'  [(ngModel)]='isBinaceAlertSet'>Binance
-   
+    <input type="radio" name="exchange" [value]='true' [(ngModel)]='isBinaceAlertSet'>Binance -->
+
 </div>
 
+<!-- Alert Modal Window -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
 
- 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Set Alert for - {{alertTrigger.coin}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row p-3 mb-2 bg-info text-white">
+                        <div class="col">
+                            <div class="checkbox">
+                                <label class="volume"><input type="checkbox" value="false" [(ngModel)]='alertTrigger.isKonexChecked'>Koinex</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="checkbox">
+                                <label class="volume"><input type="checkbox" value="true" [(ngModel)]='alertTrigger.isBinanceChecked'>Binance</label>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>
+                                Higer
+                            </td>
+                            <td>
+                                <input type='text' [(ngModel)]='alertTrigger.highPriceKoinex' />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                Higer
+                            </td>
+                            <td>
+                                <input type='text' [(ngModel)]='alertTrigger.highPriceBinance' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Current
+                            </td>
+                            <td>
+                                <strong>{{alertTrigger.currentPriceKoinex}}</strong>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                Current
+                            </td>
+                            <td>
+                                <strong>{{alertTrigger.currentPriceBinance | formateNumber}}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Lower
+                            </td>
+                            <td>
+                                <input type='text' [(ngModel)]='alertTrigger.lowPriceKoinex' />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                Lower
+                            </td>
+                            <td>
+                                <input type='text' [(ngModel)]='alertTrigger.lowPriceBinance' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("on")' data-dismiss="modal">Set Alert</button>
+                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("off")' data-dismiss="modal">Stop Alert</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
