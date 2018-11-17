@@ -6,7 +6,7 @@ import { AlertTiggers } from '../home/AlertTriggers';
 export class AlertService {
 
   constructor(private _notificationService: PushNotificationsService) {
-
+    this._notificationService.requestPermission();
   }
 
   public koinexAlert(alertTiggers:AlertTiggers, priceData)
