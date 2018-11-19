@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
-import { PushNotificationsService } from '../services/pushNotification';
 import { AlertService } from '../services/alertService';
 import { AlertTiggers } from './AlertTriggers';
 import { Title } from '@angular/platform-browser';
