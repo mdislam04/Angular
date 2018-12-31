@@ -11,6 +11,8 @@ import { HighlighterDirective } from './directives/highlighter.directive';
 import { FormsModule } from '@angular/forms';
 import { PushNotificationsService } from './services/pushNotification';
 import { AlertService } from './services/alertService';
+import { HistoryComponent } from './History/history.component';
+import { PagerService } from './services/PagerService';
 
 
 
@@ -20,12 +22,13 @@ import { AlertService } from './services/alertService';
     HomeComponent,
     ProfileComponent,
     NumberFormate,
-    HighlighterDirective
+    HighlighterDirective,
+    HistoryComponent
   ],
   imports: [
     BrowserModule, RotingModule,HttpClientModule,FormsModule
   ],
-  providers: [DataService,PushNotificationsService,AlertService],
+  providers: [DataService,PushNotificationsService,AlertService, PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

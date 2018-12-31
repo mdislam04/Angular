@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-import { CoinMarket } from '../profile/coinmarket';
 
 @Injectable()
 export class DataService {
@@ -13,8 +12,6 @@ export class DataService {
   proxyURL = 'https://cors-anywhere.herokuapp.com';
   requestURL = 'https://api.binance.com/api/v3/ticker/price';
   binanaceUrl = this.proxyURL + '/' + this.requestURL;
-
-  
 
   public GetBinanceTicker(): Observable<any> {
 
@@ -34,6 +31,23 @@ export class DataService {
   public getCoinMarketData(): Observable<any> {
 
     return this.http.get('https://api.coinmarketcap.com/v2/ticker/');
+  }
+
+  public getCoinMarketDataHistoryList(marker: any): Observable<any> {
+    var url = 'https://cryptofunctionstorage.blob.core.windows.net/pricehistory?restype=container&comp=list&maxresults=10';
+    if (marker)
+      url = url + '&marker=' + marker;
+    let headers = new HttpHeaders({
+      'Content-Type': 'text/xml'
+    });
+    return this.http.get(url, { headers: headers, responseType: 'text' });
+  }
+
+  public getCoinMarketDataHistoryPrice(url: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'text/xml'
+    });
+    return this.http.get(url, { headers: headers, responseType: 'text' });
   }
 
 }

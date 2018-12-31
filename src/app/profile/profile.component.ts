@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
-import { CoinMarket, Coin } from './coinmarket';
-import { element } from 'protractor';
-import { PriceHistory, Token } from './Token';
+import { CoinMarket, Coin } from '../models/coinmarket';
+import { PriceHistory, Token } from '../models/Token';
+
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   public coinData: CoinMarket;
   public coinDataCopy: CoinMarket;
   viewData: Coin[] = [];
-  coinToDisplay = ["XRP", "ZRX", "OMG", "GNT"];
+  coinToDisplay = ["BTC","XRP", "ZRX", "OMG", "GNT"];
   inetrvalId: any;
   priceHistoryinetrvalId: any;
   refreshInterval: number = 10;
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         this.coinData = data;
         var current = Object.values(this.coinData.data);
 
-        //Set Coin to display
+        // Set Coin to display
         this.viewData = [];
         this.coinToDisplay.sort().forEach(coin => {
           var match = current.find(o => o.symbol == coin);
