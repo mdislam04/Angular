@@ -33,10 +33,12 @@ export class DataService {
     return this.http.get('https://api.coinmarketcap.com/v2/ticker/');
   }
 
-  public getCoinMarketDataHistoryList(marker: any): Observable<any> {
+  public getCoinMarketDataHistoryList(marker: any, prefix:any): Observable<any> {
     var url = 'https://cryptofunctionstorage.blob.core.windows.net/pricehistory?restype=container&comp=list&maxresults=10';
     if (marker)
       url = url + '&marker=' + marker;
+      if (prefix)
+      url = url + '&prefix=' + prefix;
     let headers = new HttpHeaders({
       'Content-Type': 'text/xml'
     });

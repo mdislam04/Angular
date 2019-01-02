@@ -18,7 +18,7 @@
       <label class="label" data-toggle="modal" data-target="#myModal" (click)='showPriceHistory(coin.symbol);'>{{coin.symbol}}</label>
     </td>
     <td>
-      <label id="{{coin.name}}" class="high">{{coin.quotes.USD.price | formateNumber}}</label>
+      <label id="{{coin.name}}" class="high">{{coin.quotes.USD.price | formateNumber:coin.symbol}}</label>
     </td>
     <td>
       <label class="highper" [ngClass]="{'lowper':coin.quotes.USD.percent_change_24h < 0}">{{coin.quotes.USD.percent_change_24h}}%</label>

@@ -25,13 +25,15 @@ export class HistoryComponent implements OnInit {
   pagingData: any[];
   selectedItem: any;
   nextMarker: any;
+  public dateTime: Date;
+  priceDate: any;
 
 
 
   constructor(private service: DataService, private pagerService: PagerService) { }
 
   ngOnInit() {
-    // this.getCoinMarketDataHistory();
+    this.dateTime = new Date();
     this.getPriceHistoryEntryList();
   }
 
@@ -39,15 +41,43 @@ export class HistoryComponent implements OnInit {
     this.getPriceHistoryEntryList();
   }
 
+  getData() {
+    this.nextMarker = null;
+    this.getPriceHistoryEntryList();
+
+  }
+
+  getFileNamePrefix(): string {
+
+    if (this.dateTime) {
+      var month = this.dateTime.getMonth() + 1;
+      var day = this.dateTime.getDate();
+      var output = (day < 10 ? '0' : '') + day
+        + (month < 10 ? '0' : '') + month
+        + this.dateTime.getFullYear() % 100;
+
+      return output;
+    }
+
+  }
+
+  setDate(timestamp: any) {
+    var theDate = new Date(timestamp * 1000);
+    this.priceDate = theDate.toString();
+
+  }
   setPage(page: any) {
+
 
     this.selectedItem = page;
     this.service.getCoinMarketDataHistoryPrice(page.Url[0]).subscribe(
       data => {
 
-        this.coinData = JSON.parse(data).data;
-        var current = Object.values(this.coinData);
-        
+
+        this.coinData = JSON.parse(data);
+        this.setDate(this.coinData.metadata.timestamp);
+        var current = Object.values(this.coinData.data);
+
         // Set Coin to display
         this.viewData = [];
         this.coinToDisplay.sort().forEach(coin => {
@@ -63,7 +93,8 @@ export class HistoryComponent implements OnInit {
 
   public getPriceHistoryEntryList() {
 
-    this.service.getCoinMarketDataHistoryList(this.nextMarker).subscribe(
+    var fileNamePrefix = 'price_' + this.getFileNamePrefix();
+    this.service.getCoinMarketDataHistoryList(this.nextMarker, fileNamePrefix).subscribe(
       data => {
         var result;
         xml2js.parseString(data, (e, r) => { result = r });
@@ -75,11 +106,13 @@ export class HistoryComponent implements OnInit {
 
   }
 
-  public getCoinMarketDataHistory() {
-    this.service.getCoinMarketData().subscribe(
-      data => {
-        this.coinData = data;
-        var current = Object.values(this.coinData.data);
+
+
+  removeCoin(coinPara) {
+    var index = this.coinToDisplay.indexOf(coinPara);
+    if (index > -1) {
+      this.coinToDisplay.splice(index, 1);
+      var current = Object.values(this.coinData.data);
 
         // Set Coin to display
         this.viewData = [];
@@ -87,18 +120,6 @@ export class HistoryComponent implements OnInit {
           var match = current.find(o => o.symbol == coin);
           this.viewData.push(match);
         });
-
-        this.coinDataCopy = data;
-
-      }
-    );
-  }
-
-  removeCoin(coinPara) {
-    var index = this.coinToDisplay.indexOf(coinPara);
-    if (index > -1) {
-      this.coinToDisplay.splice(index, 1);
-      this.getCoinMarketDataHistory();
     }
 
   }
@@ -108,7 +129,15 @@ export class HistoryComponent implements OnInit {
       var allCoins = Object.values(this.coinData.data);
       if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
         this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
-      this.getCoinMarketDataHistory();
+
+        var current = Object.values(this.coinData.data);
+
+        // Set Coin to display
+        this.viewData = [];
+        this.coinToDisplay.sort().forEach(coin => {
+          var match = current.find(o => o.symbol == coin);
+          this.viewData.push(match);
+        });
     }
 
   }

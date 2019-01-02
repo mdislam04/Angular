@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RotingModule } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,7 +14,7 @@ import { PushNotificationsService } from './services/pushNotification';
 import { AlertService } from './services/alertService';
 import { HistoryComponent } from './History/history.component';
 import { PagerService } from './services/PagerService';
-
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PagerService } from './services/PagerService';
     HistoryComponent
   ],
   imports: [
-    BrowserModule, RotingModule,HttpClientModule,FormsModule
+    BrowserModule,BrowserAnimationsModule,
+     RotingModule,HttpClientModule,FormsModule, OwlDateTimeModule,OwlNativeDateTimeModule
   ],
   providers: [DataService,PushNotificationsService,AlertService, PagerService],
   bootstrap: [AppComponent]

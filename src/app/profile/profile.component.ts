@@ -137,7 +137,7 @@ export class ProfileComponent implements OnInit {
             document.getElementById(old.name).className = "high";
           }
           else {
-            document.getElementById(old.name).className = 'low';
+            // document.getElementById(old.name).className = 'low';
           }
         }
 

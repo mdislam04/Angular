@@ -1,18 +1,9 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 body{
   background-color:rgb(16,16,16);
 }
-a{
-    display:block;
-    float:left;
-    font-weight: bolder;
-    padding:10px 15px;
-    background:#CC3300  ;
-    border:1px solid beige  ;
-    border-radius:4px 4px 0 0;
-    margin-right:1px;
-    color:#fff;
-    text-decoration:none
-}
+
 
 
   .btn1{
@@ -29,6 +20,23 @@ a{
        
         border-radius: 50%;
         background-image: linear-gradient(to bottom, #77021d, #3a000d);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#77021d, endColorstr=#3a000d);
+       }
+  
+       .filter
+       {
+         background:rgb(104, 104, 104);
+         height: 30px;
+         margin: 5px;
+         border: rgb(243, 151, 134);
+         border-width:thin;
+         border-style: solid;
+         color: #fff;
+         font-weight: bolder;
+       }
+       .message
+       {
+         color: #fff;
+         font-weight: 22px;
        }
 
        
