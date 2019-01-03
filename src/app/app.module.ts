@@ -15,6 +15,7 @@ import { AlertService } from './services/alertService';
 import { HistoryComponent } from './History/history.component';
 import { PagerService } from './services/PagerService';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
-     RotingModule,HttpClientModule,FormsModule, OwlDateTimeModule,OwlNativeDateTimeModule
+     RotingModule,HttpClientModule,FormsModule, OwlDateTimeModule,OwlNativeDateTimeModule,NgxSpinnerModule
   ],
   providers: [DataService,PushNotificationsService,AlertService, PagerService],
   bootstrap: [AppComponent]

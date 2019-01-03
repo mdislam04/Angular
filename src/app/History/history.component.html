@@ -1,55 +1,40 @@
-<div class="row filter">
-  <div class="col">
-    <strong>Select Date to filter : <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+<table class="cell">
+  <tr>
+    <td>
+        Select Date to filter : <input size="5" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
         [(ngModel)]="dateTime">
       <owl-date-time #dt1 pickerType='calendar' (afterPickerClosed)='getData()'></owl-date-time>
       Displaying data for : {{priceDate}}
-    </strong>
-  </div>
-</div>
+    </td>
+      <td>
+           Coin Symbol : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
+      </td>
+     
+      <td style="color: black;">
+          <ul class="pagination pagination-sm justify-content-end"  style="margin-top: 5px;" *ngIf="pagingData && pagingData.length">
+              <li class="page-item">
+                <a class="page-link" (click)='updatePaging("prev")' aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
 
-<div class="row">
-  
+              <li class="page-item" [ngClass]="{'page-item active': selectedItem == page}" (click)="setPage(page,$event)"
+                *ngFor="let page of pagingData;let i = index" data-toggle="tooltip" data-placement="top" [title]=page.Name>
+                <a class="page-link">{{i+1}}</a></li>
+              <li class="page-item">
+                <a class="page-link" (click)='updatePaging("next")' aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
 
-  <div class="col-sm-5">
-    <div class="container">
-      <div class="text-center">
-  
-       
-        <!-- pager -->
-        <nav aria-label="Page navigation example">
-          <ul class="pagination" *ngIf="pagingData && pagingData.length">
-  
-            <li class="page-item">
-              <a class="page-link" (click)='updatePaging("prev")' aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-  
-            <li class="page-item" [ngClass]="{'page-item active': selectedItem == page}" (click)="setPage(page,$event)"
-              *ngFor="let page of pagingData;let i = index" data-toggle="tooltip" data-placement="top" [title]=page.Name>
-              <a class="page-link">{{i+1}}</a></li>
-            <li class="page-item">
-              <a class="page-link" (click)='updatePaging("next")' aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-  
-          </ul>
-        </nav>
-  
-      </div>
-    </div>
-  </div>
+            </ul>
+    </td>
 
-  <div class="col-sm-3 ">
-   <span class="message"> Coin Symbol : </span><input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
-  </div>
-  
-</div>
-
+   
+  </tr>
+</table>
 
 <table *ngIf='viewData' class="table table-striped table-dark">
   <thead>
@@ -87,13 +72,11 @@
     </td>
 
   </tr>
-
 </table>
-
-
-
-
-
-
-
-
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="timer">
+ <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

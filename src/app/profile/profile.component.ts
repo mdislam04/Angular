@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   public coinData: CoinMarket;
   public coinDataCopy: CoinMarket;
   viewData: Coin[] = [];
-  coinToDisplay = ["BTC","XRP", "ZRX", "OMG", "GNT"];
+  coinToDisplay = ["BTC", "ETH","XRP", "ZRX", "OMG", "GNT","BAT","AE"];
   inetrvalId: any;
   priceHistoryinetrvalId: any;
   refreshInterval: number = 10;

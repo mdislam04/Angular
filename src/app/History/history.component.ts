@@ -3,7 +3,7 @@ import { DataService } from '../services/data-service.service';
 import { CoinMarket, Coin } from '../models/coinmarket';
 import * as xml2js from 'xml2js';
 import { PagerService } from '../services/PagerService';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-history',
@@ -15,7 +15,7 @@ export class HistoryComponent implements OnInit {
   public coinData: CoinMarket;
   public coinDataCopy: CoinMarket;
   viewData: Coin[] = [];
-  coinToDisplay = ["BTC", "XRP", "ZRX", "OMG", "GNT"];
+  coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
 
 
   refreshInterval: number = 10;
@@ -30,7 +30,8 @@ export class HistoryComponent implements OnInit {
 
 
 
-  constructor(private service: DataService, private pagerService: PagerService) { }
+  constructor(private service: DataService, private pagerService: PagerService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.dateTime = new Date();
@@ -63,12 +64,11 @@ export class HistoryComponent implements OnInit {
 
   setDate(timestamp: any) {
     var theDate = new Date(timestamp * 1000);
-    this.priceDate = theDate.toString();
+    this.priceDate = theDate.toDateString() + ' ' + theDate.toLocaleTimeString();
 
   }
   setPage(page: any) {
-
-
+    this.spinner.show()
     this.selectedItem = page;
     this.service.getCoinMarketDataHistoryPrice(page.Url[0]).subscribe(
       data => {
@@ -84,21 +84,19 @@ export class HistoryComponent implements OnInit {
           var match = current.find(o => o.symbol == coin);
           this.viewData.push(match);
         });
-
-
         this.coinDataCopy = data;
+        this.spinner.hide();
       });
 
   }
 
   public getPriceHistoryEntryList() {
-
+    this.spinner.show();
     var fileNamePrefix = 'price_' + this.getFileNamePrefix();
     this.service.getCoinMarketDataHistoryList(this.nextMarker, fileNamePrefix).subscribe(
       data => {
         var result;
-        xml2js.parseString(data, (e, r) => { result = r });
-        console.log(result);
+        xml2js.parseString(data, (e, r) => { result = r });        
         this.pagingData = result.EnumerationResults.Blobs[0].Blob;
         this.nextMarker = result.EnumerationResults.NextMarker[0];
         this.setPage(this.pagingData[0]);
@@ -114,12 +112,12 @@ export class HistoryComponent implements OnInit {
       this.coinToDisplay.splice(index, 1);
       var current = Object.values(this.coinData.data);
 
-        // Set Coin to display
-        this.viewData = [];
-        this.coinToDisplay.sort().forEach(coin => {
-          var match = current.find(o => o.symbol == coin);
-          this.viewData.push(match);
-        });
+      // Set Coin to display
+      this.viewData = [];
+      this.coinToDisplay.sort().forEach(coin => {
+        var match = current.find(o => o.symbol == coin);
+        this.viewData.push(match);
+      });
     }
 
   }
@@ -130,14 +128,14 @@ export class HistoryComponent implements OnInit {
       if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
         this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
 
-        var current = Object.values(this.coinData.data);
+      var current = Object.values(this.coinData.data);
 
-        // Set Coin to display
-        this.viewData = [];
-        this.coinToDisplay.sort().forEach(coin => {
-          var match = current.find(o => o.symbol == coin);
-          this.viewData.push(match);
-        });
+      // Set Coin to display
+      this.viewData = [];
+      this.coinToDisplay.sort().forEach(coin => {
+        var match = current.find(o => o.symbol == coin);
+        this.viewData.push(match);
+      });
     }
 
   }

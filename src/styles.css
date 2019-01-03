@@ -23,20 +23,24 @@ body{
        }
   
        .filter
-       {
-         background:rgb(104, 104, 104);
-         height: 30px;
-         margin: 5px;
-         border: rgb(243, 151, 134);
+       {         
+         height: 30px;         
+         border: rgb(226, 195, 93);
          border-width:thin;
          border-style: solid;
-         color: #fff;
-         font-weight: bolder;
+         color: rgb(226, 195, 93);
+         font-weight: 20px;    
        }
        .message
        {
          color: #fff;
          font-weight: 22px;
        }
+
+        .cell {                
+          color: rgb(226, 195, 93);
+          font-weight: 20px;    
+          width:100%; border: rgb(226, 195, 93);border-width:thin;border-style: solid;              
+      }
 
        
