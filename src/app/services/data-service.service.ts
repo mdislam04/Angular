@@ -52,4 +52,11 @@ export class DataService {
     return this.http.get(url, { headers: headers, responseType: 'text' });
   }
 
+  public getCoinMarketHistoryPriceDetail(url: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Accept': 'application/json;odata=nometadata'
+    });
+    return this.http.get(url,{ headers: headers});
+  }
+
 }

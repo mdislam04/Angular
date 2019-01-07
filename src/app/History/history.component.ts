@@ -4,6 +4,7 @@ import { CoinMarket, Coin } from '../models/coinmarket';
 import * as xml2js from 'xml2js';
 import { PagerService } from '../services/PagerService';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { PriceHistory, Token } from '../models/Token';
 
 @Component({
   selector: 'app-history',
@@ -28,6 +29,9 @@ export class HistoryComponent implements OnInit {
   public dateTime: Date;
   priceDate: any;
 
+  priceHistoryMaster : any;
+  priceHistory = <PriceHistory>{ coinMarketCap: [] };
+
 
 
   constructor(private service: DataService, private pagerService: PagerService,
@@ -36,6 +40,7 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     this.dateTime = new Date();
     this.getPriceHistoryEntryList();
+    this.getPriceDetails();
   }
 
   updatePaging(action: any) {
@@ -45,6 +50,7 @@ export class HistoryComponent implements OnInit {
   getData() {
     this.nextMarker = null;
     this.getPriceHistoryEntryList();
+    this.getPriceDetails();
 
   }
 
@@ -96,7 +102,7 @@ export class HistoryComponent implements OnInit {
     this.service.getCoinMarketDataHistoryList(this.nextMarker, fileNamePrefix).subscribe(
       data => {
         var result;
-        xml2js.parseString(data, (e, r) => { result = r });        
+        xml2js.parseString(data, (e, r) => { result = r });
         this.pagingData = result.EnumerationResults.Blobs[0].Blob;
         this.nextMarker = result.EnumerationResults.NextMarker[0];
         this.setPage(this.pagingData[0]);
@@ -139,4 +145,26 @@ export class HistoryComponent implements OnInit {
     }
 
   }
+
+  showPriceHistory(symbol) {
+    this.priceHistory.coinMarketCap =[];
+    this.priceHistoryMaster.forEach(coin => {
+      let tk = <Token>{ price: coin[symbol], symbol: symbol,time:coin.time };
+        this.priceHistory.coinMarketCap.push(tk);
+    });
+    
+  }
+
+  getPriceDetails() {
+    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rl&se=2019-03-31T13:07:07Z&st=2019-01-07T05:07:07Z&spr=https,http&sig=ujyQjO13AcWRMCFlb9a5PRPWAhddfvI76eJGSGyymOc%3D';
+    var url = 'https://cryptofunctionstorage.table.core.windows.net/priceHistory()?';
+    var tableFilter = "&$filter=FilterKey eq " + "'"+this.getFileNamePrefix()+"'";
+    url = url + authToken + tableFilter;
+    this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
+      data => {
+        this.priceHistoryMaster=data.value;      
+        
+      });
+  }
+
 }
