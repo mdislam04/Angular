@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HistoryComponent } from './History/history.component';
+import { PriceHistoryComponent } from './PriceHistory/pricehistory.component';
 
 const appRoutes: Routes = [
     {
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
     {
         path: 'history',
         component:HistoryComponent     
+    },
+    {
+        path: 'pricehistory',
+        component:PriceHistoryComponent     
     }
 ];
 

@@ -1,0 +1,59 @@
+<table class="cell">
+    <tr>
+        <td>
+            Select Date to filter : <input size="5" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+                [(ngModel)]="dateTime">
+            <owl-date-time #dt1 pickerType='calendar' (afterPickerClosed)='getData()'></owl-date-time>          
+        </td>
+        <td>
+                Displaying data for : {{dateTime | date}}
+        </td>
+    </tr>
+</table>
+<table class="table table-light table-responsive-md">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">BTC</th>
+            <th scope="col">ETH</th>
+            <th scope="col">XRP</th>
+            <th scope="col">OMG</th>
+            <th scope="col">ZRX</th>
+            <th scope="col">GNT</th>
+            <th scope="col">BCH</th>
+            <th scope="col">LTC</th>
+            <th scope="col">TRX</th>
+            <th scope="col">ADA</th>
+            <th scope="col">BAT</th>
+            <th scope="col">AE</th>
+            <th scope="col">ONT</th>
+            <th scope="col">EOS</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let price of priceHistory">
+            <td>{{price.time}}</td>
+            <td>{{price.BTC | formateNumber:'BTC' }}</td>
+            <td>{{price.ETH | formateNumber:'ETH' }}</td>
+            <td>{{price.XRP | formateNumber}}</td>
+            <td>{{price.OMG | formateNumber}}</td>
+            <td>{{price.ZRX | formateNumber}}</td>
+            <td>{{price.GNT | formateNumber}}</td>
+            <td>{{price.BCH | formateNumber:'BTC'}}</td>
+            <td>{{price.LTC | formateNumber:'BTC'}}</td>
+            <td>{{price.TRX | formateNumber}}</td>
+            <td>{{price.ADA | formateNumber}}</td>
+            <td>{{price.BAT | formateNumber}}</td>
+            <td>{{price.AE | formateNumber}}</td>
+            <td>{{price.ONT | formateNumber}}</td>
+            <td>{{price.EOS | formateNumber}}</td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="timer">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

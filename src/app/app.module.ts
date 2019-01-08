@@ -16,6 +16,7 @@ import { HistoryComponent } from './History/history.component';
 import { PagerService } from './services/PagerService';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PriceHistoryComponent } from './PriceHistory/pricehistory.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ProfileComponent,
     NumberFormate,
     HighlighterDirective,
-    HistoryComponent
+    HistoryComponent,
+    PriceHistoryComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
