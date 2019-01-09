@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HistoryComponent } from './History/history.component';
-import { PriceHistoryComponent } from './PriceHistory/pricehistory.component';
+import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehistory.component';
+import { PriceHistoryComponent } from './CoinMarketCapPriceHistory/pricehistory.component';
 
 const appRoutes: Routes = [
     {
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
     {
         path: 'pricehistory',
         component:PriceHistoryComponent     
+    },
+    {
+        path: 'koinexpricehistory',
+        component:KoinexPriceHistoryComponent     
     }
 ];
 

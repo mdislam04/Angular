@@ -1,22 +1,28 @@
-<nav class="navbar navbar-expand-sm bg-success navbar-dark">
+<nav class="navbar navbar-expand-sm">
 
-    <!-- Links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Koinex/Binance</a> 
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/profile">CoinmarketCap</a>
-      </li>
-      <li class="nav-item">
-        <a  class="nav-link"routerLink="/history">Coin Market History</a>
-      </li>
-      <li class="nav-item">
-        <a  class="nav-link"routerLink="/pricehistory">Coin Market Price History</a>
-      </li>
-    </ul>
-  
-  </nav>
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home">Koinex/Binance</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/koinexpricehistory">Koinex Price History</a>
+    </li>
 
-  
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Coin Market Cap
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" routerLink="/profile">Live Price Updates</a>
+        <a class="dropdown-item" routerLink="/history">Price History</a>
+        <a class="dropdown-item" routerLink="/pricehistory">Price History Listing</a>
+      </div>
+    </li>
+  </ul>
+
+</nav>
+
+
 <router-outlet></router-outlet>

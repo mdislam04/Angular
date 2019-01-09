@@ -1,0 +1,66 @@
+<table class="cell">
+    <tr>
+        <td>
+            Select Date to filter : <input size="5" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+                [(ngModel)]="dateTime">
+            <owl-date-time #dt1 pickerType='calendar' (afterPickerClosed)='getData()'></owl-date-time>          
+        </td>
+        <td>
+                Displaying data for : {{dateTime | date}}
+        </td>
+        <td>
+            <img src="../../assets/refresh.png" (click)="getData();" style="cursor: pointer"/>
+        </td>
+    </tr>
+</table>
+<table class="table table-light table-responsive-md">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">BTC</th>           
+            <th scope="col">XRP</th>            
+            <th scope="col">ZRX</th>
+            <th scope="col">GNT</th>
+            <th scope="col">OMG</th>
+            <th scope="col">ETH</th>            
+            <th scope="col">NCASH</th>            
+            <th scope="col">TRX</th>            
+            <th scope="col">BAT</th>
+            <th scope="col">AE</th>
+            <th scope="col">LTC</th>
+            <th scope="col">ONT</th>
+            <th scope="col">EOS</th>
+            <th scope="col">NEO</th>
+            <th scope="col">REQ</th>
+            <th scope="col">TUSD</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let price of priceHistory">
+            <td>{{price.time}}</td>
+            <td>{{price.BTC }}</td>
+            <td>{{price.XRP}}</td>
+            <td>{{price.ZRX }}</td>
+            <td>{{price.GNT }}</td>
+            <td>{{price.OMG}}</td> 
+            <td>{{price.ETH}}</td>                                            
+            <td>{{price.NCASH }}</td>
+            <td>{{price.TRX }}</td>
+            <td>{{price.BAT}}</td>
+            <td>{{price.AE }}</td>
+            <td>{{price.LTC }}</td>                                   
+            <td>{{price.ONT}}</td>
+            <td>{{price.EOS}}</td>
+            <td>{{price.NEO}}</td>
+            <td>{{price.REQ}}</td>
+            <td>{{price.TUSD}}</td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="timer">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
