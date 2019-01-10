@@ -17,16 +17,16 @@
     <thead class="thead-dark">
         <tr>
             <th scope="col" style="cursor: pointer" (click)="ToggleColumn('all')">Time</th>
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBTCVisible" (click)="ToggleColumn('btc')">BTC</th>           
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isXRPVisible" (click)="ToggleColumn('xrp')">XRP</th>            
-            <th scope="col" style="cursor: pointer" *ngIf="visibilityControl.isZRXVisible"  (click)="ToggleColumn('zrx')">ZRX</th>
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isAEVisible" (click)="ToggleColumn('ae')">AE</th>
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isGNTVisible"  (click)="ToggleColumn('gnt')">GNT</th>
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isOMGVisible" (click)="ToggleColumn('omg')">OMG</th>
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isETHVisible" (click)="ToggleColumn('eth')">ETH</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBTCVisible" (click)="ToggleColumn('btc')" data-toggle="tooltip" data-placement="top" [title]=min_max.btc>BTC</th>           
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isXRPVisible" (click)="ToggleColumn('xrp')" data-toggle="tooltip" data-placement="top" [title]=min_max.xrp>XRP</th>            
+            <th scope="col" style="cursor: pointer" *ngIf="visibilityControl.isZRXVisible"  (click)="ToggleColumn('zrx')" data-toggle="tooltip" data-placement="top" [title]=min_max.zrx>ZRX</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isAEVisible" (click)="ToggleColumn('ae')" data-toggle="tooltip" data-placement="top" [title]=min_max.ae>AE</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isGNTVisible"  (click)="ToggleColumn('gnt')" data-toggle="tooltip" data-placement="top" [title]=min_max.gnt>GNT</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isOMGVisible" (click)="ToggleColumn('omg')" data-toggle="tooltip" data-placement="top" [title]=min_max.omg>OMG</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isETHVisible" (click)="ToggleColumn('eth')" data-toggle="tooltip" data-placement="top" [title]=min_max.eth>ETH</th>            
             <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isNCASHVisible" (click)="ToggleColumn('ncash')">NCASH</th>            
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isTRXVisible" (click)="ToggleColumn('trx')">TRX</th>            
-            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBATVisible" (click)="ToggleColumn('bat')">BAT</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isTRXVisible" (click)="ToggleColumn('trx')" data-toggle="tooltip" data-placement="top" [title]=min_max.trx>TRX</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBATVisible" (click)="ToggleColumn('bat')" data-toggle="tooltip" data-placement="top" [title]=min_max.bat>BAT</th>            
             <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isLTCVisible" (click)="ToggleColumn('ltc')">LTC</th>
             <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isONTVisible" (click)="ToggleColumn('ont')">ONT</th>
             <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isEOSVisible" (click)="ToggleColumn('eos')">EOS</th>

@@ -13,6 +13,18 @@ export class KoinexPriceHistoryComponent implements OnInit {
   public dateTime: Date;
   priceHistory: any;
 
+  public min_max = {
+    btc: "0",   
+    eth: "0",    
+    zrx:"0",  
+    xrp:"0",
+    gnt:"0",  
+    ae:"0",  
+    omg:"0",
+    trx:"0",   
+    bat:"0",    
+  };
+
   public visibilityControl = {
     isBTCVisible: true,
     isXRPVisible: true,
@@ -57,6 +69,44 @@ export class KoinexPriceHistoryComponent implements OnInit {
 
   }
 
+  SetMaxAndMin() {
+    var filterBTC = this.priceHistory.map(function (item) {
+      return item.BTC;
+    });
+    this.min_max.btc =Math.max(...filterBTC)+ ' | ' +  Math.min(...filterBTC);    
+    var filterETH = this.priceHistory.map(function (item) {
+      return item.ETH;
+    });
+    this.min_max.eth =Math.max(...filterETH)+ ' | ' +  Math.min(...filterETH);  
+    var filterZRX = this.priceHistory.map(function (item) {
+      return item.ZRX;
+    });
+    this.min_max.zrx =Math.max(...filterZRX)+ ' | ' +  Math.min(...filterZRX); 
+    var filterXRP = this.priceHistory.map(function (item) {
+      return item.XRP;
+    });
+    this.min_max.xrp =Math.max(...filterXRP)+ ' | ' +  Math.min(...filterXRP); 
+    var filterGNT = this.priceHistory.map(function (item) {
+      return item.GNT;
+    });
+    this.min_max.gnt =Math.max(...filterGNT)+ ' | ' +  Math.min(...filterGNT); 
+    var filterAE = this.priceHistory.map(function (item) {
+      return item.AE;
+    });
+    this.min_max.ae =Math.max(...filterAE)+ ' | ' +  Math.min(...filterAE);     
+    var filterOMG = this.priceHistory.map(function (item) {
+      return item.OMG;
+    });
+    this.min_max.omg =Math.max(...filterOMG)+ ' | ' +  Math.min(...filterOMG);     
+    var filterTRX = this.priceHistory.map(function (item) {
+      return item.TRX;
+    });
+    this.min_max.trx =Math.max(...filterTRX)+ ' | ' +  Math.min(...filterTRX);    
+    var filterBAT = this.priceHistory.map(function (item) {
+      return item.BAT;
+    });
+    this.min_max.bat =Math.max(...filterBAT)+ ' | ' +  Math.min(...filterBAT);    
+  }
 
   getPriceDetails() {
     this.spinner.show();
@@ -67,6 +117,9 @@ export class KoinexPriceHistoryComponent implements OnInit {
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
         this.priceHistory = data.value.reverse();
+
+        this.SetMaxAndMin();
+
         this.spinner.hide();
       });
   }
@@ -138,7 +191,7 @@ export class KoinexPriceHistoryComponent implements OnInit {
         this.visibilityControl.isTRXVisible = true;
         this.visibilityControl.isTUSDVisible = true;
         this.visibilityControl.isXRPVisible = true;
-        this.visibilityControl.isZRXVisible = true;        
+        this.visibilityControl.isZRXVisible = true;
 
         break;
     }
