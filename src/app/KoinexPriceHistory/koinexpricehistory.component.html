@@ -16,45 +16,45 @@
 <table class="table table-light table-responsive-md">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Time</th>
-            <th scope="col">BTC</th>           
-            <th scope="col">XRP</th>            
-            <th scope="col">ZRX</th>
-            <th scope="col">GNT</th>
-            <th scope="col">OMG</th>
-            <th scope="col">ETH</th>            
-            <th scope="col">NCASH</th>            
-            <th scope="col">TRX</th>            
-            <th scope="col">BAT</th>
-            <th scope="col">AE</th>
-            <th scope="col">LTC</th>
-            <th scope="col">ONT</th>
-            <th scope="col">EOS</th>
-            <th scope="col">NEO</th>
-            <th scope="col">REQ</th>
-            <th scope="col">TUSD</th>
+            <th scope="col" style="cursor: pointer" (click)="ToggleColumn('all')">Time</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBTCVisible" (click)="ToggleColumn('btc')">BTC</th>           
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isXRPVisible" (click)="ToggleColumn('xrp')">XRP</th>            
+            <th scope="col" style="cursor: pointer" *ngIf="visibilityControl.isZRXVisible"  (click)="ToggleColumn('zrx')">ZRX</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isAEVisible" (click)="ToggleColumn('ae')">AE</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isGNTVisible"  (click)="ToggleColumn('gnt')">GNT</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isOMGVisible" (click)="ToggleColumn('omg')">OMG</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isETHVisible" (click)="ToggleColumn('eth')">ETH</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isNCASHVisible" (click)="ToggleColumn('ncash')">NCASH</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isTRXVisible" (click)="ToggleColumn('trx')">TRX</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isBATVisible" (click)="ToggleColumn('bat')">BAT</th>            
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isLTCVisible" (click)="ToggleColumn('ltc')">LTC</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isONTVisible" (click)="ToggleColumn('ont')">ONT</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isEOSVisible" (click)="ToggleColumn('eos')">EOS</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isNEOVisible" (click)="ToggleColumn('neo')">NEO</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isREQVisible" (click)="ToggleColumn('req')">REQ</th>
+            <th scope="col" style="cursor: pointer"  *ngIf="visibilityControl.isTUSDVisible"(click)="ToggleColumn('tusd')">TUSD</th>
 
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let price of priceHistory">
             <td>{{price.time}}</td>
-            <td>{{price.BTC }}</td>
-            <td>{{price.XRP}}</td>
-            <td>{{price.ZRX }}</td>
-            <td>{{price.GNT }}</td>
-            <td>{{price.OMG}}</td> 
-            <td>{{price.ETH}}</td>                                            
-            <td>{{price.NCASH }}</td>
-            <td>{{price.TRX }}</td>
-            <td>{{price.BAT}}</td>
-            <td>{{price.AE }}</td>
-            <td>{{price.LTC }}</td>                                   
-            <td>{{price.ONT}}</td>
-            <td>{{price.EOS}}</td>
-            <td>{{price.NEO}}</td>
-            <td>{{price.REQ}}</td>
-            <td>{{price.TUSD}}</td>
+            <td *ngIf="visibilityControl.isBTCVisible" style="visibility: visible;">{{price.BTC }}</td>
+            <td *ngIf="visibilityControl.isXRPVisible" >{{price.XRP}}</td>
+            <td *ngIf="visibilityControl.isZRXVisible" >{{price.ZRX }}</td>
+            <td *ngIf="visibilityControl.isAEVisible" >{{price.AE }}</td>
+            <td *ngIf="visibilityControl.isGNTVisible" >{{price.GNT }}</td>
+            <td *ngIf="visibilityControl.isOMGVisible" >{{price.OMG}}</td> 
+            <td *ngIf="visibilityControl.isETHVisible" >{{price.ETH}}</td>                                            
+            <td *ngIf="visibilityControl.isNCASHVisible" >{{price.NCASH }}</td>
+            <td *ngIf="visibilityControl.isTRXVisible" >{{price.TRX }}</td>
+            <td *ngIf="visibilityControl.isBATVisible" >{{price.BAT}}</td>            
+            <td *ngIf="visibilityControl.isLTCVisible" >{{price.LTC }}</td>                                   
+            <td *ngIf="visibilityControl.isONTVisible" >{{price.ONT}}</td>
+            <td *ngIf="visibilityControl.isEOSVisible" >{{price.EOS}}</td>
+            <td *ngIf="visibilityControl.isNEOVisible" >{{price.NEO}}</td>
+            <td *ngIf="visibilityControl.isREQVisible" >{{price.REQ}}</td>
+            <td *ngIf="visibilityControl.isTUSDVisible" >{{price.TUSD}}</td>
 
         </tr>
 
