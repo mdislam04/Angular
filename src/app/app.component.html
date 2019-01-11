@@ -5,9 +5,21 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/home">Koinex/Binance</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/koinexpricehistory">Koinex Price History</a>
+   
+
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="koinex" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Koinex
+      </a>
+      <div class="dropdown-menu" aria-labelledby="koinex">
+        <a class="dropdown-item" routerLink="/koinexpricehistory">Koinex Price History</a>
+        <a class="dropdown-item" routerLink="/koinexpricehistorySortable">Price History Sortable</a>
+       
+      </div>
     </li>
+
 
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -18,6 +30,7 @@
         <a class="dropdown-item" routerLink="/profile">Live Price Updates</a>
         <a class="dropdown-item" routerLink="/history">Price History</a>
         <a class="dropdown-item" routerLink="/pricehistory">Price History Listing</a>
+        <a class="dropdown-item" routerLink="/binancepricehistory">Binance History</a>
       </div>
     </li>
   </ul>

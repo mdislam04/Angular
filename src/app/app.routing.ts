@@ -5,6 +5,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { HistoryComponent } from './History/history.component';
 import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehistory.component';
 import { PriceHistoryComponent } from './CoinMarketCapPriceHistory/pricehistory.component';
+import { BinanacePriceHistoryComponent } from './binance/binanacepricehistory.componet';
+import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinexpricehistory.componentSortable';
 
 const appRoutes: Routes = [
     {
@@ -31,6 +33,14 @@ const appRoutes: Routes = [
     {
         path: 'koinexpricehistory',
         component:KoinexPriceHistoryComponent     
+    },
+    {
+        path: 'koinexpricehistorySortable',
+        component:KoinexPriceHistoryComponentSortable     
+    },
+    {
+        path: 'binancepricehistory',
+        component:BinanacePriceHistoryComponent     
     }
 ];
 

@@ -15,12 +15,9 @@ export class PriceHistoryComponent implements OnInit {
 
   priceHistory : any;
   
-
-
-
   constructor(private service: DataService, private spinner: NgxSpinnerService) { }
 
-  ngOnInit() {
+  ngOnInit() {      
     this.dateTime = new Date();    
     this.getPriceDetails();
   }

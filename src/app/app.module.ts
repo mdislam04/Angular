@@ -18,6 +18,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PriceHistoryComponent } from './CoinMarketCapPriceHistory/pricehistory.component';
 import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehistory.component';
+import { BinanacePriceHistoryComponent } from './binance/binanacepricehistory.componet';
+import {MatTableModule, MatSortModule, MatPaginatorModule} from '@angular/material';
+import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinexpricehistory.componentSortable';
 
 
 @NgModule({
@@ -29,11 +32,17 @@ import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehis
     HighlighterDirective,
     HistoryComponent,
     PriceHistoryComponent,
+    KoinexPriceHistoryComponentSortable,
+    BinanacePriceHistoryComponent,
     KoinexPriceHistoryComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
-     RotingModule,HttpClientModule,FormsModule, OwlDateTimeModule,OwlNativeDateTimeModule,NgxSpinnerModule
+     RotingModule,HttpClientModule,FormsModule, 
+     OwlDateTimeModule,OwlNativeDateTimeModule,NgxSpinnerModule,
+     MatTableModule,
+     MatSortModule,
+     MatPaginatorModule 
   ],
   providers: [DataService,PushNotificationsService,AlertService, PagerService],
   bootstrap: [AppComponent]
