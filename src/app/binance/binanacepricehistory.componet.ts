@@ -1,62 +1,97 @@
-import {Component, ViewChild} from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data-service.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
-/**
- * @title Table with sorting
- */
+
 @Component({
-    selector: 'app-pricehistorybinance',
-    templateUrl: './binanacepricehistory.componet.html',
-    styleUrls: ['binanacepricehistory.componet.css']
+  selector: 'app-pricehistorybinance',
+  templateUrl: './binanacepricehistory.componet.html',
+  styleUrls: ['binanacepricehistory.componet.css']
 })
-export class BinanacePriceHistoryComponent {
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class BinanacePriceHistoryComponent implements OnInit {
 
+  priceHistory: any;
+  priceHistory1: Element[] = [];
+  displayedColumns = ['time', 'BTC', 'XRP', 'ZRX', 'AE', 'GNT', 'OMG', 'BAT', 'ETH', 'TRX', 'ADA', 'ONT', 'LTC', 'EOS'];
+
+
+
+  dataSource: MatTableDataSource<Element>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  /**
-   * Set the sort after the view init since this component will
-   * be able to query its view for the initialized sort.
-   */
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  public dateTime: Date;
+
+  constructor(private service: DataService, private spinner: NgxSpinnerService) { }
+
+  ngOnInit() {
+    this.dateTime = new Date();
+    this.getPriceDetails();
   }
+
+  
+  getFileNamePrefix(): string {
+
+    if (this.dateTime) {
+      var month = this.dateTime.getMonth() + 1;
+      var day = this.dateTime.getDate();
+      var output = (day < 10 ? '0' : '') + day
+        + (month < 10 ? '0' : '') + month
+        + this.dateTime.getFullYear() % 100;
+
+      return output;
+    }
+
+  }
+
+  getData() {
+    this.getPriceDetails();
+
+  }
+
+
+
+  getPriceDetails() {
+    this.spinner.show();
+    this.priceHistory1 = [];
+    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rl&se=2019-03-31T13:07:07Z&st=2019-01-07T05:07:07Z&spr=https,http&sig=ujyQjO13AcWRMCFlb9a5PRPWAhddfvI76eJGSGyymOc%3D';
+    var url = 'https://cryptofunctionstorage.table.core.windows.net/binancePrices()?';
+    var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
+    url = url + authToken + tableFilter;
+    this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
+      data => {
+        this.priceHistory = data.value.reverse();
+        this.priceHistory.forEach(p => {
+          let tk = <Element>{
+            time: p.time, BTC: p.BTC, XRP: p.XRP, AE: p.AE, ZRX: p.ZRX, GNT: p.GNT,
+            OMG: p.OMG, BAT: p.BAT, ETH: p.ETH, TRX: p.TRX, ONT: p.ONT, LTC: p.LTC, EOS: p.EOS, ADA: p.ADA
+          };
+          this.priceHistory1.push(tk);
+        });
+
+        this.dataSource = new MatTableDataSource(this.priceHistory1);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.spinner.hide();
+      });
+  }
+
 }
 
 export interface Element {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  time: string;
+  BTC: number;
+  XRP: number;
+  AE: number;
+  ZRX: number,
+  GNT: number,
+  OMG: number,
+  BAT: number,
+  ETH: number,
+  TRX: number,
+  ONT: number,
+  LTC: number,
+  EOS: number,
+  ADA: number
 }
-
-const ELEMENT_DATA: Element[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
-
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */

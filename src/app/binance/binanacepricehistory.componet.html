@@ -1,42 +1,106 @@
+<table class="cell">
+  <tr>
+      <td>
+          Select Date to filter : <input size="7" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+              [(ngModel)]="dateTime">
+          <owl-date-time #dt1 pickerType='calendar' (afterPickerClosed)='getData()'></owl-date-time>
+      </td>
+      <td>
+          Displaying data for : {{dateTime | date}}
+      </td>
+      <td>
+          <img src="../../assets/refresh.png" (click)="getData();" style="cursor: pointer" />
+      </td>
+  </tr>
+</table>
+
+
 <div class="example-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource" matSort>
-  
+  <mat-table #table [dataSource]="dataSource" matSort>
+
       <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
       </ng-container>
-  
+
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <ng-container matColumnDef="BTC">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.BTC | formateNumber:'btc'}} </mat-cell>
       </ng-container>
-  
+
       <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      <ng-container matColumnDef="XRP">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> XRP </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.XRP}} </mat-cell>
       </ng-container>
-  
+
       <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      <ng-container matColumnDef="AE">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> AE-BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.AE}} </mat-cell>
       </ng-container>
-  
+
+      <ng-container matColumnDef="ZRX">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ZRX-BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ZRX}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="GNT">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> GNT-BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.GNT}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="OMG">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> OMG-BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.OMG}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="BAT">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> BAT-BTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.BAT}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ETH">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ETH </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ETH | formateNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="TRX">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> TRX </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.TRX}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ADA">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ADA </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ADA}} </mat-cell>
+      </ng-container>
+
+       
+
+      <ng-container matColumnDef="LTC">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> LTC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.LTC | formateNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ONT">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ONT </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ONT}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="EOS">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> EOS </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.EOS}} </mat-cell>
+      </ng-container>
+
+     
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+  </mat-table>
 
-    <mat-paginator #paginator
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 [showFirstLastButtons]="true">
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 30, 60,100]" [showFirstLastButtons]="true">
   </mat-paginator>
-  </div>
-  
-  
-  <!-- Copyright 2018 Google Inc. All Rights Reserved.
-      Use of this source code is governed by an MIT-style license that
-      can be found in the LICENSE file at http://angular.io/license -->
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="timer">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

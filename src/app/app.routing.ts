@@ -11,7 +11,7 @@ import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinex
 const appRoutes: Routes = [
     {
         path: '',
-        component:HomeComponent     
+        component:KoinexPriceHistoryComponent     
     },
     
     {
