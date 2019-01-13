@@ -12,17 +12,24 @@ export class KoinexPriceHistoryComponent implements OnInit {
 
   public dateTime: Date;
   priceHistory: any;
+  pagingData: any = [];
+  priceHistoryview: any;
+  page_number: number = 0;
+  pageSize: number = 10;
+  isPrevEnabled = false;
+  isNextEnabled = true;
+  selectedItem: any;
 
   public min_max = {
-    btc: "0",   
-    eth: "0",    
-    zrx:"0",  
-    xrp:"0",
-    gnt:"0",  
-    ae:"0",  
-    omg:"0",
-    trx:"0",   
-    bat:"0",    
+    btc: "0",
+    eth: "0",
+    zrx: "0",
+    xrp: "0",
+    gnt: "0",
+    ae: "0",
+    omg: "0",
+    trx: "0",
+    bat: "0",
   };
 
   public visibilityControl = {
@@ -73,39 +80,39 @@ export class KoinexPriceHistoryComponent implements OnInit {
     var filterBTC = this.priceHistory.map(function (item) {
       return item.BTC;
     });
-    this.min_max.btc =Math.max(...filterBTC)+ ' | ' +  Math.min(...filterBTC);    
+    this.min_max.btc = Math.max(...filterBTC) + ' | ' + Math.min(...filterBTC);
     var filterETH = this.priceHistory.map(function (item) {
       return item.ETH;
     });
-    this.min_max.eth =Math.max(...filterETH)+ ' | ' +  Math.min(...filterETH);  
+    this.min_max.eth = Math.max(...filterETH) + ' | ' + Math.min(...filterETH);
     var filterZRX = this.priceHistory.map(function (item) {
       return item.ZRX;
     });
-    this.min_max.zrx =Math.max(...filterZRX)+ ' | ' +  Math.min(...filterZRX); 
+    this.min_max.zrx = Math.max(...filterZRX) + ' | ' + Math.min(...filterZRX);
     var filterXRP = this.priceHistory.map(function (item) {
       return item.XRP;
     });
-    this.min_max.xrp =Math.max(...filterXRP)+ ' | ' +  Math.min(...filterXRP); 
+    this.min_max.xrp = Math.max(...filterXRP) + ' | ' + Math.min(...filterXRP);
     var filterGNT = this.priceHistory.map(function (item) {
       return item.GNT;
     });
-    this.min_max.gnt =Math.max(...filterGNT)+ ' | ' +  Math.min(...filterGNT); 
+    this.min_max.gnt = Math.max(...filterGNT) + ' | ' + Math.min(...filterGNT);
     var filterAE = this.priceHistory.map(function (item) {
       return item.AE;
     });
-    this.min_max.ae =Math.max(...filterAE)+ ' | ' +  Math.min(...filterAE);     
+    this.min_max.ae = Math.max(...filterAE) + ' | ' + Math.min(...filterAE);
     var filterOMG = this.priceHistory.map(function (item) {
       return item.OMG;
     });
-    this.min_max.omg =Math.max(...filterOMG)+ ' | ' +  Math.min(...filterOMG);     
+    this.min_max.omg = Math.max(...filterOMG) + ' | ' + Math.min(...filterOMG);
     var filterTRX = this.priceHistory.map(function (item) {
       return item.TRX;
     });
-    this.min_max.trx =Math.max(...filterTRX)+ ' | ' +  Math.min(...filterTRX);    
+    this.min_max.trx = Math.max(...filterTRX) + ' | ' + Math.min(...filterTRX);
     var filterBAT = this.priceHistory.map(function (item) {
       return item.BAT;
     });
-    this.min_max.bat =Math.max(...filterBAT)+ ' | ' +  Math.min(...filterBAT);    
+    this.min_max.bat = Math.max(...filterBAT) + ' | ' + Math.min(...filterBAT);
   }
 
   getPriceDetails() {
@@ -119,9 +126,42 @@ export class KoinexPriceHistoryComponent implements OnInit {
         this.priceHistory = data.value.reverse();
 
         this.SetMaxAndMin();
-
+        this.setPaging();
         this.spinner.hide();
       });
+  }
+
+  setPaging() {
+    this.selectedItem = null;
+    this.pagingData = [];
+    var totalPages = Math.ceil(this.priceHistory.length / this.pageSize);
+    for (var i = 1; i <= totalPages; i++) {
+      this.pagingData.push(i);
+    }
+
+    this.setPage(this.pagingData[0], 0)
+
+    if (this.pagingData.length < this.pageSize)
+      this.isNextEnabled = false;
+    if (this.page_number == 0)
+      this.isPrevEnabled = false;
+  }
+
+  updatePaging(action: any) {
+    if (action === "next" && (this.page_number * this.pageSize) <= this.priceHistory.length) {
+      this.page_number += 1;
+      this.isPrevEnabled = true;
+    }
+
+    else if (action === "prev" && this.page_number != 0) {
+      this.page_number -= 1;
+      this.isNextEnabled = true;
+    }
+  }
+
+  setPage(page: any, pagenumber: any) {
+    this.selectedItem = page;
+    this.priceHistoryview = this.priceHistory.slice(pagenumber * this.pageSize, (pagenumber + 1) * this.pageSize);
   }
 
   ToggleColumn(column) {

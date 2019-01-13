@@ -8,7 +8,28 @@
         <td>
                 Displaying data for : {{dateTime | date}}
         </td>
-        <td>
+        <td style="color: black;">
+            <ul class="pagination pagination-sm justify-content-end" style="margin-top: 5px;" *ngIf="pagingData && pagingData.length">
+              <li class="page-item" [ngClass]="{'page-item disabled': !isPrevEnabled}">
+                <a class="page-link" (click)='updatePaging("prev")' aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+      
+              <li class="page-item" [ngClass]="{'page-item active': selectedItem == page}" (click)="setPage(page,i)"
+                *ngFor="let page of pagingData;let i = index">
+                <a class="page-link">{{i+1}}</a></li>
+              <li class="page-item" [ngClass]="{'page-item disabled':!isNextEnabled}">
+                <a class="page-link"  (click)='updatePaging("next")' aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+      
+            </ul>
+          </td>
+        <td style="float: right;">
             <img src="../../assets/refresh.png" (click)="getData();" style="cursor: pointer"/>
         </td>
     </tr>
@@ -37,7 +58,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let price of priceHistory">
+        <tr *ngFor="let price of priceHistoryview">
             <td>{{price.time}}</td>
             <td *ngIf="visibilityControl.isBTCVisible" style="visibility: visible;">{{price.BTC }}</td>
             <td *ngIf="visibilityControl.isXRPVisible" >{{price.XRP}}</td>
