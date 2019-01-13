@@ -12,7 +12,7 @@
 
     <td style="color: black;">
       <ul class="pagination pagination-sm justify-content-end" style="margin-top: 5px;" *ngIf="pagingData && pagingData.length">
-        <li class="page-item">
+        <li class="page-item" [ngClass]="{'page-item disabled': !isPrevEnabled}">
           <a class="page-link" (click)='updatePaging("prev")' aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
@@ -22,8 +22,8 @@
         <li class="page-item" [ngClass]="{'page-item active': selectedItem == page}" (click)="setPage(page,$event)"
           *ngFor="let page of pagingData;let i = index" data-toggle="tooltip" data-placement="top" [title]=page.Name>
           <a class="page-link">{{i+1}}</a></li>
-        <li class="page-item">
-          <a class="page-link" (click)='updatePaging("next")' aria-label="Next">
+        <li class="page-item" [ngClass]="{'page-item disabled':!isNextEnabled}">
+          <a class="page-link"  (click)='updatePaging("next")' aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>

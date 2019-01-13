@@ -34,7 +34,7 @@ export class DataService {
   }
 
   public getCoinMarketDataHistoryList(marker: any, prefix:any): Observable<any> {
-    var url = 'https://cryptofunctionstorage.blob.core.windows.net/pricehistory?restype=container&comp=list&maxresults=15';
+    var url = 'https://cryptofunctionstorage.blob.core.windows.net/pricehistory?restype=container&comp=list';
     if (marker)
       url = url + '&marker=' + marker;
       if (prefix)

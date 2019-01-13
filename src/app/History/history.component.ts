@@ -24,12 +24,17 @@ export class HistoryComponent implements OnInit {
 
   // array of all items to be paged
   pagingData: any[];
+  pagingDataMaster: any[];
+  page_number: number = 0;
+  pageSize: number = 10;
+  isPrevEnabled = false;
+  isNextEnabled = true;
   selectedItem: any;
   nextMarker: any;
   public dateTime: Date;
   priceDate: any;
 
-  priceHistoryMaster : any;
+  priceHistoryMaster: any;
   priceHistory = <PriceHistory>{ coinMarketCap: [] };
 
 
@@ -44,7 +49,18 @@ export class HistoryComponent implements OnInit {
   }
 
   updatePaging(action: any) {
-    this.getPriceHistoryEntryList();
+    if (action === "next" && (this.page_number * this.pageSize) <= this.pagingDataMaster.length) {
+      this.page_number += 1;
+      this.isPrevEnabled = true;
+    }
+
+    else if (action === "prev" && this.page_number != 0) {
+      this.page_number -= 1;
+      this.isNextEnabled = true;
+    }
+
+
+    this.getPagingData();
   }
 
   getData() {
@@ -103,11 +119,22 @@ export class HistoryComponent implements OnInit {
       data => {
         var result;
         xml2js.parseString(data, (e, r) => { result = r });
-        this.pagingData = result.EnumerationResults.Blobs[0].Blob;
-        this.nextMarker = result.EnumerationResults.NextMarker[0];
-        this.setPage(this.pagingData[0]);
+        this.pagingDataMaster = result.EnumerationResults.Blobs[0].Blob;
+        this.pagingDataMaster.reverse();
+        this.getPagingData();
       });
 
+  }
+
+  getPagingData() {
+    if ((this.page_number * this.pageSize) <= this.pagingDataMaster.length)
+      this.pagingData = this.pagingDataMaster.slice(this.page_number * this.pageSize, (this.page_number + 1) * this.pageSize);
+
+    if (this.pagingData.length < this.pageSize)
+      this.isNextEnabled = false;
+    if (this.page_number == 0)
+      this.isPrevEnabled = false;
+    this.setPage(this.pagingData[0]);
   }
 
 
@@ -147,23 +174,23 @@ export class HistoryComponent implements OnInit {
   }
 
   showPriceHistory(symbol) {
-    this.priceHistory.coinMarketCap =[];
+    this.priceHistory.coinMarketCap = [];
     this.priceHistoryMaster.forEach(coin => {
-      let tk = <Token>{ price: coin[symbol], symbol: symbol,time:coin.time };
-        this.priceHistory.coinMarketCap.push(tk);
+      let tk = <Token>{ price: coin[symbol], symbol: symbol, time: coin.time };
+      this.priceHistory.coinMarketCap.push(tk);
     });
-    
+
   }
 
   getPriceDetails() {
     var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rl&se=2019-03-31T13:07:07Z&st=2019-01-07T05:07:07Z&spr=https,http&sig=ujyQjO13AcWRMCFlb9a5PRPWAhddfvI76eJGSGyymOc%3D';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/priceHistory()?';
-    var tableFilter = "&$filter=FilterKey eq " + "'"+this.getFileNamePrefix()+"'";
+    var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
     url = url + authToken + tableFilter;
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
-        this.priceHistoryMaster=data.value;      
-        
+        this.priceHistoryMaster = data.value;
+
       });
   }
 
