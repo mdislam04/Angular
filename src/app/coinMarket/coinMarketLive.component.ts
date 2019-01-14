@@ -5,29 +5,35 @@ import { PriceHistory, Token } from '../models/Token';
 
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-coinMarketLive',
+  templateUrl: './coinMarketLive.component.html',
+  styleUrls: ['./coinMarketLive.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class CoinMarketLiveComponent implements OnInit {
 
   public coinData: CoinMarket;
   public coinDataCopy: CoinMarket;
   viewData: Coin[] = [];
-  coinToDisplay = ["BTC", "ETH","XRP", "ZRX", "OMG", "GNT","BAT","AE"];
+  private storage: any;
+  coinToDisplay: any
   inetrvalId: any;
   priceHistoryinetrvalId: any;
   refreshInterval: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
   minutes: number = 10;
-  priceHistoryMaster= <PriceHistory>{coinMarketCap:[]};
-  priceHistory= <PriceHistory>{coinMarketCap:[]};
-  constructor(private service: DataService) { }
+  priceHistoryMaster = <PriceHistory>{ coinMarketCap: [] };
+  priceHistory = <PriceHistory>{ coinMarketCap: [] };
+  constructor(private service: DataService) {
+    this.storage = localStorage;
+  }
 
   ngOnInit() {
     this.getCoinMarketData();
-
+    if (this.storage.getItem('coinToDisplay'))
+      this.coinToDisplay = JSON.parse(this.storage.getItem('coinToDisplay'));
+    else
+      this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
     this.inetrvalId = setInterval(() => this.getCoinMarketData(), this.refreshInterval * 1000);
     this.priceHistoryinetrvalId = setInterval(() => this.storePriceHistory(), this.minutes * 1000 * 60);
 
@@ -35,26 +41,25 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  showPriceHistory(symbol)
-  {
-    this.priceHistory.coinMarketCap=this.priceHistoryMaster.coinMarketCap.filter(p=> p.symbol === symbol);
+  showPriceHistory(symbol) {
+    this.priceHistory.coinMarketCap = this.priceHistoryMaster.coinMarketCap.filter(p => p.symbol === symbol);
   }
 
   private storePriceHistory() {
 
-    
+
     var d = new Date();
-        var time = d.toDateString() + ' ' + d.toLocaleTimeString();
+    var time = d.toDateString() + ' ' + d.toLocaleTimeString();
     var current = Object.values(this.coinData.data);
     this.coinToDisplay.sort().forEach(coin => {
       var match = current.find(o => o.symbol == coin);
       if (match) {
-        let tk = <Token>{ price: match.quotes.USD.price, symbol: match.symbol,time:time };
+        let tk = <Token>{ price: match.quotes.USD.price, symbol: match.symbol, time: time };
         this.priceHistoryMaster.coinMarketCap.push(tk);
-        
+
       }
-     
-    });    
+
+    });
   }
 
   ngOnDestroy() {
@@ -63,7 +68,7 @@ export class ProfileComponent implements OnInit {
     }
     if (this.priceHistoryinetrvalId) {
       clearInterval(this.priceHistoryinetrvalId);
-    }    
+    }
   }
 
   public restart() {
@@ -77,8 +82,10 @@ export class ProfileComponent implements OnInit {
   addCoin() {
     if (!this.coinToDisplay.find(o => o === this.RequestedCoin.toUpperCase())) {
       var allCoins = Object.values(this.coinData.data);
-      if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
+      if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase())) {
         this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
+        this.storage.setItem('coinToDisplay', JSON.stringify(this.coinToDisplay));
+      }
       this.getCoinMarketData();
     }
 
@@ -96,6 +103,7 @@ export class ProfileComponent implements OnInit {
     var index = this.coinToDisplay.indexOf(coinPara);
     if (index > -1) {
       this.coinToDisplay.splice(index, 1);
+      this.storage.setItem('coinToDisplay', JSON.stringify(this.coinToDisplay));
       this.getCoinMarketData();
     }
 
@@ -109,6 +117,7 @@ export class ProfileComponent implements OnInit {
 
         // Set Coin to display
         this.viewData = [];
+        console.log(this.coinToDisplay);
         this.coinToDisplay.sort().forEach(coin => {
           var match = current.find(o => o.symbol == coin);
           this.viewData.push(match);

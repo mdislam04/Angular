@@ -1,12 +1,12 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { HistoryComponent } from './History/history.component';
 import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehistory.component';
 import { PriceHistoryComponent } from './CoinMarketCapPriceHistory/pricehistory.component';
 import { BinanacePriceHistoryComponent } from './binance/binanacepricehistory.componet';
 import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinexpricehistory.componentSortable';
+import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
+import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 
 const appRoutes: Routes = [
     {
@@ -19,15 +19,15 @@ const appRoutes: Routes = [
         component:HomeComponent     
     },
     {
-        path: 'profile',
-        component:ProfileComponent     
+        path: 'coinMarketLive',
+        component:CoinMarketLiveComponent     
     },
     {
-        path: 'history',
-        component:HistoryComponent     
+        path: 'coinMarketHistory',
+        component:CoinMarkeHistoryComponent     
     },
     {
-        path: 'pricehistory',
+        path: 'coinMarketHistoryListing',
         component:PriceHistoryComponent     
     },
     {

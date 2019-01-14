@@ -8,15 +8,17 @@ import { PriceHistory, Token } from '../models/Token';
 
 @Component({
   selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+  templateUrl: './coinMarkethistory.component.html',
+  styleUrls: ['./coinMarkethistory.component.css']
 })
-export class HistoryComponent implements OnInit {
+export class CoinMarkeHistoryComponent implements OnInit {
 
   public coinData: CoinMarket;
   public coinDataCopy: CoinMarket;
   viewData: Coin[] = [];
-  coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
+
+  private storage: any;
+  coinToDisplay: any;
 
 
   refreshInterval: number = 10;
@@ -40,9 +42,15 @@ export class HistoryComponent implements OnInit {
 
 
   constructor(private service: DataService, private pagerService: PagerService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService) {
+    this.storage = localStorage;
+  }
 
   ngOnInit() {
+    if (this.storage.getItem('coinToDisplay'))
+      this.coinToDisplay = JSON.parse(this.storage.getItem('coinToDisplay'));
+    else
+      this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
     this.dateTime = new Date();
     this.getPriceHistoryEntryList();
     this.getPriceDetails();
@@ -143,6 +151,7 @@ export class HistoryComponent implements OnInit {
     var index = this.coinToDisplay.indexOf(coinPara);
     if (index > -1) {
       this.coinToDisplay.splice(index, 1);
+      this.storage.setItem('coinToDisplay', JSON.stringify(this.coinToDisplay));
       var current = Object.values(this.coinData.data);
 
       // Set Coin to display
@@ -158,8 +167,10 @@ export class HistoryComponent implements OnInit {
   addCoin() {
     if (!this.coinToDisplay.find(o => o === this.RequestedCoin.toUpperCase())) {
       var allCoins = Object.values(this.coinData.data);
-      if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase()))
+      if (allCoins.find(c => c.symbol === this.RequestedCoin.toUpperCase())) {
         this.coinToDisplay.push(this.RequestedCoin.toUpperCase());
+        this.storage.setItem('coinToDisplay', JSON.stringify(this.coinToDisplay));
+      }
 
       var current = Object.values(this.coinData.data);
 
@@ -178,6 +189,7 @@ export class HistoryComponent implements OnInit {
     this.priceHistoryMaster.forEach(coin => {
       let tk = <Token>{ price: coin[symbol], symbol: symbol, time: coin.time };
       this.priceHistory.coinMarketCap.push(tk);
+      this.priceHistory.coinMarketCap;
     });
 
   }
