@@ -11,7 +11,7 @@ import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 const appRoutes: Routes = [
     {
         path: '',
-        component:KoinexPriceHistoryComponent     
+        component:HomeComponent     
     },
     
     {
