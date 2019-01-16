@@ -55,7 +55,7 @@
                 <label class="high" [ngClass]="{'low':price.prices.koinexPriceDiff < 0}">{{price.prices.koinexPriceDiff}}</label>
             </td>
             <td>
-                <label class="high">{{price.prices.binacePrice | formateNumber}}</label>
+                <label class="high"  [matTooltip]="price.prices.binacePrice">{{price.prices.binacePrice | formateNumber}}</label>
             </td>
             <td>
                 <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}">{{price.prices.binacePriceDiff}}</label>

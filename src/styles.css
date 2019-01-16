@@ -98,7 +98,14 @@ body{
    min-width: 120px;
    
  }
- 
+
+
+
+.mat-tooltip {
+  background: rgb(80, 76, 76)!important;
+  border: solid 1px greenyellow;
+  font-size: 20px!important;
+}
 
 
 

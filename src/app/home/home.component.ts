@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
 
         this.coinToDisplay.forEach(p => {
           this.prices.forEach(k => {
-            var match = this.binanceData.find(b => b.symbol === p.symbol + 'USDT');
+            var match = this.binanceData.find(b => b.symbol === p.symbol + 'USDT') || this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
             if (match) {
               if (k.symbol === p.symbol) {
                 k.prices.binacePrice = match.price;
@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit {
       }
       else {
         this.coinToDisplay.forEach(p => {
-          var match = this.binanceData.find(b => b.symbol == p.symbol + 'USDT');
+          var match = this.binanceData.find(b => b.symbol == p.symbol + 'USDT') || this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
           if (match) {
             let price = <LivePrice>{ symbol: p.symbol, prices: { binacePrice: match.price } };
             if (!price.prices.binaceInitialPrice)
