@@ -6,10 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NumberFormate implements PipeTransform {
 
   transform(value: string, args?: any): string {
-    if(args && (args == 'BTC' || args == 'ETH'))
-    return Math.round(parseFloat(value)).toString();
+    if(!value)
+    return;
+    if (args && (args == 'BTC' || args == 'ETH'))
+      return Math.round(parseFloat(value)).toString();
     else
-   return parseFloat(value).toFixed(5);
+      return parseFloat(value).toFixed(5);
 
   }
 

@@ -90,6 +90,15 @@ body{
   color: rgb(48, 26, 243);
   font: bolder;
  }
+ 
+
+ .mat-form-field-autofill-control
+ {
+   border: solid 1px rgb(82, 81, 81);
+   min-width: 120px;
+   
+ }
+ 
 
 
 

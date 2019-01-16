@@ -1,79 +1,91 @@
 <div class="filter">Last Updated => {{lastUpdated}}</div>
-<table class="cell">
+<table *ngIf='koinexData' class="table1">
     <tr>
         <td>
-            Coin Symbol :
+            <label class="label" data-toggle="modal" data-target="#myModal" (click)='opneAlertWindow("xrp");'>XRP</label>
         </td>
-        <td>
-            <input size="3" type='text' [(ngModel)]='RequestedCoin' (blur)='addCoin();' matInput [formControl]="myControl"
-            [matAutocomplete]="auto"/>
 
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
-                    </mat-option>
-                </mat-autocomplete>
-        </td>
-        
-        <td>Refresh Interval (in seconds)</td>
-        <td colspan=3 align="left">
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
-            <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
-        </td>
+        <td colspan="70px"><label id="divRipple" class="high">{{koinexData.prices.inr.XRP}}</label></td>
+        <td colspan="70px"><label id="divRipple1" class="high">
+                <ng-container *ngFor="let price of binanceData">
+                    <div *ngIf="price.symbol=='XRPUSDT'">{{price.price | formateNumber}}</div>
+                </ng-container>
+            </label></td>
+    </tr>
+    <tr>
         <td>
-            Updated on : {{lastUpdated}}
+            <label class="label">GNT</label>
         </td>
-        <td>Timer :
-                <countdown-timer [start]="timer"></countdown-timer>
+
+        <td colspan="70px"><label id="divGNT" class="high">{{koinexData.prices.inr.GNT}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">OMG</label>
         </td>
+
+        <td colspan="70px"><label id="divOMG" class="high">{{koinexData.prices.inr.OMG}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">NCash</label>
+        </td>
+
+        <td colspan="70px"><label class="high">{{koinexData.prices.inr.NCASH}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">BTC</label>
+        </td>
+
+        <td colspan="70px"><label id="divBTC" class="high">{{koinexData.prices.inr.BTC}}</label></td>
+    </tr>
+    <tr>
+        <td>
+            <label class="label">0X</label>
+        </td>
+
+        <td colspan="70px"><label id="divZRX" class="high">{{koinexData.prices.inr.ZRX}}</label></td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <label class="label">ETH</label>
+        </td>
+
+        <td colspan="70px"><label id="divETH" class="high">{{koinexData.prices.inr.ETH}}</label></td>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="label">ADA</label>
+        </td>
+
+        <td colspan="70px"></td>
+        <td colspan="70px"><label id="divADA" class="high">
+                <ng-container *ngFor="let price of binanceData">
+                    <div *ngIf="price.symbol=='ADAUSDT'">{{price.price | formateNumber}}</div>
+                </ng-container>
+            </label></td>
+    </tr>
+    <tr *ngIf='poloniexData'>
+        <td>
+            <label class="label">BCN</label>
+        </td>
+
+        <td colspan="70px"></td>
+        <td colspan="70px"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
     </tr>
 </table>
 <br />
-<table *ngIf='koinexData' class="table1">
-    <thead>
-        <tr>
-            <th class="volume">Remove</th>
-            <th class="volume">Coin</th>
-            <th class="volume">Koinex Price</th>
-            <th class="volume">Koinex Change</th>
-            <th class="volume">Binance Price</th>
-            <th class="volume">Binance Change </th>
-
-        </tr>
-        <tr *ngFor='let price of prices;let i = index'>
-            <td>
-                <button width="20px" class="btn1" (click)='removeCoin(price.symbol, i)'>X</button>
-            </td>
-            <td>
-                <label class="label" data-toggle="modal" data-target="#myModal" (click)='opneAlertWindow("xrp");'>{{price.symbol}}</label>
-            </td>
-            <td>
-                <label class="high">{{price.prices.koinexPrice}}</label>
-            </td>
-            <td>
-                <label class="high" [ngClass]="{'low':price.prices.koinexPriceDiff < 0}">{{price.prices.koinexPriceDiff}}</label>
-            </td>
-            <td>
-                <label class="high">{{price.prices.binacePrice | formateNumber}}</label>
-            </td>
-            <td>
-                <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}">{{price.prices.binacePriceDiff}}</label>
-            </td>
-        </tr>
-        <tr *ngIf='poloniexData'>
-            <td>
-
-            </td>
-                <td>
-                    <label class="label">BCN</label>
-                </td>                
-                <td colspan="5"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
-            </tr>
-    </thead>
-</table>
-
-
+<div class="volume" style="float: left; ">
+    Refresh Interval (in seconds)
+    <button class="btn btn-danger" width="20px" (click)='changeInterval("+")'>+5</button>
+    <input size="3" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
+    <button class="btn btn-danger" width="20px" (click)='changeInterval("-")'>-5</button>
+    <br />   
+</div>
 
 <!-- Alert Modal Window -->
 <div class="container">
@@ -147,10 +159,8 @@
                         </tr>
                         <tr>
                             <td colspan="5">
-                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("on")' data-dismiss="modal">Set
-                                    Alert</button>
-                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("off")'
-                                    data-dismiss="modal">Stop Alert</button>
+                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("on")' data-dismiss="modal">Set Alert</button>
+                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("off")' data-dismiss="modal">Stop Alert</button>
                             </td>
                         </tr>
                     </table>
