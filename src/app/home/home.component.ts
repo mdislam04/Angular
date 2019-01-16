@@ -58,6 +58,7 @@ export class HomeComponent implements OnInit {
     else {
       this.timer = this.storage.getItem("timer");
     }
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)));
@@ -102,7 +103,52 @@ export class HomeComponent implements OnInit {
   }
 
   setPrices(exchange: any) {
-    if (exchange === 'koinex') {
+    // Binance prices set
+    if (exchange === 'binance') {
+      if (this.prices.length > 0) {
+
+        this.coinToDisplay.forEach(p => {
+          this.prices.forEach(k => {
+            if (k.symbol === p.symbol) {
+              var match = this.binanceData.find(b => b.symbol === p.symbol + 'USDT');
+              if (!match) {
+                match = this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
+                k.prices.isBtcPrice = true;
+              }
+              k.prices.binacePrice = match.price;
+              if (!k.prices.binaceInitialPrice) {
+                var matchCoin = this.coinToDisplayMaster.find(c => c.symbol == p.symbol);
+                k.prices.binaceInitialPrice = matchCoin.binanceInitial || k.prices.binacePrice;
+                matchCoin.binanceInitial = k.prices.binaceInitialPrice;
+              }
+              k.prices.binacePriceDiff = Number.parseFloat((k.prices.binacePrice - k.prices.binaceInitialPrice).toFixed(8));
+            }
+
+          });
+        });
+      }
+      else {
+        this.coinToDisplay.forEach(p => {
+          var match = this.binanceData.find(b => b.symbol == p.symbol + 'USDT');
+          let price = <LivePrice>{ symbol: p.symbol, prices: {} };
+          if (!match) {
+            match = this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
+            console.log(price.prices.isBtcPrice);
+            price.prices.isBtcPrice = true;
+            console.log(price.prices.isBtcPrice);
+          }
+          if (match) {
+            price.prices.binacePrice = match.price;
+            if (!price.prices.binaceInitialPrice)
+              price.prices.binaceInitialPrice = price.prices.binacePrice;
+            price.prices.binacePriceDiff = Number.parseFloat((price.prices.binacePrice - price.prices.binaceInitialPrice).toFixed(8));
+            this.prices.push(price);
+          }
+        });
+      }
+    }
+    // koinex ......
+    else if (exchange === 'koinex') {
       if (this.prices.length > 0) {
 
         this.coinToDisplay.forEach(p => {
@@ -129,41 +175,6 @@ export class HomeComponent implements OnInit {
         });
       }
     }
-    // Binance prices set
-    else if (exchange === 'binance') {
-      if (this.prices.length > 0) {
-
-        this.coinToDisplay.forEach(p => {
-          this.prices.forEach(k => {
-            var match = this.binanceData.find(b => b.symbol === p.symbol + 'USDT') || this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
-            if (match) {
-              if (k.symbol === p.symbol) {
-                k.prices.binacePrice = match.price;
-                if (!k.prices.binaceInitialPrice) {
-                  var matchCoin = this.coinToDisplayMaster.find(c => c.symbol == p.symbol);
-                  k.prices.binaceInitialPrice = matchCoin.binanceInitial || k.prices.binacePrice;
-                  matchCoin.binanceInitial = k.prices.binaceInitialPrice;
-
-                }
-                k.prices.binacePriceDiff = Math.round((k.prices.binacePrice - k.prices.binaceInitialPrice) * 100) / 100;
-              }
-            }
-          });
-        });
-      }
-      else {
-        this.coinToDisplay.forEach(p => {
-          var match = this.binanceData.find(b => b.symbol == p.symbol + 'USDT') || this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
-          if (match) {
-            let price = <LivePrice>{ symbol: p.symbol, prices: { binacePrice: match.price } };
-            if (!price.prices.binaceInitialPrice)
-              price.prices.binaceInitialPrice = price.prices.binacePrice;
-            price.prices.binacePriceDiff = Math.round((price.prices.binacePrice - price.prices.binaceInitialPrice) * 100) / 100;
-            this.prices.push(price);
-          }
-        });
-      }
-    }
   }
 
   addCoin() {
@@ -171,13 +182,16 @@ export class HomeComponent implements OnInit {
       if (!this.coinToDisplayMaster.find(o => o.symbol === this.RequestedCoin.toUpperCase())) {
         this.coinToDisplayMaster.push({ symbol: this.RequestedCoin.toUpperCase(), koinexInitial: undefined, binanceInitial: undefined });
       }
-
+      console.log(JSON.stringify(this.coinToDisplayMaster));
       if (!this.coinToDisplay.find(o => o.symbol === this.RequestedCoin.toUpperCase())) {
         this.coinToDisplay.push({ symbol: this.RequestedCoin.toUpperCase(), koinexInitial: undefined, binanceInitial: undefined });
-        this.prices = [];
+        console.log(JSON.stringify(this.coinToDisplay));
+        this.prices = [];        
         this.setPrices('koinex');
         this.setPrices('binance');
+       
       }
+
       this.storage.setItem('homePageCoin', JSON.stringify(this.coinToDisplay));
       this.storage.setItem('homePageCoinMaster', JSON.stringify(this.coinToDisplayMaster));
       this.RequestedCoin = '';

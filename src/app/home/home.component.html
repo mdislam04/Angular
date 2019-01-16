@@ -56,6 +56,9 @@
             </td>
             <td>
                 <label class="high"  [matTooltip]="price.prices.binacePrice">{{price.prices.binacePrice | formateNumber}}</label>
+                <img *ngIf='price.prices.isBtcPrice' src="../../assets/btc.png">
+                <img *ngIf='!price.prices.isBtcPrice' src="../../assets/usdt.png">
+                
             </td>
             <td>
                 <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}">{{price.prices.binacePriceDiff}}</label>
