@@ -122,6 +122,10 @@ export class HomeComponent implements OnInit {
                 matchCoin.binanceInitial = k.prices.binaceInitialPrice;
               }
               k.prices.binacePriceDiff = (k.prices.binacePrice - k.prices.binaceInitialPrice).toFixed(8);
+              if (this.koinexData)
+              {                
+                k.prices.binacePriceDiffINR = k.prices.isBtcPrice ? (Number.parseFloat(k.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.BTC)) : (Number.parseFloat(k.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.TUSD));
+              }
             }
 
           });
@@ -133,15 +137,17 @@ export class HomeComponent implements OnInit {
           let price = <LivePrice>{ symbol: p.symbol, prices: {} };
           if (!match) {
             match = this.binanceData.find(b => b.symbol === p.symbol + 'BTC');
-            console.log(price.prices.isBtcPrice);
             price.prices.isBtcPrice = true;
-            console.log(price.prices.isBtcPrice);
           }
           if (match) {
             price.prices.binacePrice = match.price;
             if (!price.prices.binaceInitialPrice)
               price.prices.binaceInitialPrice = price.prices.binacePrice;
             price.prices.binacePriceDiff = (price.prices.binacePrice - price.prices.binaceInitialPrice).toFixed(8);
+            if (this.koinexData)
+            {              
+              price.prices.binacePriceDiffINR = price.prices.isBtcPrice ? (Number.parseFloat(price.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.BTC)) : (Number.parseFloat(price.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.TUSD));
+            }
             this.prices.push(price);
           }
         });
@@ -186,10 +192,10 @@ export class HomeComponent implements OnInit {
       if (!this.coinToDisplay.find(o => o.symbol === this.RequestedCoin.toUpperCase())) {
         this.coinToDisplay.push({ symbol: this.RequestedCoin.toUpperCase(), koinexInitial: undefined, binanceInitial: undefined });
         console.log(JSON.stringify(this.coinToDisplay));
-        this.prices = [];        
+        this.prices = [];
         this.setPrices('koinex');
         this.setPrices('binance');
-       
+
       }
 
       this.storage.setItem('homePageCoin', JSON.stringify(this.coinToDisplay));

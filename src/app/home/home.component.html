@@ -56,7 +56,7 @@
             <td *ngIf="price.prices.binacePrice">
                 <div style="float: right;">
 
-                    <label class="high" [matTooltip]="price.prices.binacePrice">{{price.prices.binacePrice}}</label>
+                    <label class="high">{{price.prices.binacePrice}}</label>
                     &nbsp;
                     <img *ngIf='price.prices.isBtcPrice' src="../../assets/btc.png">
                     <img *ngIf='!price.prices.isBtcPrice' src="../../assets/usdt.png">
@@ -67,7 +67,8 @@
 
             </td>
             <td>
-                <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}">{{price.prices.binacePriceDiff}}</label>
+                <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}" 
+                [matTooltip]="'INR: '+ price.prices.binacePriceDiffINR">{{price.prices.binacePriceDiff}}</label>
             </td>
         </tr>
         <tr *ngIf='poloniexData'>
