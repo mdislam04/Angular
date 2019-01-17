@@ -6,15 +6,15 @@
         </td>
         <td>
             <input size="3" type='text' [(ngModel)]='RequestedCoin' (blur)='addCoin();' matInput [formControl]="myControl"
-            [matAutocomplete]="auto"/>
+                [matAutocomplete]="auto" />
 
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
-                    </mat-option>
-                </mat-autocomplete>
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
         </td>
-        
+
         <td>Refresh Interval (in seconds)</td>
         <td colspan=3 align="left">
             <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
@@ -25,7 +25,7 @@
             Updated on : {{lastUpdated}}
         </td>
         <td>Timer :
-                <countdown-timer [start]="timer"></countdown-timer>
+            <countdown-timer [start]="timer"></countdown-timer>
         </td>
     </tr>
 </table>
@@ -54,11 +54,18 @@
             <td>
                 <label class="high" [ngClass]="{'low':price.prices.koinexPriceDiff < 0}">{{price.prices.koinexPriceDiff}}</label>
             </td>
-            <td>
-                <label class="high"  [matTooltip]="price.prices.binacePrice">{{price.prices.binacePrice | formateNumber}}</label>
-                <img *ngIf='price.prices.isBtcPrice' src="../../assets/btc.png">
-                <img *ngIf='!price.prices.isBtcPrice' src="../../assets/usdt.png">
-                
+            <td *ngIf="price.prices.binacePrice">
+                <div style="float: right;">
+
+                    <label class="high" [matTooltip]="price.prices.binacePrice">{{price.prices.binacePrice}}</label>
+                    &nbsp;
+                    <img *ngIf='price.prices.isBtcPrice' src="../../assets/btc.png">
+                    <img *ngIf='!price.prices.isBtcPrice' src="../../assets/usdt.png">
+
+
+                </div>
+
+
             </td>
             <td>
                 <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}">{{price.prices.binacePriceDiff}}</label>
@@ -68,11 +75,11 @@
             <td>
 
             </td>
-                <td>
-                    <label class="label">BCN</label>
-                </td>                
-                <td colspan="5"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
-            </tr>
+            <td>
+                <label class="label">BCN</label>
+            </td>
+            <td colspan="5"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
+        </tr>
     </thead>
 </table>
 

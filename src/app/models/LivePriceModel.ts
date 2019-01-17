@@ -11,7 +11,7 @@ export class LivePriceDetail {
     binaceInitialPrice:number;
     poloniexInitialPrice:number;
     koinexPriceDiff:number;
-    binacePriceDiff:number;
+    binacePriceDiff:string;
     poloniexPriceDiff:number;
     isBtcPrice:boolean;
 

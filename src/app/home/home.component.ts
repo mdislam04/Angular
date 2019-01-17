@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit {
                 k.prices.binaceInitialPrice = matchCoin.binanceInitial || k.prices.binacePrice;
                 matchCoin.binanceInitial = k.prices.binaceInitialPrice;
               }
-              k.prices.binacePriceDiff = Number.parseFloat((k.prices.binacePrice - k.prices.binaceInitialPrice).toFixed(8));
+              k.prices.binacePriceDiff = (k.prices.binacePrice - k.prices.binaceInitialPrice).toFixed(8);
             }
 
           });
@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
             price.prices.binacePrice = match.price;
             if (!price.prices.binaceInitialPrice)
               price.prices.binaceInitialPrice = price.prices.binacePrice;
-            price.prices.binacePriceDiff = Number.parseFloat((price.prices.binacePrice - price.prices.binaceInitialPrice).toFixed(8));
+            price.prices.binacePriceDiff = (price.prices.binacePrice - price.prices.binaceInitialPrice).toFixed(8);
             this.prices.push(price);
           }
         });
