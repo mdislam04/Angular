@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   myControl = new FormControl();
-  options: string[] = ["BTC", "ETH", "LTC", "XRP", "OMG", "REQ", "ZRX", "GNT", "BAT", "AE", "TRX", "XLM", "NEO", "GAS", "XRB", "NCASH", "EOS", "CMT", "ONT", "ZIL", "IOST", "ACT", "ZCO", "SNT", "POLY", "ELF", "REP"];
+  options: string[] = ["BTC", "ETH", "LTC", "XRP", "OMG", "REQ", "ZRX", "GNT", "BAT", "AE", "TRX", "XLM", "NEO", "GAS", "XRB", "NCASH", "EOS", "CMT", "ONT", "ZIL", "IOST", "ACT", "ZCO", "SNT", "POLY", "ELF", "REP"].sort();
   filteredOptions: Observable<string[]>;
   storage: any;
   coinToDisplayMaster: any;
