@@ -4,14 +4,14 @@
             Coin Symbol :
         </td>
         <td>
-            <input size="3" type='text' [(ngModel)]='RequestedCoin' (blur)='addCoin();' matInput [formControl]="myControl"
+            <input size="3" type='text' [(ngModel)]='RequestedCoin' matInput [formControl]="myControl"
                 [matAutocomplete]="auto" />
-
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                     {{option}}
                 </mat-option>
             </mat-autocomplete>
+            <button class="btn btn-danger" (click)='addCoin()'>+</button>
         </td>
 
         <td>Refresh Interval (in seconds)</td>
