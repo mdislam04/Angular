@@ -12,6 +12,7 @@ export class DataService {
   proxyURL = 'https://cors-anywhere.herokuapp.com';
   requestURL = 'https://api.binance.com/api/v3/ticker/price';
   binanaceUrl = this.proxyURL + '/' + this.requestURL;
+  alertFunctionUrl = "https://cryptopricehistory.azurewebsites.net/api/setNotificationTrigger";
 
   public GetBinanceTicker(): Observable<any> {
 
@@ -57,6 +58,11 @@ export class DataService {
       'Accept': 'application/json;odata=nometadata'
     });
     return this.http.get(url,{ headers: headers});
+  }
+
+  public updateAlertTrigger(data: any): Observable<any> {
+
+    return this.http.post(this.alertFunctionUrl, data);
   }
 
 }

@@ -1,0 +1,36 @@
+<table class="cell">
+    <tr>
+        <td style="margin-left: 30px;">
+            <input placeholder="Add coin" type='text' [(ngModel)]='RequestedCoin' (blur)='addCoin();' />
+            &nbsp;&nbsp;
+            <button class="btn btn-danger" (click)='setAlert()'>Set Alert</button>     
+        </td>
+        
+        
+    </tr>
+</table>
+
+<table *ngIf='coinToTrack' class="table1">
+    <thead>
+      <tr>
+        <th class="volume">X</th>
+        <th class="volume">Coin</th>
+        <th class="volume">Koinex Low</th>
+        <th class="volume">Koinex High</th>
+        <th class="volume">Binance Low</th>
+        <th class="volume">Binance High </th>
+
+      </tr>
+    </thead>
+    <tr *ngFor='let coin of coinToTrack;let i = index'>
+        <td>
+            <button width="20px" class="btn1" (click)='removeCoin(coin.symbol, i)'>X</button>
+        </td>
+      <td class="high">{{coin.symbol}}</td>
+      <td><input size="6" type='text' [(ngModel)]='coin.koinexLow' /></td>
+      <td><input size="6" type='text' [(ngModel)]='coin.koinexHigh' /></td>
+      <td><input size="6" type='text' [(ngModel)]='coin.binanceLow' /></td>
+      <td><input size="6" type='text' [(ngModel)]='coin.binanceHigh' /></td>
+    </tr>
+  </table>
+  <label class="volume">{{message}}</label>

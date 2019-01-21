@@ -22,6 +22,7 @@ import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinex
 import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { NotificationComponent } from './notification/notificationmanagement.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
     PriceHistoryComponent,
     KoinexPriceHistoryComponentSortable,
     BinanacePriceHistoryComponent,
-    KoinexPriceHistoryComponent
+    KoinexPriceHistoryComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

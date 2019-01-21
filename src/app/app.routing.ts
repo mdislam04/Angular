@@ -7,6 +7,7 @@ import { BinanacePriceHistoryComponent } from './binance/binanacepricehistory.co
 import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinexpricehistory.componentSortable';
 import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
 import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
+import { NotificationComponent } from './notification/notificationmanagement.component';
 
 const appRoutes: Routes = [
     {
@@ -41,6 +42,10 @@ const appRoutes: Routes = [
     {
         path: 'binancepricehistory',
         component:BinanacePriceHistoryComponent     
+    },
+    {
+        path: 'notification',
+        component:NotificationComponent     
     }
 ];
 
