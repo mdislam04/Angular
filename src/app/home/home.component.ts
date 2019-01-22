@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private service: DataService, private titleService: Title,
     private alertService: AlertService) {
-    this.storage = sessionStorage;
+    this.storage =  localStorage;
 
   }
 
