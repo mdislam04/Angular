@@ -60,6 +60,13 @@ export class DataService {
     return this.http.get(url,{ headers: headers});
   }
 
+  public getNotificationTriggers(url: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Accept': 'application/json;odata=nometadata'
+    });
+    return this.http.get(url,{ headers: headers});
+  }
+
   public updateAlertTrigger(data: any): Observable<any> {
 
     return this.http.post(this.alertFunctionUrl, data);
