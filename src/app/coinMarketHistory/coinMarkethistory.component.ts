@@ -39,6 +39,13 @@ export class CoinMarkeHistoryComponent implements OnInit {
   priceHistoryMaster: any;
   priceHistory = <PriceHistory>{ coinMarketCap: [] };
 
+  public min_max = {
+    low: undefined,
+    high: undefined,
+    lowTime: undefined,
+    highTime: undefined
+  };
+
 
 
   constructor(private service: DataService, private pagerService: PagerService,
@@ -185,12 +192,26 @@ export class CoinMarkeHistoryComponent implements OnInit {
   }
 
   showPriceHistory(symbol) {
+
+       
     this.priceHistory.coinMarketCap = [];
     this.priceHistoryMaster.forEach(coin => {
       let tk = <Token>{ price: coin[symbol], symbol: symbol, time: coin.time };
       this.priceHistory.coinMarketCap.push(tk);
       this.priceHistory.coinMarketCap;
     });
+
+    var filterCoin = this.priceHistoryMaster.map(function (item) {
+      return item[symbol];
+    });
+
+    this.min_max.high = Math.max(...filterCoin);
+    this.min_max.low =  Math.min(...filterCoin);
+    this.min_max.highTime = this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.high).time;
+    this.min_max.lowTime = this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.low).time;
+    console.log(JSON.stringify(this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.high)));
+    
+    
 
   }
 
@@ -201,8 +222,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
     url = url + authToken + tableFilter;
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
-        this.priceHistoryMaster = data.value;
-
+        this.priceHistoryMaster = data.value;        
       });
   }
 

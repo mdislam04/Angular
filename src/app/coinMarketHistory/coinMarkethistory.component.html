@@ -23,7 +23,7 @@
           *ngFor="let page of pagingData;let i = index" data-toggle="tooltip" data-placement="top" [title]=page.Name>
           <a class="page-link">{{i+1}}</a></li>
         <li class="page-item" [ngClass]="{'page-item disabled':!isNextEnabled}">
-          <a class="page-link"  (click)='updatePaging("next")' aria-label="Next">
+          <a class="page-link" (click)='updatePaging("next")' aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
@@ -88,6 +88,20 @@
           <h4 class="modal-title">{{priceHistory.coinMarketCap[0].symbol}} - Price History - {{this.dateTime | date}}</h4>
         </div>
         <div class="modal-body" style=" overflow: scroll;height:400px;">
+          <table class="table table-light">
+            <tr>
+              <td><strong>24 Hr High</strong></td>
+              <td><strong>Time</strong></td>
+              <td><strong>24 Hr Low<</strong>/td>
+              <td><strong>Time</strong></td>
+            </tr>
+            <tr>
+              <td class="high24">{{min_max.high | formateNumber}}</td>
+              <td>{{min_max.highTime}}</td>
+              <td class="low24">{{min_max.low | formateNumber}}</td>
+              <td>{{min_max.lowTime}}</td>
+            </tr>
+          </table>
 
           <table class="table table-dark">
             <thead>

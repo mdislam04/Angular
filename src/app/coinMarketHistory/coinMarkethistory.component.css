@@ -1,35 +1,47 @@
 .label {
     color: rgba(255, 255, 0, 0.555);
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
 }
 
 .high {
     color: rgb(80, 133, 10);
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bolder;
-    line-height: 40px;
+    line-height: 30px;
 }
 
 .low {
     color: rgb(165, 11, 11);
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bolder;
     line-height: 40px;
 }
 
 .highper {
     color: rgb(80, 133, 10);
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 30px;
 }
 
 .lowper {
     color: rgb(165, 11, 11);
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 30px;
+}
+
+.high24 {
+    color: rgb(80, 133, 10);
+    font-size: 16px;
+    font-weight: bold;    
+}
+
+.low24 {
+    color: rgb(165, 11, 11);
+    font-size: 16px;
+    font-weight: bold;    
 }
 
 table1 {
