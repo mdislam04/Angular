@@ -195,7 +195,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
 
        
     this.priceHistory.coinMarketCap = [];
-    this.priceHistoryMaster.reverse().forEach(coin => {
+    this.priceHistoryMaster.forEach(coin => {
       let tk = <Token>{ price: coin[symbol], symbol: symbol, time: coin.time };
       this.priceHistory.coinMarketCap.push(tk);
       this.priceHistory.coinMarketCap;
@@ -222,7 +222,8 @@ export class CoinMarkeHistoryComponent implements OnInit {
     url = url + authToken + tableFilter;
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
-        this.priceHistoryMaster = data.value;        
+        this.priceHistoryMaster = data.value;     
+        this.priceHistoryMaster.reverse();   
       });
   }
 
