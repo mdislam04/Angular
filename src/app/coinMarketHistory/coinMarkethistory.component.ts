@@ -43,7 +43,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
     low: undefined,
     high: undefined,
     lowTime: undefined,
-    highTime: undefined
+    highTime: undefined 
   };
 
 
@@ -195,7 +195,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
 
        
     this.priceHistory.coinMarketCap = [];
-    this.priceHistoryMaster.forEach(coin => {
+    this.priceHistoryMaster.reverse().forEach(coin => {
       let tk = <Token>{ price: coin[symbol], symbol: symbol, time: coin.time };
       this.priceHistory.coinMarketCap.push(tk);
       this.priceHistory.coinMarketCap;
@@ -209,7 +209,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
     this.min_max.low =  Math.min(...filterCoin);
     this.min_max.highTime = this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.high).time;
     this.min_max.lowTime = this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.low).time;
-    console.log(JSON.stringify(this.priceHistory.coinMarketCap.find(c => c.price == this.min_max.high)));
+    
     
     
 
