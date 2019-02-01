@@ -19,11 +19,13 @@ export class CoinMarketLiveComponent implements OnInit {
   inetrvalId: any;
   priceHistoryinetrvalId: any;
   refreshInterval: number = 10;
+  refreshIntervalMaster: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
   minutes: number = 10;
   priceHistoryMaster = <PriceHistory>{ coinMarketCap: [] };
   priceHistory = <PriceHistory>{ coinMarketCap: [] };
+  timerId: any;
   constructor(private service: DataService) {
     this.storage = localStorage;
   }
@@ -34,20 +36,52 @@ export class CoinMarketLiveComponent implements OnInit {
       this.coinToDisplay = JSON.parse(this.storage.getItem('coinToDisplay'));
     else
       this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
+
+    if (this.storage.getItem("cmHistory")) {
+      this.priceHistoryMaster.coinMarketCap = JSON.parse(this.storage.getItem("cmHistory"));
+    }
+
     this.inetrvalId = setInterval(() => this.getCoinMarketData(), this.refreshInterval * 1000);
+    this.timerId = setInterval(() => this.updateCounter(), 1000);
     this.priceHistoryinetrvalId = setInterval(() => this.storePriceHistory(), this.minutes * 1000 * 60);
 
+  }
+  stopCounter() {    
+    if (this.inetrvalId) {
+      clearInterval(this.inetrvalId);
+    }
 
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+  }
 
+  updateCounter() {
+    if (this.refreshInterval > 0)
+      this.refreshInterval--;
+    else
+      this.refreshInterval = this.refreshIntervalMaster;
+  }
+
+  clearHistory() {
+    this.priceHistoryMaster.coinMarketCap = [];
+    this.storage.removeItem("cmHistory")
+  }
+
+  resetHistoryCounter() {
+    if (this.priceHistoryinetrvalId) {
+      clearInterval(this.priceHistoryinetrvalId);
+    }
+
+    this.priceHistoryinetrvalId = setInterval(() => this.storePriceHistory(), this.minutes * 1000 * 60);
   }
 
   showPriceHistory(symbol) {
     this.priceHistory.coinMarketCap = this.priceHistoryMaster.coinMarketCap.filter(p => p.symbol === symbol);
+    this.priceHistory.coinMarketCap.reverse();
   }
 
   private storePriceHistory() {
-
-
     var d = new Date();
     var time = d.toDateString() + ' ' + d.toLocaleTimeString();
     var current = Object.values(this.coinData.data);
@@ -56,6 +90,7 @@ export class CoinMarketLiveComponent implements OnInit {
       if (match) {
         let tk = <Token>{ price: match.quotes.USD.price, symbol: match.symbol, time: time };
         this.priceHistoryMaster.coinMarketCap.push(tk);
+        this.storage.setItem("cmHistory", JSON.stringify(this.priceHistoryMaster.coinMarketCap));
 
       }
 
@@ -69,12 +104,14 @@ export class CoinMarketLiveComponent implements OnInit {
     if (this.priceHistoryinetrvalId) {
       clearInterval(this.priceHistoryinetrvalId);
     }
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
   }
 
   public restart() {
-    if (this.inetrvalId) {
-      clearInterval(this.inetrvalId);
-    }
+    this.refreshIntervalMaster = this.refreshInterval;
+    this.timerId = setInterval(() => this.updateCounter(), 1000);
 
     this.inetrvalId = setInterval(() => this.getCoinMarketData(), this.refreshInterval * 1000);
   }
@@ -117,7 +154,7 @@ export class CoinMarketLiveComponent implements OnInit {
 
         // Set Coin to display
         this.viewData = [];
-        console.log(this.coinToDisplay);
+
         this.coinToDisplay.sort().forEach(coin => {
           var match = current.find(o => o.symbol == coin);
           this.viewData.push(match);
@@ -125,13 +162,7 @@ export class CoinMarketLiveComponent implements OnInit {
 
         this.coinDataCopy = data;
         var d = new Date();
-        this.lastUpdated = d.toDateString() + ' ' + d.toLocaleTimeString();
-
-
-
-
-
-
+        this.lastUpdated = d.toLocaleTimeString();
       }
     );
   }

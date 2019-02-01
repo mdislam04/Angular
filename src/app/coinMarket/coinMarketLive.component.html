@@ -1,21 +1,27 @@
 <table class="cell">
-    <tr>
-        <td>
-            Coin Symbol :
-        </td>
-        <td>
-            <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
-        </td>
-        <td>Refresh Interval (in seconds)</td>
-        <td colspan=3 align="left">
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
-            <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
-        </td>
-        <td>
-           Updated on :  {{lastUpdated}}
-        </td>
-      </tr>
+  <tr>
+    <td>
+      Coin Symbol :
+    </td>
+    <td>
+      <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
+    </td>
+    <td>Refresh Interval (in seconds)</td>
+    <td colspan=3 align="left">
+      <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
+      <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' (click)='stopCounter()' />
+      <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
+    </td>
+    <td>
+      Updated on : {{lastUpdated}}
+    </td>    
+    <td>
+      <input size="1" type='text' [(ngModel)]='minutes' placeholder="history refresh interval" (change)='resetHistoryCounter();' />
+    </td>
+    <td>
+      <button matTooltip="Clear history price" class="btn btn-danger rounded-circle" width="20px" (click)='clearHistory()'>Clear</button>
+    </td>
+  </tr>
 </table>
 <table *ngIf='viewData' class="table table-striped table-dark">
   <thead>
@@ -52,7 +58,7 @@
       <label class="volume">{{coin.quotes.USD.volume_24h}}</label>
     </td>
   </tr>
-  </table>
+</table>
 
 
 
