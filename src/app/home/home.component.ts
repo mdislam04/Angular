@@ -222,10 +222,10 @@ export class HomeComponent implements OnInit {
       data => {
         this.koinexData = data;
         this.setPrices('koinex');
-        var koinexXRPprice = this.koinexData.prices.inr['XRP'];
+        var koinexXRPprice = this.koinexData.prices.inr['XRP'] + ' - '+this.koinexData.prices.inr['ETH']+' - '+this.koinexData.prices.inr['LTC'];
         if (this.binanceData) {
           var coin = this.binanceData.find(p => p.symbol === 'XRPUSDT');
-          var newTitle = parseFloat(coin.price).toFixed(5) + ' | ' + koinexXRPprice + ' - XRP';
+          var newTitle = parseFloat(coin.price).toFixed(5) + ' | ' + koinexXRPprice;
           this.titleService.setTitle(newTitle);
 
         }
