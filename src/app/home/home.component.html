@@ -20,6 +20,11 @@
             <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
             <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
         </td>
+
+        <td>
+            Change Title :  <input type="checkbox" [(ngModel)]='titleUpdate' (change)='toggleTitleTimer()'/>
+        </td>
+
         <td>
             Updated on : {{lastUpdated}}
         </td>

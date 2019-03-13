@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private service: DataService, private titleService: Title,
     private alertService: AlertService) {
-    this.storage =  localStorage;
+    this.storage = localStorage;
 
   }
 
@@ -34,7 +34,9 @@ export class HomeComponent implements OnInit {
   i = 0;
   inetrvalId: any;
   inetrvalId1: any;
+  intervalIdTitle: any;
   refreshInterval: number = 10;
+  titleRefreshInterval: number = 4;
   RequestedCoin: string;
   lastUpdated: string;
   alertCoin: string;
@@ -42,6 +44,8 @@ export class HomeComponent implements OnInit {
   isAlertOn: boolean;
   isHighAlert: boolean;
   isBinaceAlertSet: boolean = true;
+  titleUpdate: boolean = true;
+  titleCoinIndex: number = 0
 
   //
   alertTrigger: AlertTiggers = new AlertTiggers();
@@ -82,6 +86,10 @@ export class HomeComponent implements OnInit {
     this.inetrvalId1 = setInterval(() => {
       this.setPoloniexData();
     }, 30000);
+
+    this.intervalIdTitle = setInterval(() => {
+      this.updateTitle();
+    }, this.titleRefreshInterval * 1000);
   }
 
   private _filter(value: string): string[] {
@@ -122,8 +130,7 @@ export class HomeComponent implements OnInit {
                 matchCoin.binanceInitial = k.prices.binaceInitialPrice;
               }
               k.prices.binacePriceDiff = (k.prices.binacePrice - k.prices.binaceInitialPrice).toFixed(8);
-              if (this.koinexData)
-              {                
+              if (this.koinexData) {
                 k.prices.binacePriceDiffINR = k.prices.isBtcPrice ? (Number.parseFloat(k.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.BTC)) : (Number.parseFloat(k.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.TUSD));
               }
             }
@@ -144,8 +151,7 @@ export class HomeComponent implements OnInit {
             if (!price.prices.binaceInitialPrice)
               price.prices.binaceInitialPrice = price.prices.binacePrice;
             price.prices.binacePriceDiff = (price.prices.binacePrice - price.prices.binaceInitialPrice).toFixed(8);
-            if (this.koinexData)
-            {              
+            if (this.koinexData) {
               price.prices.binacePriceDiffINR = price.prices.isBtcPrice ? (Number.parseFloat(price.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.BTC)) : (Number.parseFloat(price.prices.binacePriceDiff) * Number.parseFloat(this.koinexData.prices.inr.TUSD));
             }
             this.prices.push(price);
@@ -221,13 +227,10 @@ export class HomeComponent implements OnInit {
     this.service.GetKoinexTicker().subscribe(
       data => {
         this.koinexData = data;
-        this.setPrices('koinex');
-        var koinexXRPprice = this.koinexData.prices.inr['XRP'] + ' - '+this.koinexData.prices.inr['ETH']+' - '+this.koinexData.prices.inr['LTC'];
-        if (this.binanceData) {
-          var coin = this.binanceData.find(p => p.symbol === 'XRPUSDT');
-          var newTitle = parseFloat(coin.price).toFixed(5) + ' | ' + koinexXRPprice;
-          this.titleService.setTitle(newTitle);
-
+        this.setPrices('koinex');        
+        if (!this.titleUpdate)
+        {          
+          this.updateTitle();
         }
         if (this.isAlertOn && this.alertTrigger.isKonexChecked) {
           this.alertService.koinexAlert(this.alertTrigger, this.koinexData);
@@ -238,6 +241,53 @@ export class HomeComponent implements OnInit {
         this.lastUpdated = d.toLocaleTimeString();
       }
     );
+  }
+
+
+  private updateTitle() {
+
+    var coin ='XRP';    
+    if (this.titleUpdate) {      
+      if (this.titleCoinIndex < this.coinToDisplay.length) {
+        coin = this.coinToDisplay[this.titleCoinIndex].symbol;
+        this.titleCoinIndex = this.titleCoinIndex + 1;
+      }
+      else
+      {
+        this.titleCoinIndex = 0;
+        coin = this.coinToDisplay[this.titleCoinIndex].symbol;
+        this.titleCoinIndex = this.titleCoinIndex + 1;
+      }
+
+    }
+
+      
+    if (this.binanceData && this.koinexData) {
+      var koinexPrice = this.koinexData.prices.inr[coin];                  
+      var bPrice = this.binanceData.find(p => p.symbol === coin+'USDT');
+      if(bPrice)
+      var newTitle = coin + ' - '+ parseFloat(bPrice.price).toFixed(5) + ' | ' + koinexPrice;
+      else
+      var newTitle = coin + ' - '+ this.binanceData.find(p => p.symbol === coin+'BTC').price + ' | ' + koinexPrice;
+      this.titleService.setTitle(newTitle);
+
+    }
+  }
+
+  private toggleTitleTimer()
+  {
+    if(!this.titleUpdate)
+    {
+      if (this.intervalIdTitle) {
+        clearInterval(this.intervalIdTitle);
+      }
+    }
+    else
+    {
+      this.intervalIdTitle = setInterval(() => {
+        this.updateTitle();
+      }, this.titleRefreshInterval * 1000);
+    }
   }
 
   private setPoloniexData() {
@@ -257,6 +307,10 @@ export class HomeComponent implements OnInit {
       clearInterval(this.inetrvalId1);
     }
   }
+  if (this.intervalIdTitle) {
+    clearInterval(this.intervalIdTitle);
+  }
+
   changeInterval(ops) {
     if (ops === "+")
       this.refreshInterval += 5;
