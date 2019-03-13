@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   inetrvalId1: any;
   intervalIdTitle: any;
   refreshInterval: number = 10;
-  titleRefreshInterval: number = 4;
+  titleRefreshInterval: number = 6;
   RequestedCoin: string;
   lastUpdated: string;
   alertCoin: string;
@@ -264,15 +264,15 @@ export class HomeComponent implements OnInit {
       var koinexPrice = this.koinexData.prices.inr[coin];
       var bPrice = this.binanceData.find(p => p.symbol === coin + 'USDT');
       if (bPrice)
-        var newTitle = coin + ' - ' + parseFloat(bPrice.price).toFixed(5) + ' | ' + koinexPrice;
+        var newTitle = coin + ' - ' + koinexPrice + ' | ' + parseFloat(bPrice.price).toFixed(5);
       else
-        var newTitle = coin + ' - ' + this.binanceData.find(p => p.symbol === coin + 'BTC').price + ' | ' + koinexPrice;
+        var newTitle = coin + ' - ' + koinexPrice + ' | ' + this.binanceData.find(p => p.symbol === coin + 'BTC').price;
       this.titleService.setTitle(newTitle);
 
     }
   }
 
-   toggleTitleTimer() {
+  toggleTitleTimer() {
     if (!this.titleUpdate) {
       if (this.intervalIdTitle) {
         clearInterval(this.intervalIdTitle);
