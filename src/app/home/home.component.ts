@@ -272,7 +272,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private toggleTitleTimer() {
+   toggleTitleTimer() {
     if (!this.titleUpdate) {
       if (this.intervalIdTitle) {
         clearInterval(this.intervalIdTitle);
