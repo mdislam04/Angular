@@ -227,9 +227,8 @@ export class HomeComponent implements OnInit {
     this.service.GetKoinexTicker().subscribe(
       data => {
         this.koinexData = data;
-        this.setPrices('koinex');        
-        if (!this.titleUpdate)
-        {          
+        this.setPrices('koinex');
+        if (!this.titleUpdate) {
           this.updateTitle();
         }
         if (this.isAlertOn && this.alertTrigger.isKonexChecked) {
@@ -246,14 +245,13 @@ export class HomeComponent implements OnInit {
 
   private updateTitle() {
 
-    var coin ='XRP';    
-    if (this.titleUpdate) {      
+    var coin = 'XRP';
+    if (this.titleUpdate) {
       if (this.titleCoinIndex < this.coinToDisplay.length) {
         coin = this.coinToDisplay[this.titleCoinIndex].symbol;
         this.titleCoinIndex = this.titleCoinIndex + 1;
       }
-      else
-      {
+      else {
         this.titleCoinIndex = 0;
         coin = this.coinToDisplay[this.titleCoinIndex].symbol;
         this.titleCoinIndex = this.titleCoinIndex + 1;
@@ -261,29 +259,26 @@ export class HomeComponent implements OnInit {
 
     }
 
-      
+
     if (this.binanceData && this.koinexData) {
-      var koinexPrice = this.koinexData.prices.inr[coin];                  
-      var bPrice = this.binanceData.find(p => p.symbol === coin+'USDT');
-      if(bPrice)
-      var newTitle = coin + ' - '+ parseFloat(bPrice.price).toFixed(5) + ' | ' + koinexPrice;
+      var koinexPrice = this.koinexData.prices.inr[coin];
+      var bPrice = this.binanceData.find(p => p.symbol === coin + 'USDT');
+      if (bPrice)
+        var newTitle = coin + ' - ' + parseFloat(bPrice.price).toFixed(5) + ' | ' + koinexPrice;
       else
-      var newTitle = coin + ' - '+ this.binanceData.find(p => p.symbol === coin+'BTC').price + ' | ' + koinexPrice;
+        var newTitle = coin + ' - ' + this.binanceData.find(p => p.symbol === coin + 'BTC').price + ' | ' + koinexPrice;
       this.titleService.setTitle(newTitle);
 
     }
   }
 
-  private toggleTitleTimer()
-  {
-    if(!this.titleUpdate)
-    {
+  private toggleTitleTimer() {
+    if (!this.titleUpdate) {
       if (this.intervalIdTitle) {
         clearInterval(this.intervalIdTitle);
       }
     }
-    else
-    {
+    else {
       this.intervalIdTitle = setInterval(() => {
         this.updateTitle();
       }, this.titleRefreshInterval * 1000);
@@ -306,9 +301,10 @@ export class HomeComponent implements OnInit {
     if (this.inetrvalId1) {
       clearInterval(this.inetrvalId1);
     }
-  }
-  if (this.intervalIdTitle) {
-    clearInterval(this.intervalIdTitle);
+
+    if (this.intervalIdTitle) {
+      clearInterval(this.intervalIdTitle);
+    }
   }
 
   changeInterval(ops) {
