@@ -58,7 +58,7 @@ export class KoinexPriceHistoryComponentSortable implements OnInit {
   getPriceDetails() {
     this.spinner.show();
     this.priceHistory1=[];
-    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rl&se=2019-03-31T13:07:07Z&st=2019-01-07T05:07:07Z&spr=https,http&sig=ujyQjO13AcWRMCFlb9a5PRPWAhddfvI76eJGSGyymOc%3D';
+    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-07-31T15:49:54Z&st=2019-04-01T07:49:54Z&spr=https&sig=kdyUoXqbjGoBU5ITRAP7ZGXihCNOYLOJ2eQF4u8v4Nk%3D'';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/koinexPriceHistory()?';
     var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
     url = url + authToken + tableFilter;
