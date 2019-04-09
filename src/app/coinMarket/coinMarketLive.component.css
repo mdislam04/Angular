@@ -1,33 +1,33 @@
 .label {
     color: rgba(255, 255, 0, 0.555);
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
 }
 
 .high {
     color: rgb(80, 133, 10);
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bolder;
-    line-height: 40px;
+    line-height: 30px;
 }
 
 .low {
     color: rgb(165, 11, 11);
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bolder;
     line-height: 40px;
 }
 
 .highper {
     color: rgb(80, 133, 10);
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 30px;
 }
 
 .lowper {
     color: rgb(165, 11, 11);
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 30px;
 }
@@ -44,7 +44,7 @@ td1
 
 .volume{
 color: ghostwhite;
-font-size: 30px;
+font-size: 14px;
     font-weight: bold;
     
 }

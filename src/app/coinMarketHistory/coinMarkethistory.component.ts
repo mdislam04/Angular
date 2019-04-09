@@ -216,7 +216,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
   }
 
   getPriceDetails() {
-    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-07-31T15:49:54Z&st=2019-04-01T07:49:54Z&spr=https&sig=kdyUoXqbjGoBU5ITRAP7ZGXihCNOYLOJ2eQF4u8v4Nk%3D'';
+    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-07-31T15:49:54Z&st=2019-04-01T07:49:54Z&spr=https&sig=kdyUoXqbjGoBU5ITRAP7ZGXihCNOYLOJ2eQF4u8v4Nk%3D';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/priceHistory()?';
     var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
     url = url + authToken + tableFilter;
