@@ -83,7 +83,7 @@ export class CoinMarketLiveComponent implements OnInit {
 
   private storePriceHistory() {
     var d = new Date();
-    var time = d.toLocaleTimeString();
+    var time = d.toLocaleDateString()+' '+d.toLocaleTimeString();
     var current = Object.values(this.coinData.data);
     this.coinToDisplay.sort().forEach(coin => {
       var match = current.find(o => o.symbol == coin);
