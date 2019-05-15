@@ -19,6 +19,7 @@ export class CoinMarketLiveComponent implements OnInit {
   inetrvalId: any;
   priceHistoryinetrvalId: any;
   refreshInterval: number = 10;
+  INRToUSD:number = 70;
   refreshIntervalMaster: number = 10;
   RequestedCoin: string;
   lastUpdated: string;

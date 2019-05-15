@@ -6,11 +6,14 @@
     <td>
       <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
     </td>
-    <td>Refresh Interval (in seconds)</td>
+    <td>Refresh Interval</td>
     <td colspan=3 align="left">
       <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
       <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' (click)='stopCounter()' />
       <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
+    </td>
+    <td>
+      USD to INR: <input size="1" type='text' [(ngModel)]='INRToUSD' />
     </td>
     <td>
       Updated on : {{lastUpdated}}
@@ -44,7 +47,8 @@
       <label class="label" data-toggle="modal" data-target="#myModal" (click)='showPriceHistory(coin.symbol);'>{{coin.symbol}}</label>
     </td>
     <td>
-      <label id="{{coin.name}}" class="high">{{coin.quotes.USD.price | formateNumber:coin.symbol}}</label>
+      <label id="{{coin.name}}" class="high"
+      [matTooltip]="'INR: '+ coin.quotes.USD.price * INRToUSD">{{coin.quotes.USD.price | formateNumber:coin.symbol}}</label>
     </td>
     <td>
       <label class="highper" [ngClass]="{'lowper':coin.quotes.USD.percent_change_24h < 0}">{{coin.quotes.USD.percent_change_24h}}%</label>
