@@ -32,7 +32,8 @@
       Market Cap : 
       <label 
       [matTooltip]="totalCoinMarketCapData.data.quote.USD.total_market_cap | numberToText">{{totalCoinMarketCapData.data.quote.USD.total_market_cap | currency}}</label>
-      &nbsp;
+      || {{totalCoinMarketCapData.data.btc_dominance | formateNumber:'BTC'}}%
+      
       <img src="../../assets/refresh.png" (click)="gettotalMarketCapData();" style="cursor: pointer"/>
     </td> 
   </tr>
