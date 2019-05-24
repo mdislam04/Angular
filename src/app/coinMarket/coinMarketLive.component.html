@@ -1,23 +1,21 @@
 <table class="cell">
   <tr>
     <td>
-      Coin Symbol :
+      Coin Symbol : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
     </td>
-    <td>
-      <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
-    </td>
-    <td>Refresh Interval</td>
+   
+   
     <td colspan=3 align="left">
+        Refresh Interval: 
       <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
       <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' (click)='stopCounter()' />
       <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
     </td>
-    <td>
-      USD to INR: <input size="1" type='text' [(ngModel)]='INRToUSD' />
-    </td>
+    
     <td>
       Updated on : {{lastUpdated}}
     </td>    
+   
     <td>
       <span>History price refresh interval: </span>
       <input size="1" type='text' [(ngModel)]='minutes' placeholder="history refresh interval" (change)='resetHistoryCounter();' />
@@ -25,6 +23,18 @@
     <td>
       <button matTooltip="Clear history price" class="btn btn-danger rounded-circle" width="20px" (click)='clearHistory()'>Clear</button>
     </td>
+  </tr>
+  <tr>
+      <td colspan="3">
+          USD to INR: &nbsp;&nbsp;&nbsp;<input size="1" type='text' [(ngModel)]='INRToUSD' />
+        </td>
+    <td *ngIf='totalCoinMarketCapData' colspan="4" align="right">
+      Market Cap : 
+      <label 
+      [matTooltip]="totalCoinMarketCapData.data.quote.USD.total_market_cap | numberToText">{{totalCoinMarketCapData.data.quote.USD.total_market_cap | currency}}</label>
+      &nbsp;
+      <img src="../../assets/refresh.png" (click)="gettotalMarketCapData();" style="cursor: pointer"/>
+    </td> 
   </tr>
 </table>
 <table *ngIf='viewData' class="table table-striped table-dark">

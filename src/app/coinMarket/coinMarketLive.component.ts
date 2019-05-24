@@ -4,6 +4,7 @@ import { CoinMarket, Coin } from '../models/coinmarket';
 import { PriceHistory, Token } from '../models/Token';
 
 
+
 @Component({
   selector: 'app-coinMarketLive',
   templateUrl: './coinMarketLive.component.html',
@@ -23,10 +24,11 @@ export class CoinMarketLiveComponent implements OnInit {
   refreshIntervalMaster: number = 10;
   RequestedCoin: string;
   lastUpdated: string;
-  minutes: number = 10;
+  minutes: number = 30;
   priceHistoryMaster = <PriceHistory>{ coinMarketCap: [] };
   priceHistory = <PriceHistory>{ coinMarketCap: [] };
   timerId: any;
+  totalCoinMarketCapData:any;
   constructor(private service: DataService) {
     this.storage = localStorage;
   }
@@ -45,6 +47,8 @@ export class CoinMarketLiveComponent implements OnInit {
     this.inetrvalId = setInterval(() => this.getCoinMarketData(), this.refreshInterval * 1000);
     this.timerId = setInterval(() => this.updateCounter(), 1000);
     this.priceHistoryinetrvalId = setInterval(() => this.storePriceHistory(), this.minutes * 1000 * 60);
+
+    this.gettotalMarketCapData();
 
   }
   stopCounter() {    
@@ -145,6 +149,15 @@ export class CoinMarketLiveComponent implements OnInit {
       this.getCoinMarketData();
     }
 
+  }
+
+  public gettotalMarketCapData() {
+    this.service.getTotalMarketCapData().subscribe(
+      data => {
+        this.totalCoinMarketCapData = data; 
+        console.log(this.totalCoinMarketCapData);     
+      }
+    );
   }
 
   public getCoinMarketData() {

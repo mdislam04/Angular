@@ -23,6 +23,8 @@ import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { NotificationComponent } from './notification/notificationmanagement.component';
+import { NumberToTextPipe } from './pipes/number-to-text.pipe';
+
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { NotificationComponent } from './notification/notificationmanagement.com
     HomeComponent,
     CoinMarketLiveComponent,
     NumberFormate,
+    NumberToTextPipe,
     HighlighterDirective,
     CoinMarkeHistoryComponent,
     PriceHistoryComponent,
@@ -38,6 +41,7 @@ import { NotificationComponent } from './notification/notificationmanagement.com
     BinanacePriceHistoryComponent,
     KoinexPriceHistoryComponent,
     NotificationComponent
+    
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
@@ -57,6 +61,7 @@ import { NotificationComponent } from './notification/notificationmanagement.com
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    
     CountdownTimerModule.forRoot()
   ],
 

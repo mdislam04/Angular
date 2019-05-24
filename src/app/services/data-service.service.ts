@@ -34,6 +34,12 @@ export class DataService {
     return this.http.get('https://api.coinmarketcap.com/v2/ticker/');
   }
 
+  public getTotalMarketCapData(): Observable<any> {
+
+   
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=a1cab950-642b-4b79-8f89-f96bc8fb4c18');
+  }
+
   public getCoinMarketDataHistoryList(marker: any, prefix:any): Observable<any> {
     var url = 'https://cryptofunctionstorage.blob.core.windows.net/pricehistory?restype=container&comp=list';
     if (marker)
