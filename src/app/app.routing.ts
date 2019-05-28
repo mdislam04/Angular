@@ -8,6 +8,7 @@ import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinex
 import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
 import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 import { NotificationComponent } from './notification/notificationmanagement.component';
+import { BitBNSComponent } from './bitbns/bitbns.component';
 
 const appRoutes: Routes = [
     {
@@ -46,6 +47,10 @@ const appRoutes: Routes = [
     {
         path: 'notification',
         component:NotificationComponent     
+    },
+    {
+        path: 'bitbns',
+        component:BitBNSComponent     
     }
 ];
 

@@ -24,6 +24,7 @@ import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { NotificationComponent } from './notification/notificationmanagement.component';
 import { NumberToTextPipe } from './pipes/number-to-text.pipe';
+import { BitBNSComponent } from './bitbns/bitbns.component';
 
 
 
@@ -40,7 +41,8 @@ import { NumberToTextPipe } from './pipes/number-to-text.pipe';
     KoinexPriceHistoryComponentSortable,
     BinanacePriceHistoryComponent,
     KoinexPriceHistoryComponent,
-    NotificationComponent
+    NotificationComponent,
+    BitBNSComponent
     
   ],
   imports: [

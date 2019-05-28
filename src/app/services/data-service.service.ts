@@ -34,6 +34,11 @@ export class DataService {
     return this.http.get('https://api.coinmarketcap.com/v2/ticker/');
   }
 
+  public getBitBnsData(): Observable<any> {
+
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://bitbns.com/order/getTickerWithVolume/');
+  }
+
   public getTotalMarketCapData(): Observable<any> {
 
    
