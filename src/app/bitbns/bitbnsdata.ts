@@ -3,5 +3,6 @@ export class BitBnsData {
     bitbnsPrice:string;
     binancePrice:string;
     isBtcPrice:boolean;
+    iselargeFont:boolean;
     
 }

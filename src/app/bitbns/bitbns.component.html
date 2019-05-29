@@ -1,7 +1,7 @@
 <table class="cell">
     <tr>
         <td>
-            Coin Symbol : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
+            Add Coin : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
         </td>
 
 
@@ -25,20 +25,23 @@
         <div class="container" style="margin: 0px 0px ">
             <div class="row">
                 <div class="col">
-                        <h4 style="color: rgb(221, 243, 26);"><b>{{d.coin}}</b></h4>
+                    <h4 style="color: rgb(221, 243, 26);"><b>{{d.coin}}</b></h4>
                 </div>
+                <a class="close" (click)='toggleClass(d.coin)'>A+</a>
                 <div class="col" align="right">
-                        <a  class="close" (click)='removeCoin(d.coin)'>X</a>
+                   
+                    <a class="close" (click)='removeCoin(d.coin)'>X</a>
                 </div>
             </div>
         </div>
-        <h1 style="color: white;"><b>{{d.bitbnsPrice}} </b>
+
+        <p class="large" [ngClass]="{'elarge':d.iselargeFont == true}">{{d.bitbnsPrice}}
             <span style="color: grey">|</span>
-            <b>{{d.binancePrice | formateNumber:d.isBtcPrice }}</b></h1>
+            {{d.binancePrice | formateNumber:d.coin:d.isBtcPrice }}</p>
     </div>
 
 </div>
 
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="timer">
-        <p style="font-size: 20px; color: white">Loading...</p>
-    </ngx-spinner>
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

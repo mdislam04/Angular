@@ -20,11 +20,11 @@ export class BitBNSComponent {
     viewData: BitBnsData[] = [];
     coinToDisplay: any;
     RequestedCoin: string;
-    bitBnsData:any;
+    bitBnsData: any;
     binanceData: any;
     timerId: any;
-    refreshInterval: number = 10;
-    refreshIntervalMaster: number = 10;
+    refreshInterval: number = 30;
+    refreshIntervalMaster: number = 30;
     lastUpdated: string;
 
     ngOnInit() {
@@ -34,46 +34,47 @@ export class BitBNSComponent {
         else
             this.coinToDisplay = ["BTC", "XRP", "OMG", "TRX", "ZRX"];
 
-            this.timerId = setInterval(() => this.updateCounter(), 1000);
+        this.timerId = setInterval(() => this.updateCounter(), 1000);
     }
 
     ngOnDestroy() {
-       
+
         if (this.timerId) {
-          clearInterval(this.timerId);
+            clearInterval(this.timerId);
         }
-      }
+    }
 
     updateCounter() {
         if (this.refreshInterval > 0)
-          this.refreshInterval--;
-        else
-        {
-          this.refreshInterval = this.refreshIntervalMaster;
-          this.getBitbnsPrices();
+            this.refreshInterval--;
+        else {
+            this.refreshInterval = this.refreshIntervalMaster;
+            this.getBitbnsPrices();
         }
-      }
+    }
 
-      stopCounter() {    
-           
+    stopCounter() {
+
         if (this.timerId) {
-          clearInterval(this.timerId);
+            clearInterval(this.timerId);
         }
-      }
+    }
 
-      public restart() {
+    public restart() {
         this.refreshIntervalMaster = this.refreshInterval;
         this.timerId = setInterval(() => this.updateCounter(), 1000);
-    
-       
-      }
+
+
+    }
+
+
 
     getBitbnsPrices() {
-       
+
         this.service.getBitBnsData().subscribe(
             data => {
                 this.bitBnsData = data;
-            
+
                 this.getBinancePrices();
 
             }
@@ -86,11 +87,24 @@ export class BitBNSComponent {
                 this.binanceData = data;
                 //
 
-                this.viewData = [];
-                this.coinToDisplay.forEach(coinObj => {
-                    if (this.bitBnsData[coinObj])
-                        this.viewData.push(<BitBnsData>{ coin: coinObj, bitbnsPrice: this.bitBnsData[coinObj].last_traded_price });
-                });
+                if (this.viewData.length == 0) {
+                    this.coinToDisplay.forEach(coinObj => {
+                        if (this.bitBnsData[coinObj])
+                            this.viewData.push(<BitBnsData>{ coin: coinObj, bitbnsPrice: this.bitBnsData[coinObj].last_traded_price });
+                    });
+                }
+                else {
+                    this.coinToDisplay.forEach(coinObj => {
+                        if (this.bitBnsData[coinObj]) {
+                            var match = this.viewData.find(b => b.coin === coinObj);
+                            if (match)
+                                match.bitbnsPrice = this.bitBnsData[coinObj].last_traded_price;
+                            else
+                                this.viewData.push(<BitBnsData>{ coin: coinObj, bitbnsPrice: this.bitBnsData[coinObj].last_traded_price });
+
+                        }
+                    });
+                }
 
                 ///
                 this.viewData.forEach(p => {
@@ -128,6 +142,12 @@ export class BitBNSComponent {
             this.getBitbnsPrices();
         }
 
+    }
+
+    toggleClass(coinPara) {
+
+        var match = this.viewData.find(b => b.coin === coinPara);
+        match.iselargeFont = true;
     }
 
 

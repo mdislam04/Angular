@@ -5,10 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NumberFormate implements PipeTransform {
 
-  transform(value: string, args?: any): string {
-    if(!value || args == true)
-    return value;
-    if (args && (args == 'BTC' || args == 'ETH'))
+  transform(value: string, args?: any, args1?: any): string {
+    if (!value)
+      return;
+    if (args1 && args1 == true)
+      return value;
+    else if (args && (args == 'BTC' || args == 'ETH'))
       return Math.round(parseFloat(value)).toString();
     else
       return parseFloat(value).toFixed(5);
