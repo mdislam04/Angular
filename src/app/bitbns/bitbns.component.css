@@ -6,7 +6,7 @@
     background-color: rgba(163, 175, 154, 0.425);
    
     margin: 10px 0px 10px 10px;
-
+width: 600px;
 
   }
   
@@ -16,7 +16,7 @@
   }
   
   /* Add some padding inside the card container */
-  .container1 {
+  .container {
     padding: 2px 16px;
     
   }

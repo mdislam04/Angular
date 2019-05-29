@@ -20,10 +20,11 @@ export class BitBNSComponent {
     viewData: BitBnsData[] = [];
     coinToDisplay: any;
     RequestedCoin: string;
+    bitBnsData:any;
     binanceData: any;
     timerId: any;
-    refreshInterval: number = 30;
-    refreshIntervalMaster: number = 30;
+    refreshInterval: number = 10;
+    refreshIntervalMaster: number = 10;
     lastUpdated: string;
 
     ngOnInit() {
@@ -71,11 +72,8 @@ export class BitBNSComponent {
        
         this.service.getBitBnsData().subscribe(
             data => {
-                this.viewData = [];
-                this.coinToDisplay.forEach(coinObj => {
-                    if (data[coinObj])
-                        this.viewData.push(<BitBnsData>{ coin: coinObj, bitbnsPrice: data[coinObj].last_traded_price });
-                });
+                this.bitBnsData = data;
+            
                 this.getBinancePrices();
 
             }
@@ -88,6 +86,13 @@ export class BitBNSComponent {
                 this.binanceData = data;
                 //
 
+                this.viewData = [];
+                this.coinToDisplay.forEach(coinObj => {
+                    if (this.bitBnsData[coinObj])
+                        this.viewData.push(<BitBnsData>{ coin: coinObj, bitbnsPrice: this.bitBnsData[coinObj].last_traded_price });
+                });
+
+                ///
                 this.viewData.forEach(p => {
                     var match = this.binanceData.find(b => b.symbol === p.coin + 'USDT');
                     if (!match) {
