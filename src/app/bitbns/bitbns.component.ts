@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { BitBnsData } from './bitbnsdata';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,6 +16,19 @@ export class BitBNSComponent {
     constructor(private service: DataService, private spinner: NgxSpinnerService) {
         this.getBitbnsPrices();
     }
+
+    @HostListener('window:focus', ['$event'])
+    onFocus(event: any): void {
+        this.timerId = setInterval(() => this.updateCounter(), 1000);
+        console.log('back in focus');
+    }
+
+    @HostListener('window:blur', ['$event'])
+    onBlur(event: any): void {
+        this.stopCounter();
+        console.log('lost focus');
+    }
+
 
     viewData: BitBnsData[] = [];
     coinToDisplay: any;
@@ -147,8 +160,13 @@ export class BitBNSComponent {
     toggleClass(coinPara) {
 
         var match = this.viewData.find(b => b.coin === coinPara);
-        match.iselargeFont = true;
+        if (match.iselargeFont)
+            match.iselargeFont = !match.iselargeFont;
+        else
+            match.iselargeFont = true;
     }
+
+
 
 
 }
