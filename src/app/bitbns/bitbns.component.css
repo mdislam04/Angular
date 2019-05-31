@@ -57,3 +57,24 @@
   font-weight: bolder;
   color: rgb(88, 228, 46);
 }
+
+.tb {
+  width: 10%;
+  background-color: rgba(43, 42, 42, 0.74);
+  color : #49ec18;
+  font-weight: bolder;
+	height:20px;
+	border:1px solid rgb(23, 49, 23);
+	padding:4px 8px;
+	margin-bottom:0px;
+}
+
+.tbcoin {
+  width: 15%;
+  background-color: rgba(194, 189, 189, 0.74);
+	
+	height:20px;
+	border:1px solid rgb(23, 49, 23);
+	padding:4px 8px;
+	margin-bottom:0px;
+}

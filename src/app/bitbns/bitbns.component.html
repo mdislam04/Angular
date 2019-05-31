@@ -1,13 +1,13 @@
 <table class="cell">
     <tr>
         <td>
-            Add Coin : <input size="3" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
+            Add Coin : <input size="3" class="tbcoin" type='text' [(ngModel)]='RequestedCoin' (change)='addCoin();' />
         </td>
 
 
         <td colspan=3 align="left">
             Refresh Interval:
-            <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' (click)='stopCounter()' />
+            <input size="1" class="tb" type='text' [(ngModel)]='refreshInterval' (change)='restart();' (click)='stopCounter()' />
         </td>
 
         <td>

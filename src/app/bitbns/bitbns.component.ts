@@ -151,8 +151,12 @@ export class BitBNSComponent {
         if (index > -1) {
             this.coinToDisplay.splice(index, 1);
             localStorage.setItem('bitbnsCoin', JSON.stringify(this.coinToDisplay));
-            this.spinner.show();
-            this.getBitbnsPrices();
+            
+        }
+        var vindex = this.viewData.findIndex(o => o.coin === coinPara);
+        if(vindex > -1)
+        {
+            this.viewData.splice(vindex, 1);
         }
 
     }
