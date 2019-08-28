@@ -264,9 +264,9 @@ export class HomeComponent implements OnInit {
       var koinexPrice = this.koinexData.prices.inr[coin];
       var bPrice = this.binanceData.find(p => p.symbol === coin + 'USDT');
       if (bPrice)
-        var newTitle = coin + ' - ' + koinexPrice + ' | ' + parseFloat(bPrice.price).toFixed(5);
+        var newTitle = coin + ' - '  + parseFloat(bPrice.price).toFixed(5);
       else
-        var newTitle = coin + ' - ' + koinexPrice + ' | ' + this.binanceData.find(p => p.symbol === coin + 'BTC').price;
+        var newTitle = coin + ' - ' + this.binanceData.find(p => p.symbol === coin + 'BTC').price;
       this.titleService.setTitle(newTitle);
 
     }
