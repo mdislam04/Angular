@@ -57,7 +57,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
     if (this.storage.getItem('coinToDisplay'))
       this.coinToDisplay = JSON.parse(this.storage.getItem('coinToDisplay'));
     else
-      this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
+      this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "BAT", "AE"];
     this.dateTime = new Date();
     this.getPriceHistoryEntryList();
     this.getPriceDetails();

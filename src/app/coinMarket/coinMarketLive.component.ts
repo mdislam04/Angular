@@ -38,7 +38,7 @@ export class CoinMarketLiveComponent implements OnInit {
     if (this.storage.getItem('coinToDisplay'))
       this.coinToDisplay = JSON.parse(this.storage.getItem('coinToDisplay'));
     else
-      this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "GNT", "BAT", "AE"];
+     this.coinToDisplay = ["BTC", "ETH", "XRP", "ZRX", "OMG", "BAT", "AE"];
 
     if (this.storage.getItem("cmHistory")) {
       this.priceHistoryMaster.coinMarketCap = JSON.parse(this.storage.getItem("cmHistory"));
