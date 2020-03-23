@@ -25,6 +25,7 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { NotificationComponent } from './notification/notificationmanagement.component';
 import { NumberToTextPipe } from './pipes/number-to-text.pipe';
 import { BitBNSComponent } from './bitbns/bitbns.component';
+import { MytvComponent, SafePipe } from './mytv/mytv.component';
 
 
 
@@ -42,7 +43,9 @@ import { BitBNSComponent } from './bitbns/bitbns.component';
     BinanacePriceHistoryComponent,
     KoinexPriceHistoryComponent,
     NotificationComponent,
-    BitBNSComponent
+    BitBNSComponent,
+    MytvComponent,
+    SafePipe
     
   ],
   imports: [

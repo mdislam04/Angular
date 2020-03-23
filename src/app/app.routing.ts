@@ -9,6 +9,7 @@ import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory
 import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 import { NotificationComponent } from './notification/notificationmanagement.component';
 import { BitBNSComponent } from './bitbns/bitbns.component';
+import { MytvComponent } from './mytv/mytv.component';
 
 const appRoutes: Routes = [
     {
@@ -51,6 +52,10 @@ const appRoutes: Routes = [
     {
         path: 'bitbns',
         component:BitBNSComponent     
+    },
+    {
+        path: 'mytv',
+        component:MytvComponent     
     }
 ];
 
