@@ -1,6 +1,7 @@
 import { Component, OnInit, PipeTransform, Pipe } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 
+
 @Pipe({ name: "safe" })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
@@ -8,7 +9,7 @@ export class SafePipe implements PipeTransform {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
-
+declare let $ : any;
 @Component({
   selector: "app-mytv",
   templateUrl: "./mytv.component.html",
@@ -21,6 +22,7 @@ export class MytvComponent implements OnInit {
   selectedChannel: any;
   chnName: any;
   chnUrl: any;
+  
   constructor() {
     this.storage = localStorage;
   }
