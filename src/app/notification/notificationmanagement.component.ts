@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -46,10 +47,10 @@ export class NotificationComponent {
     }
 
     getAlertTriggers() {        
-        var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-03-31T12:55:09Z&st=2019-08-02T04:55:09Z&spr=https,http&sig=S7Q8GcpHxGCAEYNJl5FdINNrlzh0%2BU%2F9UxL8RsTfpyU%3D';
+        //var authToken = 'sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:30:39Z&st=2020-03-31T16:30:39Z&spr=https&sig=5JvB34r9rlNALJlnIicllhUXKXF0cT5XoUiBJeDaAyk%3D';
         var url = 'https://cryptofunctionstorage.table.core.windows.net/notificationTrigger()?';
         
-        url = url + authToken;
+        url = url + environment.token;
         this.service.getNotificationTriggers(url).subscribe(
           data => {
               console.log(data.value);

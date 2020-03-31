@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-pricehistory',
@@ -117,10 +118,10 @@ export class KoinexPriceHistoryComponent implements OnInit {
 
   getPriceDetails() {
     this.spinner.show();
-    var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-03-31T12:55:09Z&st=2019-08-02T04:55:09Z&spr=https,http&sig=S7Q8GcpHxGCAEYNJl5FdINNrlzh0%2BU%2F9UxL8RsTfpyU%3D';
+    //var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-03-31T12:55:09Z&st=2019-08-02T04:55:09Z&spr=https,http&sig=S7Q8GcpHxGCAEYNJl5FdINNrlzh0%2BU%2F9UxL8RsTfpyU%3D';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/koinexPriceHistory()?';
     var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
-    url = url + authToken + tableFilter;
+    url = url + environment.token + tableFilter;
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
         this.priceHistory = data.value.reverse();

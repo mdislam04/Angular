@@ -5,6 +5,7 @@ import * as xml2js from 'xml2js';
 import { PagerService } from '../services/PagerService';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PriceHistory, Token } from '../models/Token';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-history',
@@ -219,7 +220,7 @@ export class CoinMarkeHistoryComponent implements OnInit {
     var authToken = 'sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-03-31T12:55:09Z&st=2019-08-02T04:55:09Z&spr=https,http&sig=S7Q8GcpHxGCAEYNJl5FdINNrlzh0%2BU%2F9UxL8RsTfpyU%3D';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/priceHistory()?';
     var tableFilter = "&$filter=FilterKey eq " + "'" + this.getFileNamePrefix() + "'";
-    url = url + authToken + tableFilter;
+    url = url + environment.token + tableFilter;
     this.service.getCoinMarketHistoryPriceDetail(url).subscribe(
       data => {
         this.priceHistoryMaster = data.value;     
