@@ -48,3 +48,21 @@
       
         
     }
+
+    .portcard {
+        border: yellow 1px solid;
+       padding-bottom: 20px;
+    }
+    .portHeader
+    {
+        background-color: seagreen;
+        color: white;
+        font-weight: bolder;
+    }
+    .port-card-header {
+        border: rgb(0, 255, 21) 1px solid;
+    }
+
+    .port-card-header button {
+       color: red;
+    }

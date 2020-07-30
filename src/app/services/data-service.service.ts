@@ -16,7 +16,7 @@ export class DataService {
 
   public GetBinanceTicker(): Observable<any> {
 
-    return this.http.get(this.binanaceUrl);
+    return this.http.get(this.requestURL);
   }
 
   public GetKoinexTicker(): Observable<any> {

@@ -1,180 +1,307 @@
 <table class="cell">
-    <tr>
-        <td>
-            Coin Symbol :
-        </td>
-        <td>
-            <input size="3" type='text' [(ngModel)]='RequestedCoin' matInput [formControl]="myControl"
-                [matAutocomplete]="auto" />
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option}}
-                </mat-option>
-            </mat-autocomplete>
-            <button class="btn btn-danger" (click)='addCoin()'>+</button>
-        </td>
+  <tr>
+    <td>
+      Coin Symbol :
+    </td>
+    <td>
+      <input
+        size="3"
+        type="text"
+        [(ngModel)]="RequestedCoin"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+      <button class="btn btn-danger" (click)="addCoin()">+</button>
+    </td>
 
-        <td>Refresh Interval (in seconds)</td>
-        <td colspan=3 align="left">
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("+")'>+5</button>
-            <input size="1" type='text' [(ngModel)]='refreshInterval' (change)='restart();' />
-            <button class="btn btn-danger rounded-circle" width="20px" (click)='changeInterval("-")'>-5</button>
-        </td>
+    <td>Refresh Interval (in seconds)</td>
+    <td colspan="3" align="left">
+      <button
+        class="btn btn-danger rounded-circle"
+        width="20px"
+        (click)="changeInterval('+')"
+      >
+        +5
+      </button>
+      <input
+        size="1"
+        type="text"
+        [(ngModel)]="refreshInterval"
+        (change)="restart()"
+      />
+      <button
+        class="btn btn-danger rounded-circle"
+        width="20px"
+        (click)="changeInterval('-')"
+      >
+        -5
+      </button>
+    </td>
 
-        <td>
-            Change Title :  <input type="checkbox" [(ngModel)]='titleUpdate' (change)='toggleTitleTimer()'/>
-        </td>
+    <td>
+      Change Title :
+      <input
+        type="checkbox"
+        [(ngModel)]="titleUpdate"
+        (change)="toggleTitleTimer()"
+      />
+    </td>
 
-        <td>
-            Updated on : {{lastUpdated}}
-        </td>
-        <td>Timer :
-            <countdown-timer [start]="timer"></countdown-timer>
-        </td>
-    </tr>
+    <td>Updated on : {{ lastUpdated }}</td>
+    <td>
+      Timer :
+      <countdown-timer [start]="timer"></countdown-timer>
+    </td>
+  </tr>
 </table>
 <br />
-<table *ngIf='koinexData' class="table1">
-    <thead>
-        <tr>
-            <th class="volume">Remove</th>
-            <th class="volume">Coin</th>
-            <th class="volume">Koinex Price</th>
-            <th class="volume">Koinex Change</th>
-            <th class="volume">Binance Price</th>
-            <th class="volume">Binance Change </th>
 
-        </tr>
-        <tr *ngFor='let price of prices;let i = index'>
-            <td>
-                <button width="20px" class="btn1" (click)='removeCoin(price.symbol, i)'>X</button>
-            </td>
-            <td>
-                <label class="label" data-toggle="modal" data-target="#myModal" (click)='opneAlertWindow("xrp");'>{{price.symbol}}</label>
-            </td>
-            <td>
-                <label class="high">{{price.prices.koinexPrice}}</label>
-            </td>
-            <td>
-                <label class="high" [ngClass]="{'low':price.prices.koinexPriceDiff < 0}">{{price.prices.koinexPriceDiff}}</label>
-            </td>
-            <td *ngIf="price.prices.binacePrice">
-                <div style="float: right;">
+<div class="accordion" id="accordionExample">
+  <div class="portcard">
+    <div class="port-card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button
+          class="btn btn-link"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseOne"
+          aria-expanded="true"
+          aria-controls="collapseOne"
+        >
+          Manage Portfolio >>>
+        </button>
+        
+     <span style="color: khaki;"> Total Portfolio : {{portfolioValue}} $</span> 
+      </h5>
+    </div>
 
-                    <label class="high">{{price.prices.binacePrice}}</label>
-                    &nbsp;
-                    <img *ngIf='price.prices.isBtcPrice' src="../../assets/btc.png">
-                    <img *ngIf='!price.prices.isBtcPrice' src="../../assets/usdt.png">
-
-
-                </div>
-
-
-            </td>
+    <div
+      id="collapseOne"
+      class="collapse show"
+      aria-labelledby="headingOne"
+      data-parent="#accordionExample"
+    >
+      <div class="card-body">
+        <table *ngIf="portfolioData">
+            <tr>
+                <th class="portHeader">Coin</th>
+                <th class="portHeader">Quantity</th>
+                <th class="portHeader">Clear</th>
+              </tr>
+          <tr *ngFor="let data of portfolioData; let i = index">
+            <td><input size="3" type="text" [(ngModel)]="data.coin" /></td>
+            <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
+            <td><button size="13" (click)="removeFromPortfolio(data.coin,i)">X</button></td>
+          </tr>
+          <tr>
+            <td><input size="3" type="text" value="USDT" /></td>
+            <td><input size="13" type="text" [(ngModel)]="usdtBalance" /></td>
+            
+          </tr>
+        
+          <tr>
             <td>
-                <label class="high" [ngClass]="{'low':price.prices.binacePriceDiff < 0}" 
-                [matTooltip]="'INR: '+ price.prices.binacePriceDiffINR">{{price.prices.binacePriceDiff}}</label>
+              <button
+                class="btn btn-danger"
+                width="50px"
+                (click)="addToPortfolio()"
+              >
+                Add more
+              </button>
             </td>
-        </tr>
-        <tr *ngIf='poloniexData'>
-            <td>
 
-            </td>
             <td>
-                <label class="label">BCN</label>
-            </td>
-            <td colspan="5"><label id="divBCN" class="high">{{poloniexData.BTC_BCN.last}}</label></td>
-        </tr>
-    </thead>
+                <button
+                  class="btn btn-danger"
+                  width="50px"
+                  (click)="updatePortfolio()"
+                >
+                 Update
+                </button>
+              </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table *ngIf="binanceData" class="table1">
+  <thead>
+    <tr>
+      <th class="volume">Remove</th>
+      <th class="volume">Coin</th>
+      <th class="volume">Binance Price</th>
+      <th class="volume">Binance Change</th>
+    </tr>
+    <tr *ngFor="let price of prices; let i = index">
+      <td>
+        <button width="20px" class="btn1" (click)="removeCoin(price.symbol, i)">
+          X
+        </button>
+      </td>
+      <td>
+        <label
+          class="label"
+          data-toggle="modal"
+          data-target="#myModal"
+          (click)="opneAlertWindow('xrp')"
+          >{{ price.symbol }}</label
+        >
+      </td>
+
+      <td *ngIf="price.prices.binacePrice">
+        <div style="float: right;">
+          <label class="high">{{ price.prices.binacePrice }}</label>
+          &nbsp;
+          <img *ngIf="price.prices.isBtcPrice" src="../../assets/btc.png" />
+          <img *ngIf="!price.prices.isBtcPrice" src="../../assets/usdt.png" />
+        </div>
+      </td>
+      <td>
+        <label
+          class="high"
+          [ngClass]="{ low: price.prices.binacePriceDiff < 0 }"
+          [matTooltip]="'INR: ' + price.prices.binacePriceDiffINR"
+          >{{ price.prices.binacePriceDiff }}</label
+        >
+      </td>
+    </tr>
+    <tr *ngIf="poloniexData">
+      <td></td>
+      <td>
+        <label class="label">BCN</label>
+      </td>
+      <td colspan="5">
+        <label id="divBCN" class="high">{{ poloniexData.BTC_BCN.last }}</label>
+      </td>
+    </tr>
+  </thead>
 </table>
-
-
 
 <!-- Alert Modal Window -->
 <div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Set Alert for - {{alertTrigger.coin}}</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row p-3 mb-2 bg-info text-white">
-                        <div class="col">
-                            <div class="checkbox">
-                                <label class="volume"><input type="checkbox" value="false" [(ngModel)]='alertTrigger.isKonexChecked'>Koinex</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="checkbox">
-                                <label class="volume"><input type="checkbox" value="true" [(ngModel)]='alertTrigger.isBinanceChecked'>Binance</label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-borderless">
-                        <tr>
-                            <td>
-                                Higer
-                            </td>
-                            <td>
-                                <input type='text' [(ngModel)]='alertTrigger.highPriceKoinex' />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                Higer
-                            </td>
-                            <td>
-                                <input type='text' [(ngModel)]='alertTrigger.highPriceBinance' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Current
-                            </td>
-                            <td>
-                                <strong>{{alertTrigger.currentPriceKoinex}}</strong>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                Current
-                            </td>
-                            <td>
-                                <strong>{{alertTrigger.currentPriceBinance | formateNumber}}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Lower
-                            </td>
-                            <td>
-                                <input type='text' [(ngModel)]='alertTrigger.lowPriceKoinex' />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>
-                                Lower
-                            </td>
-                            <td>
-                                <input type='text' [(ngModel)]='alertTrigger.lowPriceBinance' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("on")' data-dismiss="modal">Set
-                                    Alert</button>
-                                <button type="button" class="btn btn-danger" (click)='setPriceAlert("off")'
-                                    data-dismiss="modal">Stop Alert</button>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Set Alert for - {{ alertTrigger.coin }}</h4>
         </div>
+        <div class="modal-body">
+          <div class="row p-3 mb-2 bg-info text-white">
+            <div class="col">
+              <div class="checkbox">
+                <label class="volume"
+                  ><input
+                    type="checkbox"
+                    value="false"
+                    [(ngModel)]="alertTrigger.isKonexChecked"
+                  />Koinex</label
+                >
+              </div>
+            </div>
+            <div class="col">
+              <div class="checkbox">
+                <label class="volume"
+                  ><input
+                    type="checkbox"
+                    value="true"
+                    [(ngModel)]="alertTrigger.isBinanceChecked"
+                  />Binance</label
+                >
+              </div>
+            </div>
+          </div>
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                Higer
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="alertTrigger.highPriceKoinex" />
+              </td>
+              <td>&nbsp;</td>
+              <td>
+                Higer
+              </td>
+              <td>
+                <input
+                  type="text"
+                  [(ngModel)]="alertTrigger.highPriceBinance"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Current
+              </td>
+              <td>
+                <strong>{{ alertTrigger.currentPriceKoinex }}</strong>
+              </td>
+              <td>&nbsp;</td>
+              <td>
+                Current
+              </td>
+              <td>
+                <strong>{{
+                  alertTrigger.currentPriceBinance | formateNumber
+                }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Lower
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="alertTrigger.lowPriceKoinex" />
+              </td>
+              <td>&nbsp;</td>
+              <td>
+                Lower
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="alertTrigger.lowPriceBinance" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="setPriceAlert('on')"
+                  data-dismiss="modal"
+                >
+                  Set Alert
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="setPriceAlert('off')"
+                  data-dismiss="modal"
+                >
+                  Stop Alert
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
