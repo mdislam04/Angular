@@ -65,6 +65,8 @@
 </table>
 <br />
 
+
+
 <div class="accordion" id="accordionExample">
   <div class="portcard">
     <div class="port-card-header" id="headingOne">
@@ -102,11 +104,7 @@
             <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
             <td><button size="13" (click)="removeFromPortfolio(data.coin,i)">X</button></td>
           </tr>
-          <tr>
-            <td><input size="3" type="text" value="USDT" /></td>
-            <td><input size="13" type="text" [(ngModel)]="usdtBalance" /></td>
-            
-          </tr>
+      
         
           <tr>
             <td>
@@ -135,58 +133,47 @@
   </div>
 </div>
 
-<table *ngIf="binanceData" class="table1">
-  <thead>
-    <tr>
-      <th class="volume">Remove</th>
-      <th class="volume">Coin</th>
-      <th class="volume">Binance Price</th>
-      <th class="volume">Binance Change</th>
-    </tr>
-    <tr *ngFor="let price of prices; let i = index">
-      <td>
-        <button width="20px" class="btn1" (click)="removeCoin(price.symbol, i)">
-          X
-        </button>
-      </td>
-      <td>
-        <label
-          class="label"
-          data-toggle="modal"
-          data-target="#myModal"
-          (click)="opneAlertWindow('xrp')"
-          >{{ price.symbol }}</label
-        >
-      </td>
 
-      <td *ngIf="price.prices.binacePrice">
-        <div style="float: right;">
-          <label class="high">{{ price.prices.binacePrice }}</label>
-          &nbsp;
-          <img *ngIf="price.prices.isBtcPrice" src="../../assets/btc.png" />
-          <img *ngIf="!price.prices.isBtcPrice" src="../../assets/usdt.png" />
+<div class="card-data">
+    <div class="card" *ngFor='let price of prices; let i = index'>
+
+        <div class="container" style="margin: 0px 0px ">
+            <div class="row">
+                <div class="col2">
+                    <h4 style="color: rgb(221, 243, 26);"><b>{{price.symbol}} </b></h4> 
+                   
+                </div>
+                
+                <div class="col" align="right">
+                   
+                    <a class="close" (click)='removeCoin(price.symbol)'>X</a>
+                </div>
+            </div>
         </div>
-      </td>
-      <td>
-        <label
-          class="high"
-          [ngClass]="{ low: price.prices.binacePriceDiff < 0 }"
-          [matTooltip]="'INR: ' + price.prices.binacePriceDiffINR"
-          >{{ price.prices.binacePriceDiff }}</label
-        >
-      </td>
-    </tr>
-    <tr *ngIf="poloniexData">
-      <td></td>
-      <td>
-        <label class="label">BCN</label>
-      </td>
-      <td colspan="5">
-        <label id="divBCN" class="high">{{ poloniexData.BTC_BCN.last }}</label>
-      </td>
-    </tr>
-  </thead>
-</table>
+        <div class="row">
+            <div class="col">
+                <p style="color: rgb(62, 243, 26);">{{price.prices.binacePrice}} </p>  
+            </div>
+            <div class="col" align="right">
+                   
+               <span style="color: rgb(221, 243, 26); font-size: 10px;"> Change :</span> <label
+                class="high"
+                [ngClass]="{ low: price.prices.binacePriceDiff < 0 }"
+                [matTooltip]="'INR: ' + price.prices.binacePriceDiffINR"
+                >{{ price.prices.binacePriceDiff }}</label
+              >
+             </div>
+        </div>
+
+        
+    </div>
+    
+
+</div>
+
+
+
+
 
 <!-- Alert Modal Window -->
 <div class="container">

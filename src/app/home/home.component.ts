@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
   timer: Date;
   portfolioData: Portfolio[] = [];
   portfolioValue: number = 0;
-  usdtBalance : string = "0";
+
   //
   ngOnInit() {
     if (!this.storage.getItem("timer")) {
@@ -107,7 +107,6 @@ export class HomeComponent implements OnInit {
       let data = this.storage.getItem("portfolioData");
       this.portfolioData = JSON.parse(data);
     }
-
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(""),
@@ -361,18 +360,19 @@ export class HomeComponent implements OnInit {
   }
 
   setPortfolio() {
-    if(this.binanceData)
-    {
-    this.portfolioValue = 0;
-    this.portfolioData.forEach((c) => {
-      var match = this.binanceData.find((b) => b.symbol === c.coin + "USDT");
-    
-      this.portfolioValue = this.portfolioValue + (c.quantity * match.price);
-     
-    });
+    if (this.binanceData) {
+      this.portfolioValue = 0;
+      this.portfolioData.forEach((c) => {
+        var match = this.binanceData.find((b) => b.symbol === c.coin + "USDT");
+        if (match)
+          this.portfolioValue = this.portfolioValue + c.quantity * match.price;
+      });
 
-    this.portfolioValue = this.portfolioValue + Number.parseFloat(this.usdtBalance);
-  }
+      var usdt = this.portfolioData.find(c => c.coin == "USDT");
+      if(usdt)
+      this.portfolioValue =
+        this.portfolioValue + Number.parseFloat(usdt.quantity.toString());
+    }
   }
 
   updatePortfolio() {
