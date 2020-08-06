@@ -289,7 +289,7 @@ export class HomeComponent implements OnInit {
       }
     } else {
       this.intervalIdTitle = setInterval(() => {
-        this.updateTitle();
+       
       }, this.titleRefreshInterval * 1000);
     }
   }
