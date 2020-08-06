@@ -47,14 +47,7 @@
       </button>
     </td>
 
-    <td>
-      Change Title :
-      <input
-        type="checkbox"
-        [(ngModel)]="titleUpdate"
-        (change)="toggleTitleTimer()"
-      />
-    </td>
+   
 
     <td>Updated on : {{ lastUpdated }}</td>
     <td>
@@ -158,7 +151,7 @@
                <span style="color: rgb(221, 243, 26); font-size: 10px;"> Change :</span> <label
                 class="high"
                 [ngClass]="{ low: price.prices.binacePriceDiff < 0 }"
-                [matTooltip]="'INR: ' + price.prices.binacePriceDiffINR"
+                
                 >{{ price.prices.binacePriceDiff }}</label
               >
              </div>
