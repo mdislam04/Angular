@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
 
     this.intervalIdTitle = setInterval(() => {
       this.updateProgress();
-    }, 1000);
+    }, 1000/3);
   }
 
   updateProgress()
