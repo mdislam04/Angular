@@ -1,3 +1,5 @@
+
+
 .label {
     color: rgba(255, 255, 0, 0.555);
     font-size: 50px;
@@ -143,3 +145,15 @@
           padding:4px 8px;
           margin-bottom:0px;
       }
+
+      ::ng-deep .mat-progress-bar-fill::after {
+        background-color: #f9b042f0;
+    }
+    
+    ::ng-deep .mat-progress-bar-buffer {
+        background: #3b3d3f;
+    }
+    
+    ::ng-deep .mat-progress-bar {
+        border-radius: 2px;
+    }

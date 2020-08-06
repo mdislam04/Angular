@@ -81,6 +81,8 @@ export class HomeComponent implements OnInit {
   timer: Date;
   portfolioData: Portfolio[] = [];
   portfolioValue: number = 0;
+  progressValue : number = 0;
+
 
   //
   ngOnInit() {
@@ -130,8 +132,13 @@ export class HomeComponent implements OnInit {
     }, this.refreshInterval * 1000);
 
     this.intervalIdTitle = setInterval(() => {
-      this.updateTitle();
-    }, this.titleRefreshInterval * 1000);
+      this.updateProgress();
+    }, 1000);
+  }
+
+  updateProgress()
+  {
+    this.progressValue += (100/this.refreshInterval);
   }
 
   private _filter(value: string): string[] {
@@ -144,6 +151,9 @@ export class HomeComponent implements OnInit {
 
   private setBinanceData() {
     this.service.GetBinanceTicker().subscribe((data) => {
+      this.progressValue = 0;
+      var d = new Date();
+        this.lastUpdated = d.toLocaleTimeString();
       this.binanceData = data;
       this.setPrices("binance");
       this.setPortfolio();
@@ -270,32 +280,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private updateTitle() {
-    var coin = "XRP";
-    if (this.titleUpdate) {
-      if (this.titleCoinIndex < this.coinToDisplay.length) {
-        coin = this.coinToDisplay[this.titleCoinIndex].symbol;
-        this.titleCoinIndex = this.titleCoinIndex + 1;
-      } else {
-        this.titleCoinIndex = 0;
-        coin = this.coinToDisplay[this.titleCoinIndex].symbol;
-        this.titleCoinIndex = this.titleCoinIndex + 1;
-      }
-    }
-
-    if (this.binanceData && this.koinexData) {
-      var koinexPrice = this.koinexData.prices.inr[coin];
-      var bPrice = this.binanceData.find((p) => p.symbol === coin + "USDT");
-      if (bPrice)
-        var newTitle = coin + " - " + parseFloat(bPrice.price).toFixed(5);
-      else
-        var newTitle =
-          coin +
-          " - " +
-          this.binanceData.find((p) => p.symbol === coin + "BTC").price;
-      this.titleService.setTitle(newTitle);
-    }
-  }
+ 
 
   toggleTitleTimer() {
     if (!this.titleUpdate) {

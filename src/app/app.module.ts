@@ -17,7 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PriceHistoryComponent } from './CoinMarketCapPriceHistory/pricehistory.component';
 import { KoinexPriceHistoryComponent } from './KoinexPriceHistory/koinexpricehistory.component';
 import { BinanacePriceHistoryComponent } from './binance/binanacepricehistory.componet';
-import { MatTableModule, MatSortModule, MatPaginatorModule, MatAutocompleteModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule, MatCardModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatTooltipModule } from '@angular/material';
+import { MatTableModule, MatSortModule, MatPaginatorModule, MatAutocompleteModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule, MatCardModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatTooltipModule, MatProgressBarModule } from '@angular/material';
 import { KoinexPriceHistoryComponentSortable } from './KoinexPriceHistory/koinexpricehistory.componentSortable';
 import { CoinMarketLiveComponent } from './coinMarket/coinMarketLive.component';
 import { CoinMarkeHistoryComponent } from './coinMarketHistory/coinMarkethistory.component';
@@ -66,6 +66,7 @@ import { MytvComponent, SafePipe } from './mytv/mytv.component';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatProgressBarModule,
     
     CountdownTimerModule.forRoot()
   ],
