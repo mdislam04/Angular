@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
 
   updateProgress()
   {
-    this.progressValue += (100/this.refreshInterval);
+    this.progressValue += (100/(this.refreshInterval*3));
   }
 
   private _filter(value: string): string[] {
