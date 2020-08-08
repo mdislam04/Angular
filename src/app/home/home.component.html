@@ -47,8 +47,6 @@
       </button>
     </td>
 
-   
-
     <td>Updated on : {{ lastUpdated }}</td>
     <td>
       Timer :
@@ -57,25 +55,39 @@
   </tr>
 </table>
 
-<mat-progress-bar mode="determinate" value="{{progressValue}}"></mat-progress-bar>
+<mat-progress-bar
+  mode="determinate"
+  value="{{ progressValue }}"
+></mat-progress-bar>
 
 <div class="accordion" id="accordionExample">
   <div class="portcard">
     <div class="port-card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button
-          class="btn btn-link"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseOne"
-          aria-expanded="true"
-          aria-controls="collapseOne"
-        >
-          Manage Portfolio >>>
-        </button>
-        
-     <span style="color: khaki;"> Total Portfolio : {{portfolioValue}} $</span> 
-      </h5>
+     
+
+   
+        <div class="row">
+          <div class="col-sm">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-outline-dark"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Manage Portfolio >>>
+              </button>
+            </h5>
+          </div>
+          <div class="col-sm 2">
+            <span style="color: khaki;">
+              Total Portfolio : {{ portfolioValue }} $</span
+            >
+          </div>
+        </div>
+     
     </div>
 
     <div
@@ -86,18 +98,21 @@
     >
       <div class="card-body">
         <table *ngIf="portfolioData">
-            <tr>
-                <th class="portHeader">Coin</th>
-                <th class="portHeader">Quantity</th>
-                <th class="portHeader">Clear</th>
-              </tr>
+          <tr>
+            <th class="portHeader">Coin</th>
+            <th class="portHeader">Quantity</th>
+            <th class="portHeader">Clear</th>
+          </tr>
           <tr *ngFor="let data of portfolioData; let i = index">
             <td><input size="3" type="text" [(ngModel)]="data.coin" /></td>
             <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
-            <td><button size="13" (click)="removeFromPortfolio(data.coin,i)">X</button></td>
+            <td>
+              <button size="13" (click)="removeFromPortfolio(data.coin, i)">
+                X
+              </button>
+            </td>
           </tr>
-      
-        
+
           <tr>
             <td>
               <button
@@ -110,14 +125,14 @@
             </td>
 
             <td>
-                <button
-                  class="btn btn-danger"
-                  width="50px"
-                  (click)="updatePortfolio()"
-                >
-                 Update
-                </button>
-              </td>
+              <button
+                class="btn btn-danger"
+                width="50px"
+                (click)="updatePortfolio()"
+              >
+                Update
+              </button>
+            </td>
           </tr>
         </table>
       </div>
@@ -125,47 +140,38 @@
   </div>
 </div>
 
-
 <div class="card-data">
-    <div class="card" *ngFor='let price of prices; let i = index'>
-
-        <div class="container" style="margin: 0px 0px ">
-            <div class="row">
-                <div class="col2">
-                    <h4 style="color: rgb(221, 243, 26);"><b>{{price.symbol}} </b></h4> 
-                   
-                </div>
-                
-                <div class="col" align="right">
-                   
-                    <a class="close" (click)='removeCoin(price.symbol)'>X</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p style="color: rgb(62, 243, 26);">{{price.prices.binacePrice}} </p>  
-            </div>
-            <div class="col" align="right">
-                   
-               <span style="color: rgb(221, 243, 26); font-size: 10px;"> Change :</span> <label
-                class="high"
-                [ngClass]="{ low: price.prices.binacePriceDiff < 0 }"
-                
-                >{{ price.prices.binacePriceDiff }}</label
-              >
-             </div>
+  <div class="card" *ngFor="let price of prices; let i = index">
+    <div class="container" style="margin: 0px 0px;">
+      <div class="row">
+        <div class="col2">
+          <h4 style="color: rgb(117, 126, 39);">
+            <b>{{ price.symbol }} </b>
+          </h4>
         </div>
 
-        
+        <div class="col" align="right">
+          <a class="close" (click)="removeCoin(price.symbol)">X</a>
+        </div>
+      </div>
     </div>
-    
-
+    <div class="row">
+      <div class="col">
+        <p class="price">{{ price.prices.binacePrice }}</p>
+      </div>
+      <div class="col" align="right">
+        <span style="color: rgb(223, 91, 15); font-size: 13px;">
+          Change :</span
+        >
+        <label
+          class="up"
+          [ngClass]="{ down: price.prices.binacePriceDiff < 0 }"
+          >{{ price.prices.binacePriceDiff }}</label
+        >
+      </div>
+    </div>
+  </div>
 </div>
-
-
-
-
 
 <!-- Alert Modal Window -->
 <div class="container">
