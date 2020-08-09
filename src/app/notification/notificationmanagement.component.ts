@@ -38,9 +38,19 @@ export class NotificationComponent {
     setAlert() {
         this.spinner.show();
         this.message = "";
-        this.service.updateAlertTrigger(this.coinToTrack).subscribe(
+        // set trgigger data with operation this.coinToTrack
+        //var payload = [];
+        this.coinToTrack.forEach(element => {
+            element.PartitionKey = 'trigger',
+            element.RowKey = element.symbol
+             
+        });
+            
+       
+        this.service.updateAlertTrigger({ "ops": "trigger", "payload":this.coinToTrack}).subscribe(
             data => {
-                this.message = data;
+                
+                this.message = data.message;
                 this.spinner.hide();
             }
         );        
@@ -53,7 +63,7 @@ export class NotificationComponent {
         url = url + environment.token;
         this.service.getNotificationTriggers(url).subscribe(
           data => {
-              console.log(data.value);
+            
             this.coinToTrack = data.value;
     
            

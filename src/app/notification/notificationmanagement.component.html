@@ -18,8 +18,7 @@
       <tr>
         <th class="volume">X</th>
         <th class="volume">Coin</th>
-        <th class="volume">Koinex Low</th>
-        <th class="volume">Koinex High</th>
+       
         <th class="volume">Binance Low</th>
         <th class="volume">Binance High </th>
 
@@ -30,8 +29,6 @@
             <button width="20px" class="btn1" (click)='removeCoin(coin.symbol, i)'>X</button>
         </td>
       <td class="high">{{coin.symbol}}</td>
-      <td><input size="6" type='text' [(ngModel)]='coin.koinexLow' /></td>
-      <td><input size="6" type='text' [(ngModel)]='coin.koinexHigh' /></td>
       <td><input size="6" type='text' [(ngModel)]='coin.binanceLow' /></td>
       <td><input size="6" type='text' [(ngModel)]='coin.binanceHigh' /></td>
     </tr>

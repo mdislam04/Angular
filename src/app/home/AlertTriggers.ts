@@ -11,6 +11,8 @@ export class AlertTiggers {
 }
 
 export class Portfolio {
-  coin: string;
   quantity: number;
+  PartitionKey : string;
+  RowKey : string;
+  Timestamp : string;
 }

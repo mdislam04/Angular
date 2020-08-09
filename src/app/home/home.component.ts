@@ -7,6 +7,8 @@ import { LivePrice } from "../models/LivePriceModel";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+import { NgxSpinnerService } from "ngx-spinner";
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: "app-home",
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private service: DataService,
     private titleService: Title,
+    private spinner: NgxSpinnerService,
     private alertService: AlertService
   ) {
     this.storage = localStorage;
@@ -82,6 +85,7 @@ export class HomeComponent implements OnInit {
   portfolioData: Portfolio[] = [];
   portfolioValue: number = 0;
   progressValue : number = 0;
+  message : any;
 
 
   //
@@ -102,13 +106,9 @@ export class HomeComponent implements OnInit {
       this.timer = this.storage.getItem("timer");
     }
 
-    if (!this.storage.getItem("portfolioData")) {
-      this.portfolioData.push({ coin: "OMG", quantity: 100 });
-      this.storage.setItem("portfolioData", JSON.stringify(this.portfolioData));
-    } else {
-      let data = this.storage.getItem("portfolioData");
-      this.portfolioData = JSON.parse(data);
-    }
+ 
+    this.portfolioData.push({ quantity: 100, RowKey : "OMG", PartitionKey : "portfolio", Timestamp : "" });
+    this.getPortfolio();
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(""),
@@ -348,35 +348,64 @@ export class HomeComponent implements OnInit {
     if (this.binanceData) {
       this.portfolioValue = 0;
       this.portfolioData.forEach((c) => {
-        var match = this.binanceData.find((b) => b.symbol === c.coin + "USDT");
+        var match = this.binanceData.find((b) => b.symbol === c.RowKey + "USDT");
         if (match)
           this.portfolioValue = this.portfolioValue + c.quantity * match.price;
       });
 
-      var usdt = this.portfolioData.find(c => c.coin == "USDT");
+      var usdt = this.portfolioData.find(c => c.RowKey == "USDT");
       if(usdt)
       this.portfolioValue =
         this.portfolioValue + Number.parseFloat(usdt.quantity.toString());
+        this.titleService.setTitle('Portfolio : '+ this.portfolioValue );
     }
   }
 
   updatePortfolio() {
     this.storage.setItem("portfolioData", JSON.stringify(this.portfolioData));
     this.setPortfolio();
-    alert("Updated");
+ // call service to update portfolio data
+     this.spinner.show();
+      this.message = "";
+      this.portfolioData.forEach(element => {
+        element.PartitionKey = 'portfolio'
+      });
+
+       
+      this.service.updateAlertTrigger({ "ops": "portfolio", "payload": this.portfolioData}).subscribe(
+        data => {
+            this.message = data.message;
+            this.spinner.hide();
+        }
+    );   
+    
+  }
+
+  getPortfolio() {        
+    //var authToken = 'sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:30:39Z&st=2020-03-31T16:30:39Z&spr=https&sig=5JvB34r9rlNALJlnIicllhUXKXF0cT5XoUiBJeDaAyk%3D';
+    var url = 'https://cryptofunctionstorage.table.core.windows.net/portfolio()?';
+    
+    url = url + environment.token;
+    this.service.getNotificationTriggers(url).subscribe(
+      data => {
+        
+        this.portfolioData = data.value;
+
+       
+      });
   }
 
   addToPortfolio() {
-    this.portfolioData.push({ coin: "BTC", quantity: 0 });
+    this.portfolioData.push({ quantity: 0 , PartitionKey: "portfolio", RowKey : "BTC", Timestamp : "" });
   }
 
   removeFromPortfolio(coin, cindex) {
     var index = this.portfolioData.indexOf(
-      this.portfolioData.find((c) => c.coin == coin)
+      this.portfolioData.find((c) => c.RowKey == coin)
     );
     if (index > -1) {
       this.portfolioData.splice(index, 1);
-      this.storage.setItem("portfolioData", JSON.stringify(this.portfolioData));
+      
     }
     // alert("Updated");
   }
