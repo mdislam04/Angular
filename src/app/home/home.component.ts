@@ -129,6 +129,7 @@ export class HomeComponent implements OnInit {
 
     this.inetrvalId = setInterval(() => {
       this.setBinanceData();
+      this.getPriceChange();
     }, this.refreshInterval * 1000);
 
     this.intervalIdTitle = setInterval(() => {
@@ -157,6 +158,28 @@ export class HomeComponent implements OnInit {
       this.binanceData = data;
       this.setPrices("binance");
       this.setPortfolio();
+    });
+  }
+
+  private getPriceChange() {
+    this.service.GetBinancePriceChange().subscribe((data) => {
+     // find the price symbol and set percent
+
+     if(this.prices && this.prices.length > 0 && data)
+     {
+      this.prices.forEach(p => {
+        var match = data.find(d => d.symbol == p.symbol +'USDT');
+        if(match)
+        {
+          p.prices.priceChangePercent = match.priceChangePercent;
+          p.prices.highPrice = match.highPrice;
+          p.prices.lowPrice = match.lowPrice;
+          p.prices.askPrice = match.askPrice;
+          p.prices.bidPrice = match.bidPrice;
+        }
+      });
+     }
+     
     });
   }
 

@@ -19,6 +19,11 @@ export class DataService {
     return this.http.get(this.requestURL);
   }
 
+  public GetBinancePriceChange(): Observable<any> {
+
+    return this.http.get('https://api.binance.com/api/v1/ticker/24hr');
+  }
+
   public GetKoinexTicker(): Observable<any> {
 
     return this.http.get('https://koinex.in/api/ticker');

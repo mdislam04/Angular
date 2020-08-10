@@ -1,13 +1,12 @@
 .label {
-  color: rgba(255, 255, 0, 0.555);
-  font-size: 50px;
-  font-weight: 200;
+  color:rgb(165 146 52);
+  font-size: 15px;
   font-weight: bold;
-  cursor: pointer;
+  font-family: monospace;
 }
 
 .up {
-  color: rgb(75, 119, 17);
+  color: rgb(144 226 36);
   font-size: 14px;
 }
 
@@ -20,7 +19,16 @@
 }
 
 .down {
-  color: rgb(184, 68, 68);
+  color:rgb(224 17 17);
+  font-size: 14px;
+}
+
+.HL {
+  color: rgb(255 255 255);
+  font-size: 14px;
+}
+.trade {
+  color: rgb(204 104 182);
   font-size: 14px;
 }
 
@@ -71,7 +79,6 @@ input[type="checkbox"] {
   transition: 0.3s;
   background-color: rgb(61 75 59 / 0.43);
   margin: 10px 0px 10px 10px;
-  width: 28%;
   box-shadow: 0 5px 5px 0 rgba(251, 252, 250, 0.815);
 }
 
