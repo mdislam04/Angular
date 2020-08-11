@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
   isAlertOn: boolean;
   isHighAlert: boolean;
   isBinaceAlertSet: boolean = true;
-  titleUpdate: boolean = true;
+  showDetails: boolean = true;
   titleCoinIndex: number = 0;
 
   //
@@ -172,8 +172,11 @@ export class HomeComponent implements OnInit {
         if(match)
         {
           p.prices.priceChangePercent = match.priceChangePercent;
-          p.prices.highPrice = match.highPrice;
-          p.prices.lowPrice = match.lowPrice;
+         
+          p.prices.highPrice = Number.parseFloat(match.highPrice) < 1 ? Number.parseFloat(match.highPrice).toFixed(5).toString() : 
+          Number.parseFloat(match.highPrice).toFixed(2).toString();
+          p.prices.lowPrice = Number.parseFloat(match.lowPrice) < 1 ? Number.parseFloat(match.lowPrice).toFixed(5).toString() : 
+          Number.parseFloat(match.lowPrice).toFixed(2).toString();
           p.prices.askPrice = match.askPrice;
           p.prices.bidPrice = match.bidPrice;
         }
@@ -199,25 +202,14 @@ export class HomeComponent implements OnInit {
               );
               k.prices.isBtcPrice = true;
             }
-            k.prices.binacePrice = match.price;
-            if (!k.prices.binaceInitialPrice) {
-              var matchCoin = this.coinToDisplayMaster.find(
-                (c) => c.symbol == p.symbol
-              );
-              k.prices.binaceInitialPrice =
-                matchCoin.binanceInitial || k.prices.binacePrice;
-              matchCoin.binanceInitial = k.prices.binaceInitialPrice;
-            }
-            k.prices.binacePriceDiff = (
-              k.prices.binacePrice - k.prices.binaceInitialPrice
-            ).toFixed(8);
-            if (this.koinexData) {
-              k.prices.binacePriceDiffINR = k.prices.isBtcPrice
-                ? Number.parseFloat(k.prices.binacePriceDiff) *
-                  Number.parseFloat(this.koinexData.prices.inr.BTC)
-                : Number.parseFloat(k.prices.binacePriceDiff) *
-                  Number.parseFloat(this.koinexData.prices.inr.TUSD);
-            }
+            if(match.symbol === "BTCUSDT")
+            k.prices.binacePrice =  Number.parseFloat(match.price).toFixed(1) ; 
+            else
+            k.prices.binacePrice =  Number.parseFloat(match.price).toFixed(6) ; 
+           
+      
+      
+      
           }
         });
       });
@@ -231,18 +223,8 @@ export class HomeComponent implements OnInit {
         }
         if (match) {
           price.prices.binacePrice = match.price;
-          if (!price.prices.binaceInitialPrice)
-            price.prices.binaceInitialPrice = price.prices.binacePrice;
-          price.prices.binacePriceDiff = (
-            price.prices.binacePrice - price.prices.binaceInitialPrice
-          ).toFixed(8);
-          if (this.koinexData) {
-            price.prices.binacePriceDiffINR = price.prices.isBtcPrice
-              ? Number.parseFloat(price.prices.binacePriceDiff) *
-                Number.parseFloat(this.koinexData.prices.inr.BTC)
-              : Number.parseFloat(price.prices.binacePriceDiff) *
-                Number.parseFloat(this.koinexData.prices.inr.TUSD);
-          }
+         
+        
           this.prices.push(price);
         }
       });

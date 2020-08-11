@@ -1,5 +1,5 @@
 .label {
-  color:rgb(165 146 52);
+  color: rgb(154 151 136);
   font-size: 15px;
   font-weight: bold;
   font-family: monospace;
@@ -50,11 +50,14 @@ input[type=text] {
 }
 
 input[type="checkbox"] {
-  width: 30px;
+  width: 25px;
   /*Desired width*/
   height: 30px;
   /*Desired height*/
   cursor: pointer;
+  margin-top: 6px;
+  background-color: springgreen;
+  color: brown;
 }
 
 
@@ -79,6 +82,7 @@ input[type="checkbox"] {
   transition: 0.3s;
   background-color: rgb(61 75 59 / 0.43);
   margin: 10px 0px 10px 10px;
+  min-width: 43%;
   box-shadow: 0 5px 5px 0 rgba(251, 252, 250, 0.815);
 }
 

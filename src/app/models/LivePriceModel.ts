@@ -5,15 +5,9 @@ export class LivePrice {
 
 export class LivePriceDetail {
     koinexPrice:number;
-    binacePrice:number;
-    poloniexPrice:number;
-    koinexInitialPrice:number;
-    binaceInitialPrice:number;
-    poloniexInitialPrice:number;
-    koinexPriceDiff:number;
-    binacePriceDiff:string;
-    binacePriceDiffINR:any;
-    poloniexPriceDiff:number;
+    binacePrice:string;
+ 
+  
     isBtcPrice:boolean;
     priceChangePercent:string;
     highPrice:string;

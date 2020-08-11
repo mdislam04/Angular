@@ -83,6 +83,9 @@
             Total Portfolio : {{ portfolioValue }} $</span
           >
         </div>
+        <div class="col-sm 2">
+         <input  value="Show Details" type="checkbox" [(ngModel)]="showDetails"/>
+        </div>
       </div>
     </div>
 
@@ -162,19 +165,19 @@
       <div class="row" style="border:#757575 1px solid;">
 
       </div>
-      <div class="row">
+      <div class="row" *ngIf="price.prices.highPrice && showDetails">
         <div class="col2" style="margin-left: 14px;">
           <span class="label"> 24 High : </span>
           <span class="HL"> {{price.prices.highPrice}}</span>
         </div>
-        <div class="col">
+        <div class="col" align="right">
           <span class="label"> 24 Low :</span>
           <span class="HL"> {{price.prices.lowPrice}}</span>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="price.prices.priceChangePercent && showDetails">
         <div class="col">
-          <span class="label"> Change (24 HR) :</span>
+          <span class="label"> Change (24 HR) : </span> 
           <label
             class="up"
             [ngClass]="{ down: price.prices.priceChangePercent < 0 }"
@@ -183,11 +186,13 @@
         </div>
       
       </div>
-      <div class="row">
+      <div class="row" *ngIf="price.prices.bidPrice && showDetails">
       
         <div class="col">
           <span class="label"> Trade :</span>
-          <span class="trade">{{price.prices.bidPrice}} / {{price.prices.askPrice}}</span>
+          <span class="trade">{{price.prices.bidPrice}}</span>
+          <span style="color: rgb(138, 133, 133);">  /  </span>
+          <span class="trade"> {{price.prices.askPrice}}</span>
         </div>
       </div>
     </div>
