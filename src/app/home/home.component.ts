@@ -288,10 +288,10 @@ export class HomeComponent implements OnInit {
  
 
   toggleTitleTimer() {
-    if (!this.titleUpdate) {
+  
       if (this.intervalIdTitle) {
         clearInterval(this.intervalIdTitle);
-      }
+      
     } else {
       this.intervalIdTitle = setInterval(() => {
        
