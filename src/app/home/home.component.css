@@ -6,8 +6,9 @@
 }
 
 .up {
-  color: rgb(144 226 36);
-  font-size: 14px;
+     color: rgb(40 255 56);
+    /* background-color: #3d9c3100; */
+    border: solid 1px #61e22c;
 }
 
 .price
@@ -19,8 +20,9 @@
 }
 
 .down {
-  color:rgb(224 17 17);
-  font-size: 14px;
+     color: rgb(247 237 237);
+     background-color: #e6091e;
+     border: solid 1px #a01717
 }
 
 .HL {

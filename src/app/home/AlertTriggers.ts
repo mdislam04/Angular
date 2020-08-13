@@ -15,4 +15,5 @@ export class Portfolio {
   PartitionKey : string;
   RowKey : string;
   Timestamp : string;
+  manualPrice : number;
 }

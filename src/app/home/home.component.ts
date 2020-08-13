@@ -84,6 +84,7 @@ export class HomeComponent implements OnInit {
   timer: Date;
   portfolioData: Portfolio[] = [];
   portfolioValue: number = 0;
+  portfolioValue_manual: number = 0;
   progressValue : number = 0;
   message : any;
 
@@ -107,7 +108,7 @@ export class HomeComponent implements OnInit {
     }
 
  
-    this.portfolioData.push({ quantity: 100, RowKey : "OMG", PartitionKey : "portfolio", Timestamp : "" });
+    this.portfolioData.push({ quantity: 100, RowKey : "OMG", PartitionKey : "portfolio", Timestamp : "", manualPrice : 0 });
     this.getPortfolio();
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -386,6 +387,26 @@ export class HomeComponent implements OnInit {
     
   }
 
+  calculator()
+  {
+
+    if (this.binanceData) {
+        this.portfolioValue_manual = 0;
+        this.portfolioData.forEach((c) => {
+          var match = this.binanceData.find((b) => b.symbol === c.RowKey + "USDT");
+        if (match)
+            this.portfolioValue_manual = this.portfolioValue_manual + c.quantity * c.manualPrice;
+        });
+  
+        var usdt = this.portfolioData.find(c => c.RowKey == "USDT");
+        if(usdt)
+        this.portfolioValue_manual =
+          this.portfolioValue_manual + Number.parseFloat(usdt.quantity.toString());
+      }
+      
+    
+  }
+
   getPortfolio() {        
     //var authToken = 'sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2020-12-31T00:30:39Z&st=2020-03-31T16:30:39Z&spr=https&sig=5JvB34r9rlNALJlnIicllhUXKXF0cT5XoUiBJeDaAyk%3D';
     var url = 'https://cryptofunctionstorage.table.core.windows.net/portfolio()?';
@@ -401,7 +422,7 @@ export class HomeComponent implements OnInit {
   }
 
   addToPortfolio() {
-    this.portfolioData.push({ quantity: 0 , PartitionKey: "portfolio", RowKey : "BTC", Timestamp : "" });
+    this.portfolioData.push({ quantity: 0 , PartitionKey: "portfolio", RowKey : "BTC", Timestamp : "", manualPrice : 0 });
   }
 
   removeFromPortfolio(coin, cindex) {

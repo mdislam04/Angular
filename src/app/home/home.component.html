@@ -100,13 +100,13 @@
           <tr>
             <th class="portHeader">Coin</th>
             <th class="portHeader">Quantity</th>
-            <th class="portHeader">Clear</th>
+            <th width="15" class="portHeader">Clear</th>
           </tr>
           <tr *ngFor="let data of portfolioData; let i = index">
             <td><input size="3" type="text" [(ngModel)]="data.RowKey" /></td>
             <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
             <td>
-              <button size="13" (click)="removeFromPortfolio(data.RowKey, i)">
+              <button (click)="removeFromPortfolio(data.RowKey, i)">
                 X
               </button>
             </td>
@@ -124,12 +124,21 @@
             </td>
 
             <td>
-              <button
+              <button 
                 class="btn btn-danger"
                 width="50px"
                 (click)="updatePortfolio()"
               >
                 Update
+              </button>
+            </td>
+            <td>
+              <button data-toggle="modal" data-target="#myModal"
+                class="btn btn-danger"
+                width="50px"
+                
+              >
+                Calculator
               </button>
             </td>
           </tr>
@@ -207,3 +216,48 @@
 >
   <p style="font-size: 20px; color: white;">Loading...</p>
 </ngx-spinner>
+
+
+<!-- Caclculator Modal -->
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" *ngIf='portfolioData'>
+          <h4 class="modal-title">Calculator - Total Portfolio {{portfolioValue_manual}}</h4>
+        </div>
+        <div class="modal-body" style=" overflow: scroll;height:400px;">
+        
+
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th class="portHeader">Coin</th>
+                <th class="portHeader">Quantity</th>
+                <th class="portHeader">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of portfolioData; let i = index">
+                <td><input size="3" type="text" [(ngModel)]="data.RowKey" /></td>
+                <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
+                <td><input size="13" type="text" [(ngModel)]="data.manualPrice" /></td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="calculator()">Update</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
