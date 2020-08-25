@@ -9,8 +9,8 @@ import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
 import { environment } from '../../environments/environment';
-import { DomSanitizer } from "@angular/platform-browser";
 
+declare let $ : any;
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -21,8 +21,7 @@ export class HomeComponent implements OnInit {
     private service: DataService,
     private titleService: Title,
     private spinner: NgxSpinnerService,
-    private alertService: AlertService,
-    private sanitizer: DomSanitizer
+    private alertService: AlertService
   ) {
     this.storage = localStorage;
   }
