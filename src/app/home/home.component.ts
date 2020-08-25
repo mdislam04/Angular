@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
 import { environment } from '../../environments/environment';
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-home",
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
     private service: DataService,
     private titleService: Title,
     private spinner: NgxSpinnerService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sanitizer: DomSanitizer
   ) {
     this.storage = localStorage;
   }
@@ -91,6 +93,7 @@ export class HomeComponent implements OnInit {
 
   //
   ngOnInit() {
+    $('.collapse').collapse();
     if (!this.storage.getItem("timer")) {
       var date = new Date();
       this.timer = new Date(

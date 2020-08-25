@@ -71,7 +71,7 @@
               type="button"
               data-toggle="collapse"
               data-target="#collapseOne"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseOne"
             >
               Manage Portfolio >>>
@@ -84,7 +84,11 @@
           >
         </div>
         <div class="col-sm 2">
-         <input  value="Show Details" type="checkbox" [(ngModel)]="showDetails"/>
+          <input
+            value="Show Details"
+            type="checkbox"
+            [(ngModel)]="showDetails"
+          />
         </div>
       </div>
     </div>
@@ -124,7 +128,7 @@
             </td>
 
             <td>
-              <button 
+              <button
                 class="btn btn-danger"
                 width="50px"
                 (click)="updatePortfolio()"
@@ -133,10 +137,11 @@
               </button>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#myModal"
+              <button
+                data-toggle="modal"
+                data-target="#myModal"
                 class="btn btn-danger"
                 width="50px"
-                
               >
                 Calculator
               </button>
@@ -152,74 +157,74 @@
     </div>
   </div>
 </div>
-
-<div  *ngFor="let price of prices; let i = index">
-  <h4 *ngIf="price.prices.isCardVisible" style="color: rgb(219 236 68);" (click)="toggleCard(price)">
-    <b>{{ price.symbol }}</b>
-  </h4>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+  <div *ngFor="let price of prices; let i = index">
+    <h4
+      *ngIf="price.prices.isCardVisible"
+      style="color: rgb(219 236 68);padding-left: 5px;"
+      (click)="toggleCard(price)"
+    >
+      <b>{{ price.symbol }}</b>
+    </h4>
+  </div>
 </div>
 
 <div class="card-data">
- 
-    <div *ngFor="let price of prices; let i = index">
-      <div class="card" *ngIf="!price.prices.isCardVisible">
-        <!-- <div class="container" style="margin: 0px 0px;" *ngIf="price.prices.isCardVisible">
+  <div *ngFor="let price of prices; let i = index">
+    <div class="card" *ngIf="!price.prices.isCardVisible">
+      <!-- <div class="container" style="margin: 0px 0px;" *ngIf="price.prices.isCardVisible">
           <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
             <b>{{ price.symbol }}</b>
           </h4>
         </div> -->
-        <div class="container"   style="margin: 0px 0px;">
-          <div class="row">
-            <div class="col">
-              <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
-                <b>{{ price.symbol }}</b>
-              </h4>
-            </div>
-            <div class="col">
-              <h4 class="price">
-                <b> {{ price.prices.binacePrice }} </b>
-              </h4>
-            </div>
-            <div class="col" align="right">
-              <a class="close" (click)="removeCoin(price.symbol)">X</a>
-            </div>
+      <div class="container" style="margin: 0px 0px;">
+        <div class="row">
+          <div class="col">
+            <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
+              <b>{{ price.symbol }}</b>
+            </h4>
           </div>
-          <div class="row" style="border:#757575 1px solid;">
-    
+          <div class="col">
+            <h4 class="price">
+              <b> {{ price.prices.binacePrice }} </b>
+            </h4>
           </div>
-          <div class="row" *ngIf="price.prices.highPrice && showDetails">
-            <div class="col2" style="margin-left: 14px;">
-              <span class="label"> 24 High : </span>
-              <span class="HL"> {{price.prices.highPrice}}</span>
-            </div>
-            <div class="col" align="right">
-              <span class="label"> 24 Low :</span>
-              <span class="HL"> {{price.prices.lowPrice}}</span>
-            </div>
+          <div class="col" align="right">
+            <a class="close" (click)="removeCoin(price.symbol)">X</a>
           </div>
-          <div class="row" *ngIf="price.prices.priceChangePercent && showDetails">
-            <div class="col">
-              <span class="label"> Change (24 HR) : </span> 
-              <label
-                class="up"
-                [ngClass]="{ down: price.prices.priceChangePercent < 0 }"
-                >{{ price.prices.priceChangePercent }} %</label
-              >
-            </div>
-          
+        </div>
+        <div class="row" style="border: #757575 1px solid;"></div>
+        <div class="row" *ngIf="price.prices.highPrice && showDetails">
+          <div class="col2" style="margin-left: 14px;">
+            <span class="label"> 24 High : </span>
+            <span class="HL"> {{ price.prices.highPrice }}</span>
           </div>
-          <div class="row" *ngIf="price.prices.bidPrice && showDetails">
-          
-            <div class="col">
-              <span class="label"> Trade :</span>
-              <span class="trade">{{price.prices.bidPrice}}</span>
-              <span style="color: rgb(138, 133, 133);">  /  </span>
-              <span class="trade"> {{price.prices.askPrice}}</span>
-            </div>
+          <div class="col" align="right">
+            <span class="label"> 24 Low :</span>
+            <span class="HL"> {{ price.prices.lowPrice }}</span>
+          </div>
+        </div>
+        <div class="row" *ngIf="price.prices.priceChangePercent && showDetails">
+          <div class="col">
+            <span class="label"> Change (24 HR) : </span>
+            <label
+              class="up"
+              [ngClass]="{ down: price.prices.priceChangePercent < 0 }"
+              >{{ price.prices.priceChangePercent }} %</label
+            >
+          </div>
+        </div>
+        <div class="row" *ngIf="price.prices.bidPrice && showDetails">
+          <div class="col">
+            <span class="label"> Trade :</span>
+            <span class="trade">{{ price.prices.bidPrice }}</span>
+            <span style="color: rgb(138, 133, 133);"> / </span>
+            <span class="trade"> {{ price.prices.askPrice }}</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
 
 <ngx-spinner
@@ -231,21 +236,19 @@
   <p style="font-size: 20px; color: white;">Loading...</p>
 </ngx-spinner>
 
-
 <!-- Caclculator Modal -->
 <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" *ngIf='portfolioData'>
-          <h4 class="modal-title">Calculator - Total Portfolio {{portfolioValue_manual}}</h4>
+        <div class="modal-header" *ngIf="portfolioData">
+          <h4 class="modal-title">
+            Calculator - Total Portfolio {{ portfolioValue_manual }}
+          </h4>
         </div>
-        <div class="modal-body" style=" overflow: scroll;height:400px;">
-        
-
+        <div class="modal-body" style="overflow: scroll; height: 400px;">
           <table class="table table-dark">
             <thead>
               <tr>
@@ -256,22 +259,28 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of portfolioData; let i = index">
-                <td><input size="3" type="text" [(ngModel)]="data.RowKey" /></td>
-                <td><input size="13" type="text" [(ngModel)]="data.quantity" /></td>
-                <td><input size="13" type="text" [(ngModel)]="data.manualPrice" /></td>
+                <td>
+                  <input size="3" type="text" [(ngModel)]="data.RowKey" />
+                </td>
+                <td>
+                  <input size="13" type="text" [(ngModel)]="data.quantity" />
+                </td>
+                <td>
+                  <input size="13" type="text" [(ngModel)]="data.manualPrice" />
+                </td>
               </tr>
-
             </tbody>
           </table>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="calculator()">Update</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="calculator()">
+            Update
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
-
     </div>
   </div>
-
 </div>
