@@ -7,7 +7,7 @@ export class LivePriceDetail {
     koinexPrice:number;
     binacePrice:string;
  
-  
+    isCardVisible:boolean = true;
     isBtcPrice:boolean;
     priceChangePercent:string;
     highPrice:string;

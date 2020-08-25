@@ -153,59 +153,73 @@
   </div>
 </div>
 
+<div  *ngFor="let price of prices; let i = index">
+  <h4 *ngIf="price.prices.isCardVisible" style="color: rgb(219 236 68);" (click)="toggleCard(price)">
+    <b>{{ price.symbol }}</b>
+  </h4>
+</div>
+
 <div class="card-data">
-  <div class="card" *ngFor="let price of prices; let i = index">
-    <div class="container" style="margin: 0px 0px;">
-      <div class="row">
-        <div class="col">
-          <h4 style="color: rgb(219 236 68);">
+ 
+    <div *ngFor="let price of prices; let i = index">
+      <div class="card" *ngIf="!price.prices.isCardVisible">
+        <!-- <div class="container" style="margin: 0px 0px;" *ngIf="price.prices.isCardVisible">
+          <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
             <b>{{ price.symbol }}</b>
           </h4>
-        </div>
-        <div class="col">
-          <h4 class="price">
-            <b> {{ price.prices.binacePrice }} </b>
-          </h4>
-        </div>
-        <div class="col" align="right">
-          <a class="close" (click)="removeCoin(price.symbol)">X</a>
-        </div>
-      </div>
-      <div class="row" style="border:#757575 1px solid;">
-
-      </div>
-      <div class="row" *ngIf="price.prices.highPrice && showDetails">
-        <div class="col2" style="margin-left: 14px;">
-          <span class="label"> 24 High : </span>
-          <span class="HL"> {{price.prices.highPrice}}</span>
-        </div>
-        <div class="col" align="right">
-          <span class="label"> 24 Low :</span>
-          <span class="HL"> {{price.prices.lowPrice}}</span>
-        </div>
-      </div>
-      <div class="row" *ngIf="price.prices.priceChangePercent && showDetails">
-        <div class="col">
-          <span class="label"> Change (24 HR) : </span> 
-          <label
-            class="up"
-            [ngClass]="{ down: price.prices.priceChangePercent < 0 }"
-            >{{ price.prices.priceChangePercent }} %</label
-          >
-        </div>
-      
-      </div>
-      <div class="row" *ngIf="price.prices.bidPrice && showDetails">
-      
-        <div class="col">
-          <span class="label"> Trade :</span>
-          <span class="trade">{{price.prices.bidPrice}}</span>
-          <span style="color: rgb(138, 133, 133);">  /  </span>
-          <span class="trade"> {{price.prices.askPrice}}</span>
+        </div> -->
+        <div class="container"   style="margin: 0px 0px;">
+          <div class="row">
+            <div class="col">
+              <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
+                <b>{{ price.symbol }}</b>
+              </h4>
+            </div>
+            <div class="col">
+              <h4 class="price">
+                <b> {{ price.prices.binacePrice }} </b>
+              </h4>
+            </div>
+            <div class="col" align="right">
+              <a class="close" (click)="removeCoin(price.symbol)">X</a>
+            </div>
+          </div>
+          <div class="row" style="border:#757575 1px solid;">
+    
+          </div>
+          <div class="row" *ngIf="price.prices.highPrice && showDetails">
+            <div class="col2" style="margin-left: 14px;">
+              <span class="label"> 24 High : </span>
+              <span class="HL"> {{price.prices.highPrice}}</span>
+            </div>
+            <div class="col" align="right">
+              <span class="label"> 24 Low :</span>
+              <span class="HL"> {{price.prices.lowPrice}}</span>
+            </div>
+          </div>
+          <div class="row" *ngIf="price.prices.priceChangePercent && showDetails">
+            <div class="col">
+              <span class="label"> Change (24 HR) : </span> 
+              <label
+                class="up"
+                [ngClass]="{ down: price.prices.priceChangePercent < 0 }"
+                >{{ price.prices.priceChangePercent }} %</label
+              >
+            </div>
+          
+          </div>
+          <div class="row" *ngIf="price.prices.bidPrice && showDetails">
+          
+            <div class="col">
+              <span class="label"> Trade :</span>
+              <span class="trade">{{price.prices.bidPrice}}</span>
+              <span style="color: rgb(138, 133, 133);">  /  </span>
+              <span class="trade"> {{price.prices.askPrice}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <ngx-spinner

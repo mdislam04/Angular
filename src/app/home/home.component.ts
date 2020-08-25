@@ -232,6 +232,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  toggleCard(price)
+  {
+    if(this.prices && this.prices.length > 0)
+    {
+     this.prices.forEach(p => {
+      
+       if(p.symbol +'USDT' === price.symbol +'USDT')
+       {
+         p.prices.isCardVisible = !p.prices.isCardVisible;
+       }
+      }
+  )};
+}
+
   addCoin() {
     if (this.RequestedCoin != "") {
       if (
@@ -241,8 +255,7 @@ export class HomeComponent implements OnInit {
       ) {
         this.coinToDisplayMaster.push({
           symbol: this.RequestedCoin.toUpperCase(),
-          koinexInitial: undefined,
-          binanceInitial: undefined,
+       
         });
       }
       console.log(JSON.stringify(this.coinToDisplayMaster));
@@ -253,8 +266,7 @@ export class HomeComponent implements OnInit {
       ) {
         this.coinToDisplay.push({
           symbol: this.RequestedCoin.toUpperCase(),
-          koinexInitial: undefined,
-          binanceInitial: undefined,
+      
         });
         console.log(JSON.stringify(this.coinToDisplay));
         this.prices = [];
