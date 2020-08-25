@@ -161,7 +161,7 @@
   <div *ngFor="let price of prices; let i = index">
     <h4
       *ngIf="price.prices.isCardVisible"
-      style="color: rgb(219 236 68);padding-left: 5px;"
+      style="color: rgb(219 236 68);padding-left: 5px; cursor: pointer;"
       (click)="toggleCard(price)"
     >
       <b>{{ price.symbol }}</b>
@@ -180,7 +180,7 @@
       <div class="container" style="margin: 0px 0px;">
         <div class="row">
           <div class="col">
-            <h4 style="color: rgb(219 236 68);" (click)="toggleCard(price)">
+            <h4 style="color: rgb(219 236 68);cursor: pointer;" (click)="toggleCard(price)">
               <b>{{ price.symbol }}</b>
             </h4>
           </div>
