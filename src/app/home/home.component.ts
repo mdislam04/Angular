@@ -377,7 +377,7 @@ export class HomeComponent implements OnInit {
       if(usdt)
       this.portfolioValue =
         this.portfolioValue + Number.parseFloat(usdt.quantity.toString());
-        this.titleService.setTitle('Portfolio : '+ this.portfolioValue );
+        this.titleService.setTitle(this.portfolioValue + ' : Portfolio' );
     }
   }
 
