@@ -78,3 +78,17 @@
 	padding:4px 8px;
 	margin-bottom:0px;
 }
+
+.portHeader {
+  background-color: rgb(73, 73, 73);
+  color: white;
+  font-weight: bolder;
+}
+
+.port-card-header {
+  border: rgb(12 70 17) 1px solid
+}
+
+.port-card-header button {
+  color: rgb(253, 253, 253);
+}
