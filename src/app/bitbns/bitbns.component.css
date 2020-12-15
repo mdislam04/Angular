@@ -8,6 +8,19 @@
   box-shadow: 0 5px 5px 0 rgba(251, 252, 250, 0.815);
 }
 
+.card-update {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(239, 243, 241, 0.2);
+  transition: 0.3s;
+  background-color:rgb(46 66 30 / 43%);
+  margin: 10px 0px 10px 10px;
+  width: 32%;
+  box-shadow: 0 5px 5px 0 rgba(251, 252, 250, 0.815);
+}
+
+
+
+
 /* On mouse-over, add a deeper shadow */
 
 .card:hover {
@@ -25,6 +38,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.card-data-update {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #3b4639;
 }
 
 .close {

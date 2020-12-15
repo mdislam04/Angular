@@ -103,7 +103,7 @@
   </div>
 
 <div class="card-data">
-    <div class="card" *ngFor='let d of viewData'>
+    <div class="card" [ngClass]="{'card-update':isUpdateInProgress == true}" *ngFor='let d of viewData'>
 
         <div class="container" style="margin: 0px 0px ">
             <div class="row">

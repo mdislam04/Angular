@@ -39,12 +39,13 @@ export class BitBNSComponent {
   bitBnsData: any;
   binanceData: any;
   timerId: any;
-  refreshInterval: number = 30;
-  refreshIntervalMaster: number = 30;
+  refreshInterval: number = 15;
+  refreshIntervalMaster: number = 15;
   lastUpdated: string;
   portfolioData: Portfolio[] = [];
   portfolioValue : number = 0;
   message : string = '';
+  isUpdateInProgress : boolean = false;
 
   ngOnInit() {
     $(".collapse").collapse();
@@ -92,6 +93,7 @@ export class BitBNSComponent {
   }
 
   getBitbnsPrices() {
+    this.isUpdateInProgress = true;
     this.service.getBitBnsData().subscribe((data) => {
       this.bitBnsData = data;
 
@@ -141,6 +143,7 @@ export class BitBNSComponent {
     this.lastUpdated = d.toLocaleTimeString();
     this.spinner.hide();
     this.setPortfolio();
+    this.isUpdateInProgress = false;
   }
 
   addCoin() {
