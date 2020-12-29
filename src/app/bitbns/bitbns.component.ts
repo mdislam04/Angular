@@ -21,17 +21,7 @@ export class BitBNSComponent {
     this.getBitbnsPrices();
   }
 
-  @HostListener("window:focus", ["$event"])
-  onFocus(event: any): void {
-    this.timerId = setInterval(() => this.updateCounter(), 1000);
-    console.log("back in focus");
-  }
-
-  @HostListener("window:blur", ["$event"])
-  onBlur(event: any): void {
-    this.stopCounter();
-    console.log("lost focus");
-  }
+  
 
   viewData: BitBnsData[] = [];
   coinToDisplay: any;
@@ -39,8 +29,8 @@ export class BitBNSComponent {
   bitBnsData: any;
   binanceData: any;
   timerId: any;
-  refreshInterval: number = 15;
-  refreshIntervalMaster: number = 15;
+  refreshInterval: number = 25;
+  refreshIntervalMaster: number = 25;
   lastUpdated: string;
   portfolioData: Portfolio[] = [];
   portfolioValue : number = 0;
