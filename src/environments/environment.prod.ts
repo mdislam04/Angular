@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  token : 'sv=2019-12-12&ss=bfqt&srt=co&sp=rwdlacupx&se=2021-12-30T20:41:46Z&st=2020-12-31T12:41:46Z&spr=https&sig=9BQuAOsSdJDC%2Bz5w5khp6jeJseeG5Lb3pzR%2B5r3JAtg%3D'
+  token : 'sv=2020-08-04&ss=t&srt=co&sp=rwdlacu&se=2023-12-30T19:35:31Z&st=2021-12-31T11:35:31Z&spr=https&sig=xZ%2BCRba3lIT3BHt3VDNkE4tlFJWK4PUv7sLIIEQs0Ic%3D'
 };
